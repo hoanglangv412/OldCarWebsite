@@ -2,7 +2,7 @@
   <div class="TheAccount">
     <CCard>
       <CCardHeader>
-        <h3>Accounts management</h3>
+        <h3>Quản lí tài khoản</h3>
       </CCardHeader>
       <CCardBody class="text">
         <CButton
@@ -10,8 +10,7 @@
           class="m-2 btn-add float-right mr-5"
           @click="addClick()"
         >
-          <!-- <nuxt-link to="/account/add" class="text-white d-block">Add +</nuxt-link> -->Add
-          +
+          Thêm +
         </CButton>
         <CModal
           :title="ModalTitle"
@@ -19,13 +18,20 @@
           size="lg"
           :show.sync="infoModal"
         >
-          <TheCreateEditAccount v-bind:account='accountItem'/>
+          <TheCreateEditAccount
+            :passAccount="accountUpdate"
+            @closeModal="closeModal"
+            :accountname_valid="null"
+            :accountpassword_valid="null"
+          />
           <div slot="footer" class="w-100 d-none"></div>
         </CModal>
         <CDataTable
           :items="dataAccounts"
-          :fields="account"
-          :items-per-page="5"
+          :fields="accountItem"
+          :items-per-page="8"
+          table-filter
+          clickable-rows
           hover
           pagination
         >
@@ -44,10 +50,9 @@
           <template #method="{ item }">
             <td class="py-2">
               <CButton
-                :accountId="1"
                 color="warning"
                 class="btn-update"
-                @click="updateClick(item)"
+                @click="updateClick(item.Account_id)"
               >
                 <CIcon :content="$options.freeSet.cilPencil" />
               </CButton>
@@ -71,17 +76,6 @@ import { freeSet } from "@coreui/icons";
 import swal from "sweetalert2";
 import TheCreateEditAccount from "./TheCreateEditAccount";
 
-const accountItem = [
-  { key: "Account_id", label: "ID", _style: "min-width:100px" },
-  { key: "Account_name", label: "Account name", _style: "min-width:150px" },
-  {
-    key: "Account_password",
-    label: "Account password",
-    _style: "min-width:100px;",
-  },
-  { key: "Account_role", label: "Role", _style: "min-width:100px;" },
-  { key: "method", label: "Method", _style: "min-width:100px;" },
-];
 export default {
   name: "TheAccount",
   freeSet,
@@ -96,64 +90,89 @@ export default {
   },
   data() {
     return {
-      account: accountItem,
-      infoModal: false,
+      accountItem: [
+        { key: "Account_id", label: "ID", _style: "min-width:100px;" },
+        {
+          key: "Account_name",
+          label: "Tên tài khoản",
+          _style: "min-width:150px",
+        },
+        {
+          key: "Account_password",
+          label: "Mật khẩu",
+          _style: "min-width:100px;",
+        },
+        { key: "Account_role", label: "Quyền", _style: "min-width:100px;" },
+        { key: "method", label: "Phương thức", _style: "min-width:100px;" },
+      ],
+      accountUpdate: {},
       ModalTitle: null,
+      infoModal: false,
     };
   },
   methods: {
     deleteAccount(ID) {
       swal
         .fire({
-          title: "Are you sure?",
-          text: "This account will be deleted instantly.",
+          title: "Bạn chắc chắn xóa tài khoản này?",
+          text: "Tài khoản này sẽ bị xóa vĩnh viễn.",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
+          confirmButtonText: "Chắn chắn",
+          cancelButtonText: "Không",
         })
         .then((result) => {
           if (result.isConfirmed) {
             axios
               .delete("https://localhost:44343/OldCar/Account/" + ID)
               .then((res) => {
-                this.$emit("getListAccounts", this.dataAccounts);
+                this.$emit("getListAccounts");
+                swal.fire(
+                  res.data.split("-")[1],
+                  "Tài khoản đã bị xóa.",
+                  res.data.split("-")[0] == "1" ? "success" : "error"
+                );
               });
-            swal.fire("Deleted!", "This account has been deleted.", "success");
           }
         });
     },
     getBadgeColor(Account_role) {
-      return Account_role == "1" ? "info" : Account_role == "0" ? "danger" : "";
+      return Account_role == "1" ? "info" : "danger";
     },
     getRole(Account_role) {
-      return Account_role == "1" ? "User" : Account_role == "0" ? "Admin" : "";
+      return Account_role == "1" ? "Người dùng" : "Admin";
     },
     getPassword(Account_password) {
       return "******************";
     },
     addClick() {
-      (this.accountItem = {
-        Account_Id: 0,
-        Account_Name: "",
+      (this.accountUpdate = {
+        Account_id: 0,
+        Account_name: "",
         Account_password: "",
         Account_role: 0,
       }),
         (this.infoModal = true),
-        (this.ModalTitle = "Modal Insert");
-      // return infoModal = true;
+        (this.ModalTitle = "Thêm tài khoản");
     },
-    updateClick(item) {
-      (this.accountItem = {
-        Account_Id: item.ID,
-        Account_Name: item.Account_Name,
-        Account_password: item.Account_password,
-        Account_role: item.Account_role,
-      }),
-        (this.infoModal = true),
-        (this.ModalTitle = "Modal Update");
-      // return infoModal = true;
+    updateClick(ID) {
+      axios
+        .get("https://localhost:44343/OldCar/Account/GetDataById/" + ID)
+        .then((res) => {
+          this.accountUpdate = {
+            Account_id: res.data[0].Account_id,
+            Account_name: res.data[0].Account_name.trim(),
+            Account_password: res.data[0].Account_password.trim(),
+            Account_role: res.data[0].Account_role,
+          };
+        });
+      (this.infoModal = true), (this.ModalTitle = "Cập nhật tài khoản");
+    },
+    closeModal(val) {
+      this.infoModal = val;
+      this.$emit("getListAccounts");
     },
   },
 };

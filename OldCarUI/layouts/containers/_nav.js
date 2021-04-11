@@ -19,7 +19,13 @@ export default [
       {
         _name: 'CSidebarNavItem',
         name: 'Account',
-        to: '/account/index',
+        to: '/account/Account',
+        icon: 'cil-drop'
+      },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Customer',
+        to: '/customer/Customer',
         icon: 'cil-drop'
       },
       {

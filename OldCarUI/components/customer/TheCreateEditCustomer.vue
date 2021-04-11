@@ -3,26 +3,24 @@
     <CCol md="12">
       <CForm class="form-insert-update">
         <CCardBody>
-          <CInput v-model.trim="passAccount.Account_id" hidden />
+          <CInput v-model.trim="passCustomer.Customer_name" hidden />
           <CInput
             @keydown.space.prevent
             type="text"
-            placeholder="Tài khoản"
-            label="Tên tài khoản"
+            placeholder="Nhập tên"
+            label="Họ tên"
             horizontal
             invalid-feedback="Điền ít nhất 5 kí tự không chứa dấu cách"
             :is-valid="accountname_valid"
-            v-model.trim="passAccount.Account_name"
+            v-model.trim="passCustomer.Customer_name"
           />
           <CInput
             @keydown.space.prevent
-            type="password"
-            label="Mật khẩu"
-            placeholder="Mật khẩu"
+            type="date"
+            label="Ngày sinh"
             horizontal
-            invalid-feedback="Điền ít nhất 5 kí tự không chứa dấu cách"
             :is-valid="accountpassword_valid"
-            v-model.trim="passAccount.Account_password"
+            v-model.trim="passCustomer.Customer_birth"
           />
           <div class="form-row form-group">
             <CCol sm="3">Quyền</CCol>
@@ -69,7 +67,7 @@ import { freeSet } from "@coreui/icons";
 import swal from "sweetalert2";
 
 export default {
-  name: "TheCreateEditAccount",
+  name: "TheCreateEditCustomer",
   props: {
     passAccount: {
       type: Object,

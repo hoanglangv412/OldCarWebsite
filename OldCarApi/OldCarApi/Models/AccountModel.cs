@@ -75,11 +75,11 @@ namespace OldCarApi.Models
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
 
-                return "Success";
+                return "1-Thêm thành công";
             }
             catch (Exception ex)
             {
-                return ex.ToString();
+                return "2-Lỗi khi thêm";
             }
             finally
             {
@@ -103,12 +103,12 @@ namespace OldCarApi.Models
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
 
-                return "Success";
+                return "1-Cập nhật thành công";
             }
             catch (Exception ex)
             {
 
-                return ex.ToString();
+                return "2-Lỗi khi cập nhật";
             }
             finally
             {
@@ -186,11 +186,6 @@ namespace OldCarApi.Models
         #endregion SearchDataByName
 
         #region DeleteData
-        /// <summary>
-        /// Xoa 1 blog
-        /// </summary>
-        /// <param name="ID" value="string"></param>
-        /// <returns name="result" value="int"></returns>
         public string DeleteData(string ID)
         {
             try
@@ -205,12 +200,12 @@ namespace OldCarApi.Models
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
 
-                return "Success";
+                return "1-Xóa thành công";
             }
             catch (Exception ex)
             {
 
-                return ex.ToString();
+                return "2-Lỗi khi xóa";
             }
             finally
             {

@@ -15,19 +15,19 @@ namespace OldCarApi.Controllers
         AccountModel accountModel = new AccountModel();
 
         [HttpGet]
-        public HttpResponseMessage Get()
+        public IHttpActionResult Get()
         {
             try
             {
                 DataTable dt = new DataTable();
                 dt = accountModel.Selectalldata();
 
-                return Request.CreateResponse(HttpStatusCode.OK, dt);
+                return Ok(dt);
             }
             catch (Exception ex)
             {
 
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+                return BadRequest(ex.ToString());
             }
         }
 
@@ -54,37 +54,37 @@ namespace OldCarApi.Controllers
 
         [Route("OldCar/Account/GetDataById/{ID}")]
         [HttpGet]
-        public HttpResponseMessage GetDataById(string ID)
+        public IHttpActionResult GetDataById(string ID)
         {
             try
             {
                 DataTable dt = new DataTable();
                 dt = accountModel.SelectDataById(ID);
 
-                return Request.CreateResponse(HttpStatusCode.OK, dt);
+                return Ok(dt);
             }
             catch (Exception ex)
             {
 
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+                return BadRequest(ex.ToString());
             }
         }
 
         [Route("OldCar/Account/GetDataByName/{ID}")]
         [HttpGet]
-        public HttpResponseMessage GetDataByName(string ID)
+        public IHttpActionResult GetDataByName(string ID)
         {
             try
             {
                 DataTable dt = new DataTable();
                 dt = accountModel.SearchDataByName(ID);
 
-                return Request.CreateResponse(HttpStatusCode.OK, dt);
+                return Ok(dt);
             }
             catch (Exception ex)
             {
 
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+                return BadRequest(ex.ToString());
             }
         }
     }
