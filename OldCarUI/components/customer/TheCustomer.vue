@@ -18,12 +18,12 @@
           size="lg"
           :show.sync="infoModal"
         >
-          <TheCreateEditCustomer
+          <!-- <TheCreateEditCustomer
             :passCustomer="customerUpdate"
             @closeModal="closeModal"
             :accountname_valid="null"
             :accountpassword_valid="null"
-          />
+          /> -->
           <div slot="footer" class="w-100 d-none"></div>
         </CModal>
         <CDataTable

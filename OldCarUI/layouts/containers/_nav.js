@@ -18,6 +18,12 @@ export default [
       },
       {
         _name: 'CSidebarNavItem',
+        name: 'Home',
+        to: '/Home/Home',
+        icon: 'cil-drop'
+      },
+      {
+        _name: 'CSidebarNavItem',
         name: 'Account',
         to: '/account/Account',
         icon: 'cil-drop'
@@ -26,6 +32,12 @@ export default [
         _name: 'CSidebarNavItem',
         name: 'Customer',
         to: '/customer/Customer',
+        icon: 'cil-drop'
+      },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Login',
+        to: '/Login/Login',
         icon: 'cil-drop'
       },
       {
