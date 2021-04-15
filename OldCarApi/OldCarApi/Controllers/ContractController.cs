@@ -8,16 +8,17 @@ using System.Web.Http;
 
 namespace OldCarApi.Controllers
 {
-    public class CarController : ApiController
+    public class ContractController : ApiController
     {
-        CarModel carModel = new CarModel();
+        ContractModel contractModel = new ContractModel();
+
         [HttpGet]
         public IHttpActionResult Get()
         {
             try
             {
                 DataTable dt = new DataTable();
-                dt = carModel.Selectalldata();
+                dt = contractModel.Selectalldata();
 
                 return Ok(dt);
             }
@@ -29,34 +30,34 @@ namespace OldCarApi.Controllers
         }
 
         [HttpPost]
-        public string Post(CarModel objModel)
+        public string Post(ContractModel objContract)
         {
-            string result = carModel.Insertdata(objModel);
+            string result = contractModel.Insertdata(objContract);
             return result;
         }
 
         [HttpPut]
-        public string Put(CarModel objModel)
+        public string Put(ContractModel objContract)
         {
-            string result = carModel.Updatedata(objModel);
+            string result = contractModel.Updatedata(objContract);
             return result;
         }
 
         [HttpDelete]
         public string Delete(string ID)
         {
-            string result = carModel.DeleteData(ID);
+            string result = contractModel.DeleteData(ID);
             return result;
         }
 
-        [Route("OldCar/Car/GetDataById/{ID}")]
+        [Route("OldCar/Contract/GetDataById/{ID}")]
         [HttpGet]
         public IHttpActionResult GetDataById(string ID)
         {
             try
             {
                 DataTable dt = new DataTable();
-                dt = carModel.SelectDataById(ID);
+                dt = contractModel.SelectDataById(ID);
 
                 return Ok(dt);
             }

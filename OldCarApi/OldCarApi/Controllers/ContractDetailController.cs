@@ -8,16 +8,17 @@ using System.Web.Http;
 
 namespace OldCarApi.Controllers
 {
-    public class CarController : ApiController
+    public class ContractDetailController : ApiController
     {
-        CarModel carModel = new CarModel();
+        ContractDetailModel contractdetailModel = new ContractDetailModel();
+
         [HttpGet]
         public IHttpActionResult Get()
         {
             try
             {
                 DataTable dt = new DataTable();
-                dt = carModel.Selectalldata();
+                dt = contractdetailModel.Selectalldata();
 
                 return Ok(dt);
             }
@@ -29,34 +30,29 @@ namespace OldCarApi.Controllers
         }
 
         [HttpPost]
-        public string Post(CarModel objModel)
+        public string Post(ContractDetailModel objDetailModel)
         {
-            string result = carModel.Insertdata(objModel);
-            return result;
-        }
-
-        [HttpPut]
-        public string Put(CarModel objModel)
-        {
-            string result = carModel.Updatedata(objModel);
+            string result = contractdetailModel.Insertdata(objDetailModel);
             return result;
         }
 
         [HttpDelete]
         public string Delete(string ID)
         {
-            string result = carModel.DeleteData(ID);
+            string[] splittedId = ID.Split('-'); 
+            string result = contractdetailModel.DeleteData(splittedId[0], splittedId[1]);
             return result;
         }
 
-        [Route("OldCar/Car/GetDataById/{ID}")]
+        [Route("OldCar/ContractDetail/GetDataById/{ID}")]
         [HttpGet]
         public IHttpActionResult GetDataById(string ID)
         {
             try
             {
+                string[] splittedId = ID.Split('-');
                 DataTable dt = new DataTable();
-                dt = carModel.SelectDataById(ID);
+                dt = contractdetailModel.SelectDataById(splittedId[0], splittedId[1]);
 
                 return Ok(dt);
             }

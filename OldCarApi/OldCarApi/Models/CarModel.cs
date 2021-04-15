@@ -8,7 +8,7 @@ using System.Web;
 
 namespace OldCarApi.Models
 {
-    public class CarInfoModel
+    public class CarModel
     {
         public int Car_id { get; set; }
         public int Car_carversion_id { get; set; }
@@ -40,8 +40,8 @@ namespace OldCarApi.Models
         public string Car_sound { get; set; }
         public int? Car_skyview { get; set; }
         public int? Car_electrunk { get; set; }
-        public CarInfoModel(){}
-        public List<CarInfoModel> ListCarModels { get; set; }
+        public CarModel(){}
+        public List<CarModel> ListCarModels { get; set; }
 
         public SqlConnection SQL_CONNECTION = new SqlConnection(ConfigurationManager.ConnectionStrings["OldCarApi"].ToString());
 
@@ -104,7 +104,7 @@ namespace OldCarApi.Models
         #endregion Selectalldata
 
         #region InsertData
-        public string Insertdata(CarInfoModel carModel)
+        public string Insertdata(CarModel carModel)
         {
             try
             {
@@ -115,31 +115,31 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_trans", String.IsNullOrEmpty(carModel.Car_trans) ? null : carModel.Car_trans);
                 cmd.Parameters.AddWithValue("@Car_fuel", String.IsNullOrEmpty(carModel.Car_fuel) ? null : carModel.Car_fuel);
                 cmd.Parameters.AddWithValue("@Car_engine", String.IsNullOrEmpty(carModel.Car_engine) ? null : carModel.Car_engine);
-                cmd.Parameters.AddWithValue("@Car_seats", carModel.Car_seats.HasValue ? null : carModel.Car_seats);
+                cmd.Parameters.AddWithValue("@Car_seats", !carModel.Car_seats.HasValue ? null : carModel.Car_seats);
                 cmd.Parameters.AddWithValue("@Car_maxmomen", String.IsNullOrEmpty(carModel.Car_maxmomen) ? null : carModel.Car_maxmomen);
-                cmd.Parameters.AddWithValue("@Car_maxspeed", carModel.Car_maxspeed.HasValue ? null : carModel.Car_maxspeed);
+                cmd.Parameters.AddWithValue("@Car_maxspeed", !carModel.Car_maxspeed.HasValue ? null : carModel.Car_maxspeed);
                 cmd.Parameters.AddWithValue("@Car_maxpower", String.IsNullOrEmpty(carModel.Car_maxpower) ? null : carModel.Car_maxpower);
-                cmd.Parameters.AddWithValue("@Car_loadweight", carModel.Car_loadweight.HasValue ? null : carModel.Car_loadweight);
-                cmd.Parameters.AddWithValue("@Car_doors", carModel.Car_doors.HasValue ? null : carModel.Car_doors);
+                cmd.Parameters.AddWithValue("@Car_loadweight", !carModel.Car_loadweight.HasValue ? null : carModel.Car_loadweight);
+                cmd.Parameters.AddWithValue("@Car_doors", !carModel.Car_doors.HasValue ? null : carModel.Car_doors);
                 cmd.Parameters.AddWithValue("@Car_drivetype", String.IsNullOrEmpty(carModel.Car_drivetype) ? null : carModel.Car_drivetype);
                 cmd.Parameters.AddWithValue("@Car_totaldimens", String.IsNullOrEmpty(carModel.Car_totaldimens) ? null : carModel.Car_totaldimens);
-                cmd.Parameters.AddWithValue("@Car_baselength", carModel.Car_baselength.HasValue ? null : carModel.Car_baselength);
-                cmd.Parameters.AddWithValue("@Car_turnradius", carModel.Car_turnradius.HasValue ? null : carModel.Car_turnradius);
-                cmd.Parameters.AddWithValue("@Car_height", carModel.Car_height.HasValue ? null : carModel.Car_height);
-                cmd.Parameters.AddWithValue("@Car_cylcapacity", carModel.Car_cylcapacity.HasValue ? null : carModel.Car_cylcapacity);
+                cmd.Parameters.AddWithValue("@Car_baselength", !carModel.Car_baselength.HasValue ? null : carModel.Car_baselength);
+                cmd.Parameters.AddWithValue("@Car_turnradius", !carModel.Car_turnradius.HasValue ? null : carModel.Car_turnradius);
+                cmd.Parameters.AddWithValue("@Car_height", !carModel.Car_height.HasValue ? null : carModel.Car_height);
+                cmd.Parameters.AddWithValue("@Car_cylcapacity", !carModel.Car_cylcapacity.HasValue ? null : carModel.Car_cylcapacity);
                 cmd.Parameters.AddWithValue("@Car_brakesystem", String.IsNullOrEmpty(carModel.Car_brakesystem) ? null : carModel.Car_brakesystem);
                 cmd.Parameters.AddWithValue("@Car_fuelsystem", String.IsNullOrEmpty(carModel.Car_fuelsystem) ? null : carModel.Car_fuelsystem);
-                cmd.Parameters.AddWithValue("@Car_airnums", carModel.Car_airnums.HasValue ? null : carModel.Car_airnums);
-                cmd.Parameters.AddWithValue("@Car_gps", carModel.Car_gps.HasValue ? null : carModel.Car_gps);
-                cmd.Parameters.AddWithValue("@Car_touchscreen", carModel.Car_touchscreen.HasValue ? null : carModel.Car_touchscreen);
+                cmd.Parameters.AddWithValue("@Car_airnums", !carModel.Car_airnums.HasValue ? null : carModel.Car_airnums);
+                cmd.Parameters.AddWithValue("@Car_gps", !carModel.Car_gps.HasValue ? null : carModel.Car_gps);
+                cmd.Parameters.AddWithValue("@Car_touchscreen", !carModel.Car_touchscreen.HasValue ? null : carModel.Car_touchscreen);
                 cmd.Parameters.AddWithValue("@Car_camera", String.IsNullOrEmpty(carModel.Car_camera) ? null : carModel.Car_camera);
                 cmd.Parameters.AddWithValue("@Car_doortype", String.IsNullOrEmpty(carModel.Car_doortype) ? null : carModel.Car_doortype);
                 cmd.Parameters.AddWithValue("@Car_mirror", String.IsNullOrEmpty(carModel.Car_mirror) ? null : carModel.Car_mirror);
                 cmd.Parameters.AddWithValue("@Car_balance", String.IsNullOrEmpty(carModel.Car_balance) ? null : carModel.Car_balance);
                 cmd.Parameters.AddWithValue("@Car_seattype", String.IsNullOrEmpty(carModel.Car_seattype) ? null : carModel.Car_seattype);
                 cmd.Parameters.AddWithValue("@Car_sound", String.IsNullOrEmpty(carModel.Car_sound) ? null : carModel.Car_sound);
-                cmd.Parameters.AddWithValue("@Car_skyview", carModel.Car_skyview.HasValue ? null : carModel.Car_skyview);
-                cmd.Parameters.AddWithValue("@Car_electrunk", carModel.Car_electrunk.HasValue ? null : carModel.Car_electrunk);
+                cmd.Parameters.AddWithValue("@Car_skyview", !carModel.Car_skyview.HasValue ? null : carModel.Car_skyview);
+                cmd.Parameters.AddWithValue("@Car_electrunk", !carModel.Car_electrunk.HasValue ? null : carModel.Car_electrunk);
                 cmd.Parameters.AddWithValue("@Query", 1);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
@@ -158,7 +158,7 @@ namespace OldCarApi.Models
         #endregion InsertData
 
         #region Updatedata
-        public string Updatedata(CarInfoModel carModel)
+        public string Updatedata(CarModel carModel)
         {
             try
             {
@@ -169,31 +169,31 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_trans", String.IsNullOrEmpty(carModel.Car_trans) ? null : carModel.Car_trans);
                 cmd.Parameters.AddWithValue("@Car_fuel", String.IsNullOrEmpty(carModel.Car_fuel) ? null : carModel.Car_fuel);
                 cmd.Parameters.AddWithValue("@Car_engine", String.IsNullOrEmpty(carModel.Car_engine) ? null : carModel.Car_engine);
-                cmd.Parameters.AddWithValue("@Car_seats", carModel.Car_seats.HasValue ? null : carModel.Car_seats);
+                cmd.Parameters.AddWithValue("@Car_seats", !carModel.Car_seats.HasValue ? null : carModel.Car_seats);
                 cmd.Parameters.AddWithValue("@Car_maxmomen", String.IsNullOrEmpty(carModel.Car_maxmomen) ? null : carModel.Car_maxmomen);
-                cmd.Parameters.AddWithValue("@Car_maxspeed", carModel.Car_maxspeed.HasValue ? null : carModel.Car_maxspeed);
+                cmd.Parameters.AddWithValue("@Car_maxspeed", !carModel.Car_maxspeed.HasValue ? null : carModel.Car_maxspeed);
                 cmd.Parameters.AddWithValue("@Car_maxpower", String.IsNullOrEmpty(carModel.Car_maxpower) ? null : carModel.Car_maxpower);
-                cmd.Parameters.AddWithValue("@Car_loadweight", carModel.Car_loadweight.HasValue ? null : carModel.Car_loadweight);
-                cmd.Parameters.AddWithValue("@Car_doors", carModel.Car_doors.HasValue ? null : carModel.Car_doors);
+                cmd.Parameters.AddWithValue("@Car_loadweight", !carModel.Car_loadweight.HasValue ? null : carModel.Car_loadweight);
+                cmd.Parameters.AddWithValue("@Car_doors", !carModel.Car_doors.HasValue ? null : carModel.Car_doors);
                 cmd.Parameters.AddWithValue("@Car_drivetype", String.IsNullOrEmpty(carModel.Car_drivetype) ? null : carModel.Car_drivetype);
                 cmd.Parameters.AddWithValue("@Car_totaldimens", String.IsNullOrEmpty(carModel.Car_totaldimens) ? null : carModel.Car_totaldimens);
-                cmd.Parameters.AddWithValue("@Car_baselength", carModel.Car_baselength.HasValue ? null : carModel.Car_baselength);
-                cmd.Parameters.AddWithValue("@Car_turnradius", carModel.Car_turnradius.HasValue ? null : carModel.Car_turnradius);
-                cmd.Parameters.AddWithValue("@Car_height", carModel.Car_height.HasValue ? null : carModel.Car_height);
-                cmd.Parameters.AddWithValue("@Car_cylcapacity", carModel.Car_cylcapacity.HasValue ? null : carModel.Car_cylcapacity);
+                cmd.Parameters.AddWithValue("@Car_baselength", !carModel.Car_baselength.HasValue ? null : carModel.Car_baselength);
+                cmd.Parameters.AddWithValue("@Car_turnradius", !carModel.Car_turnradius.HasValue ? null : carModel.Car_turnradius);
+                cmd.Parameters.AddWithValue("@Car_height", !carModel.Car_height.HasValue ? null : carModel.Car_height);
+                cmd.Parameters.AddWithValue("@Car_cylcapacity", !carModel.Car_cylcapacity.HasValue ? null : carModel.Car_cylcapacity);
                 cmd.Parameters.AddWithValue("@Car_brakesystem", String.IsNullOrEmpty(carModel.Car_brakesystem) ? null : carModel.Car_brakesystem);
                 cmd.Parameters.AddWithValue("@Car_fuelsystem", String.IsNullOrEmpty(carModel.Car_fuelsystem) ? null : carModel.Car_fuelsystem);
-                cmd.Parameters.AddWithValue("@Car_airnums", carModel.Car_airnums.HasValue ? null : carModel.Car_airnums);
-                cmd.Parameters.AddWithValue("@Car_gps", carModel.Car_gps.HasValue ? null : carModel.Car_gps);
-                cmd.Parameters.AddWithValue("@Car_touchscreen", carModel.Car_touchscreen.HasValue ? null : carModel.Car_touchscreen);
+                cmd.Parameters.AddWithValue("@Car_airnums", !carModel.Car_airnums.HasValue ? null : carModel.Car_airnums);
+                cmd.Parameters.AddWithValue("@Car_gps", !carModel.Car_gps.HasValue ? null : carModel.Car_gps);
+                cmd.Parameters.AddWithValue("@Car_touchscreen", !carModel.Car_touchscreen.HasValue ? null : carModel.Car_touchscreen);
                 cmd.Parameters.AddWithValue("@Car_camera", String.IsNullOrEmpty(carModel.Car_camera) ? null : carModel.Car_camera);
                 cmd.Parameters.AddWithValue("@Car_doortype", String.IsNullOrEmpty(carModel.Car_doortype) ? null : carModel.Car_doortype);
                 cmd.Parameters.AddWithValue("@Car_mirror", String.IsNullOrEmpty(carModel.Car_mirror) ? null : carModel.Car_mirror);
                 cmd.Parameters.AddWithValue("@Car_balance", String.IsNullOrEmpty(carModel.Car_balance) ? null : carModel.Car_balance);
                 cmd.Parameters.AddWithValue("@Car_seattype", String.IsNullOrEmpty(carModel.Car_seattype) ? null : carModel.Car_seattype);
                 cmd.Parameters.AddWithValue("@Car_sound", String.IsNullOrEmpty(carModel.Car_sound) ? null : carModel.Car_sound);
-                cmd.Parameters.AddWithValue("@Car_skyview", carModel.Car_skyview.HasValue ? null : carModel.Car_skyview);
-                cmd.Parameters.AddWithValue("@Car_electrunk", carModel.Car_electrunk.HasValue ? null : carModel.Car_electrunk);
+                cmd.Parameters.AddWithValue("@Car_skyview", !carModel.Car_skyview.HasValue ? null : carModel.Car_skyview);
+                cmd.Parameters.AddWithValue("@Car_electrunk", !carModel.Car_electrunk.HasValue ? null : carModel.Car_electrunk);
                 cmd.Parameters.AddWithValue("@Query", 2);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();

@@ -309,14 +309,17 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CarversionController.cs" />
+    <Compile Include="Controllers\ContractController.cs" />
+    <Compile Include="Controllers\ContractDetailController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
-    <Compile Include="Models\CarInfoModel.cs" />
+    <Compile Include="Models\CarModel.cs" />
     <Compile Include="Models\CarversionModel.cs" />
     <Compile Include="Models\ContractDetailModel.cs" />
     <Compile Include="Models\ContractModel.cs" />
@@ -382,7 +385,10 @@
     <Folder Include="Views\Car1\" />
     <Folder Include="Views\Carversion\" />
     <Folder Include="Views\Car\" />
+    <Folder Include="Views\ContractDetail\" />
+    <Folder Include="Views\Contract\" />
     <Folder Include="Views\Customer\" />
+    <Folder Include="Views\Post\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
