@@ -1,13 +1,14 @@
 <template>
-  <Dashboard />
+  <Home />
 </template>
 
 <script>
-import Dashboard from './Dashboard'
+import Home from './Home/Home'
 // import 'expose?$!expose?jQuery!jquery'
 export default {
   components: {
-    Dashboard
+    Home
   }
 }
 </script>
+

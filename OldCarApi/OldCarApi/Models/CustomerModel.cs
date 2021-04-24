@@ -22,7 +22,6 @@ namespace OldCarApi.Models
         public string Account_password { get; set; }
         public int? Account_role { get; set; }
         public DateTime? Account_lastLogin { get; set; }
-
         public CustomerModel() { }
 
         public List<CustomerModel> ListCustomerModels { get; set; }
@@ -219,7 +218,7 @@ namespace OldCarApi.Models
         #endregion DeleteData
 
         #region
-        public CustomerModel checkExist(CustomerModel customerModel)
+        public CustomerModel checkExist(string username, string password)
         {
             try
             {
@@ -234,8 +233,8 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Customer_address", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Customer_phone", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Customer_begindate", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Account_name", customerModel.Account_name);
-                cmd.Parameters.AddWithValue("@Account_password", customerModel.Account_password);
+                cmd.Parameters.AddWithValue("@Account_name", username);
+                cmd.Parameters.AddWithValue("@Account_password", password);
                 cmd.Parameters.AddWithValue("@Account_role", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Account_lastLogin", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 6);
@@ -244,7 +243,7 @@ namespace OldCarApi.Models
                 da.SelectCommand = cmd;
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-                foreach(DataRow dr in dt.Rows)
+                foreach (DataRow dr in dt.Rows)
                 {
                     returnCustomer.Customer_id = (int)dr["Customer_id"];
                     returnCustomer.Customer_avatar = (string)dr["Customer_avatar"];

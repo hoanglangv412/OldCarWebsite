@@ -12,7 +12,24 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: "stylesheet",
+        type: "text/css",
+        href:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      }
+    ],
+    script: [
+      {
+        src:
+          "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+      },
+      { src: "https://code.jquery.com/jquery-3.3.1.slim.min.js" },
+      {
+        src:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+      }
     ]
   },
   /*
@@ -49,8 +66,12 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    // https://go.nuxtjs.dev/bootstrap
+    "bootstrap-vue/nuxt",
+    //auth nuxtjs
+    "@nuxtjs/axios",
+    "@nuxtjs/auth",
+    '@nuxtjs/auth-next'
   ],
   /*
   ** Axios module configuration
@@ -61,11 +82,25 @@ export default {
   /*
   ** Build configuration
   */
-  build: {
-    /*
-    ** You can extend webpack config here
-    */
-    extend (config, ctx) {
+  build: {},
+
+  //set base url
+  axios: {
+    baseURL: "https://localhost:44343/OldCar/"
+  },
+  // router: {
+  //   middleware: ['auth']
+  // },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/Customer/Login', method: 'post', propertyName:'token' },
+          logout: false,
+          user: { url: '/user', method: 'get',propertyName:'user' }
+        },
+        tokenType: ''
+      }
     }
   }
 }

@@ -269,6 +269,63 @@ namespace OldCarApi.Models
         }
         #endregion SelectDataById
 
+        #region SelectNameById
+        public DataTable SelectNameById(string ID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Car", SQL_CONNECTION);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Car_id", ID);
+                cmd.Parameters.AddWithValue("@Car_carversion_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_trans", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_fuel", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_engine", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_seats", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_maxmomen", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_maxspeed", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_maxpower", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_loadweight", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_doors", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_drivetype", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_totaldimens", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_baselength", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_turnradius", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_height", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_cylcapacity", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_brakesystem", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_fuelsystem", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_airnums", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_gps", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_touchscreen", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_camera", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_doortype", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_mirror", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_balance", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_seattype", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_sound", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_skyview", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_electrunk", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Query", 6);
+                SqlDataAdapter da = new SqlDataAdapter();
+                SQL_CONNECTION.Open();
+                da.SelectCommand = cmd;
+                da.Fill(dt);
+                return dt;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                SQL_CONNECTION.Close();
+            }
+        }
+        #endregion SelectDataById
+
         #region DeleteData
         public string DeleteData(string ID)
         {

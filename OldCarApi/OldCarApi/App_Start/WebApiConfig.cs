@@ -23,6 +23,8 @@ namespace OldCarApi
             );
             //format json
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/octet-stream"));
+
             //enable cors
             config.EnableCors(new EnableCorsAttribute("http://localhost:3000", "*", "*"));
         }

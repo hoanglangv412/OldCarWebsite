@@ -4,92 +4,111 @@
     class="c-header-nav-items"
     placement="bottom-end"
     add-menu-classes="pt-0"
+    v-if="$auth.loggedIn"
   >
     <template #toggler>
       <CHeaderNavLink>
         <div class="c-avatar">
-          <img
-            src="@/assets/img/kaikaikiki.jpg"
-            class="c-avatar-img "
-          >
+          <img src="@/assets/img/kaikaikiki.jpg" class="c-avatar-img" />
         </div>
       </CHeaderNavLink>
     </template>
     <CDropdownHeader tag="div" class="text-center" color="light">
-      <strong>Account</strong>
+      <strong>"Tên"</strong>
     </CDropdownHeader>
+    <CDropdownItem> <CIcon name="cil-bell" /> Quản lí tài khoản </CDropdownItem>
     <CDropdownItem>
-      <CIcon name="cil-bell" /> Updates
-      <CBadge color="info" class="ml-auto">
-        {{ itemsCount }}
-      </CBadge>
+      <CIcon name="cil-envelope-open" /> Quản lí bài đăng
     </CDropdownItem>
-    <CDropdownItem>
-      <CIcon name="cil-envelope-open" /> Messages
-      <CBadge color="success" class="ml-auto">
-        {{ itemsCount }}
-      </CBadge>
-    </CDropdownItem>
-    <CDropdownItem>
-      <CIcon name="cil-task" /> Tasks
-      <CBadge color="danger" class="ml-auto">
-        {{ itemsCount }}
-      </CBadge>
-    </CDropdownItem>
-    <CDropdownItem>
-      <CIcon name="cil-comment-square" /> Comments
-      <CBadge color="warning" class="ml-auto">
-        {{ itemsCount }}
-      </CBadge>
-    </CDropdownItem>
-    <CDropdownHeader
-      tag="div"
-      class="text-center"
-      color="light"
-    >
-      <strong>Settings</strong>
-    </CDropdownHeader>
-    <CDropdownItem>
-      <CIcon name="cil-user" /> Profile
-    </CDropdownItem>
-    <CDropdownItem>
-      <CIcon name="cil-settings" /> Settings
-    </CDropdownItem>
-    <CDropdownItem>
-      <CIcon name="cil-dollar" /> Payments
-      <CBadge color="secondary" class="ml-auto">
-        {{ itemsCount }}
-      </CBadge>
-    </CDropdownItem>
-    <CDropdownItem>
-      <CIcon name="cil-file" /> Projects
-      <CBadge color="primary" class="ml-auto">
-        {{ itemsCount }}
-      </CBadge>
-    </CDropdownItem>
-    <CDropdownDivider />
-    <CDropdownItem>
-      <CIcon name="cil-shield-alt" /> Lock Account
-    </CDropdownItem>
-    <CDropdownItem>
-      <CIcon name="cil-lock-locked" /> Logout
+    <CDropdownItem class="border-top d-flex justify-content-center">
+      <button class="btn btn-outline-danger text-black-100" @click="logOut()">
+        Đăng xuất
+      </button>
     </CDropdownItem>
   </CDropdown>
+  <div v-else>
+    <CButton class="btn btn-primary" @click="signinClick('signin')"
+      >Đăng nhập</CButton
+    >
+    <CButton class="btn btn-warning" @click="signupClick('signup')"
+      >Đăng kí</CButton
+    >
+    <!-- Modal signin, signup -->
+    <CModal :title="ModalTitle" color="info" size="lg" :show.sync="infoModal">
+      <TheSignin
+        @closeModal="closeModal"
+        :buttonText="this.ModalTitle"
+        :submitForm="loginUser"
+        :registerFlag="this.registerFlagCheck"
+      />
+      <div slot="footer" class="w-100 d-none"></div>
+    </CModal>
+  </div>
 </template>
 
 <script>
+import TheSignin from "~/components/TheSignin";
 export default {
-  name: 'TheHeaderDropdownAccnt',
-  data () {
+  components: {
+    TheSignin,
+  },
+  name: "TheHeaderDropdownAccnt",
+  props: {},
+  data() {
     return {
-      itemsCount: 42
-    }
-  }
-}
+      infoModal: false,
+      modalFlag: null,
+      ModalTitle: null,
+      registerFlagCheck: Boolean,
+    };
+  },
+  // updated() {
+  //   this.Session = sessionStorage.getItem("jwt");
+  //   console.log(this.Session);
+  // },
+  // beforeMount() {
+  //   this.Session = sessionStorage.getItem("jwt");
+  //   console.log(this.Session);
+  // },
+  methods: {
+    loginUser(loginInfo) {
+      this.$auth.loginWith("local", { data: loginInfo });
+    },
+    // logOut() {
+    //   sessionStorage.setItem("jwt", "null");
+    //   this.Session = sessionStorage.getItem("jwt");
+    //   console.log(sessionStorage.getItem("jwt"));
+    //   this.$router.go();
+    // },
+    signinClick(val) {
+      (this.modalFlag = val),
+        (this.registerFlagCheck = false),
+        (this.infoModal = true),
+        (this.ModalTitle = "Đăng nhập");
+    },
+    signupClick(val) {
+      (this.modalFlag = val),
+        (this.registerFlagCheck = true),
+        (this.infoModal = true),
+        (this.ModalTitle = "Đăng kí");
+    },
+    // signupClick(val) {
+    //   console.log(this.Session);
+    //   (this.modalFlag = val),
+    //     (this.infoModal = true),
+    //     (this.ModalTitle = "Đăng kí");
+    // },
+    // closeModal(val) {
+    //   sessionStorage.setItem("jwt", "null");
+    //   this.infoModal = val;
+    //   // this.$emit("getListAccounts");
+    // },
+  },
+};
 </script>
 
 <style scoped>
-  .c-icon {
-    margin-right: 0.3rem;
-  }
+.c-icon {
+  margin-right: 0.3rem;
+}
 </style>

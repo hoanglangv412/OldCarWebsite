@@ -66,5 +66,23 @@ namespace OldCarApi.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        [Route("OldCar/Car/GetNameById/{ID}")]
+        [HttpGet]
+        public IHttpActionResult GetNameById(string ID)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = carModel.SelectNameById(ID);
+
+                return Ok(dt);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.ToString());
+            }
+        }
     }
 }

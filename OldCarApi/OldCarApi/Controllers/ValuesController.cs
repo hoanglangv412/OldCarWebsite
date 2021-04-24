@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 
-namespace OldCarApi.Controllers
+namespace ReportManager.Controllers
 {
     public class ValuesController : ApiController
     {
         // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        public IEnumerable<string> Get => new string[] { "value1", "value2" };
 
         // GET api/values/5
-        public string Get(int id)
+        public string GetID(int id)
         {
             return "value";
         }

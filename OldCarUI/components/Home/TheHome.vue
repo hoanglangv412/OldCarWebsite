@@ -1,146 +1,180 @@
 <template>
-  <div id="TheHome" class="columns">
-    <div class="column">
-      <button class="is-primary button" @click="shuffle">Shuffle!</button>
-      <tweet-component v-for="tweet in tweets" :key="tweet" :tweet="tweet" />
+  <div>
+    <div class="TheHome" v-if="dataPosts && dataPosts.length > 0">
+      <CRow>
+        <CCol v-for="post in dataPosts" :key="post.Post_id" col="3">
+          <div class="card w-100">
+            <CButton class="p-0" @click="previewPhoto(post)">
+              <CImg
+                :src="takePhoto(post.Post_car_frontpic)"
+                block
+                class="card-img-top"
+              />
+            </CButton>
+            <div class="card-body">
+              <h4 class="card-title" style="height: 80px">
+                {{ post.Post_title }}
+              </h4>
+              <div class="card-text border-top pt-2">
+                <table class="h5">
+                  <tr>
+                    <td>Giá:</td>
+                    <td class="pl-5">{{ formatPrice(post.Post_car_price) }}</td>
+                  </tr>
+                  <tr>
+                    <td>Tại:</td>
+                    <td class="pl-5">{{ post.Post_car_province }}</td>
+                  </tr>
+                  <tr>
+                    <td>Ngày đăng:</td>
+                    <td class="pl-5">
+                      {{ moment(post.Post_car_date).format("DD/MM/YYYY") }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Lượt yêu thích:</td>
+                    <td class="pl-5">{{ post.Post_car_like }}</td>
+                  </tr>
+                </table>
+              </div>
+              <CButton
+                class="btn btn-info float-right"
+                @click="viewDetail(post)"
+              >
+                Chi tiết
+              </CButton>
+            </div>
+          </div>
+        </CCol>
+      </CRow>
+
+      <!-- Modal preview ảnh -->
+      <CModal :title="title" color="dark" size="lg" :show.sync="darkModal">
+        <div class="p-0 rounded">
+          <ThePreviewPhoto :passPhoto="passPhoto" />
+        </div>
+      </CModal>
+
+      <CModal
+        :title="detailTitle"
+        color="info"
+        size="xl"
+        :show.sync="infoModal"
+      >
+        <div class="p-0 rounded">
+          <TheDetail
+            :passPost="passPost"
+            :carName="title"
+            :passCar="passCar"
+            @takePhoto="takePhoto"
+          />
+        </div>
+      </CModal>
     </div>
   </div>
 </template>
-<script>
-const Vue = window.vue
-const tweets = [
-  {
-    id: 1,
-    name: 'James',
-    handle: '@jokerjames',
-    img: 'https://semantic-ui.com/images/avatar2/large/matthew.png',
-    tweet: "If you don't succeed, dust yourself off and try again.",
-    likes: 10,
-  },
-  { 
-    id: 2,
-    name: 'Fatima',
-    handle: '@fantasticfatima',
-    img: 'https://semantic-ui.com/images/avatar2/large/molly.png',
-    tweet: 'Better late than never but never late is better.',
-    likes: 12,
-  },
-  {
-    id: 3,
-    name: 'Xin',
-    handle: '@xeroxin',
-    img: 'https://semantic-ui.com/images/avatar2/large/elyse.png',
-    tweet: 'Beauty in the struggle, ugliness in the success.',
-    likes: 18,
-  }
-]
-Vue.component('tweet-component', {
-  template: `
-    <div class="tweet">
-      <div class="box">
-        <article class="media">
-          <div class="media-left">
-            <figure class="image is-64x64">
-              <img :src="tweet.img" alt="Image">
-            </figure>
-          </div>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <strong>{{tweet.name}}</strong> <small>{{tweet.handle}}</small>
-                <br>
-                {{tweet.tweet}}
-              </p>
-            </div>
-              <div class="level-left">
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fas fa-heart"></i></span>
-                  <span class="likes">{{tweet.likes}}</span>
-                </a>
-              </div>
-          </div>
-        </article>
-      </div>
-      <div class="control has-icons-left has-icons-right">
-        <input class="input is-small" placeholder="Tweet your reply..." />
-        <span class="icon is-small is-left">
-          <i class="fas fa-envelope"></i>
-        </span>
-      </div>
-    </div> 
-  `,
-  props: {
-    tweet: Object
-  }
-});
-
-new Vue({
-  el: '#TheHome',
-  data: {
-    tweets
-  },
-  methods: {
-    shuffle() {
-      this.tweets = _.shuffle(this.tweets)
-    }
-  }
-});
-</script>
-
 <style>
-html, body {
-  height: 100%;
-  padding-top: 10px;
-  background: #e6ecf1;
+.modal-footer {
+  display: none !important;
 }
 
-#app {
-  height: 100%;
-  padding-top: 0px;
-  text-align: center;
-}
-
-#app .button {
-  margin-bottom: 20px;
-}
-
-#app .tweet {
-  max-width: 500px;
-  margin: 0 auto;
-  padding-bottom: 15px;
-}
-
-#app .box {
-  margin-bottom: 0;
-  border-radius: 0;
-}
-
-#app .content small {
-  color: #00d1b2;
-}
-
-#app img {
-  border-radius: 30px;
-}
-
-#app .level-item {
-  padding-left: 10px;
-  color: #00d1b2;
-}
-
-#app input:focus {
-  border-color: #00d1b2;  
-}
-
-#app .likes {
-  padding: 0 7.5px;
-}
-
-#app input {
-  font-weight: bold;
-}
-
-#app .tweets-move {
-  transition: transform 1s;
+.card:hover {
+  box-shadow: 2px 2px 15px;
+  transition-duration: 0.5s;
 }
 </style>
+<script>
+import axios from "axios";
+import { freeSet } from "@coreui/icons";
+import ThePreviewPhoto from "./ThePreviewPhoto";
+import { Domain } from "@/constant/constant";
+import TheDetail from "./TheDetail";
+export default {
+  freeSet,
+  name: "TheHome",
+  components: {
+    ThePreviewPhoto,
+    TheDetail,
+  },
+  props: {
+    dataPosts: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  data() {
+    return {
+      darkModal: false,
+      infoModal: false,
+      passPhoto: {},
+      passCar:{},
+      title: null,
+      domain: Domain,
+      detailTitle: null,
+      passPost: {},
+    };
+  },
+  methods: {
+    formatPrice(value) {
+      if (value) {
+        var returnVal = value.toLocaleString("it-IT", {
+          style: "currency",
+          currency: "VND",
+        });
+        return returnVal;
+      }
+    },
+    takePhoto(value) {
+      if (value) {
+        var images;
+        try {
+          images = require("@/assets/OldCarPhoto/" + value.split("~")[0]);
+        } catch (e) {
+          images = require("@/assets/img/nophoto.png");
+        }
+        return images;
+      }
+    },
+    previewPhoto(value) {
+      if (value) {
+        axios
+          .get(this.domain + "Car/GetNameById/" + value.Post_car_id)
+          .then((res) => {
+            var carName =
+              res.data[0].Carversion_ManufacturerName.trim() +
+              " " +
+              res.data[0].Carversion_name.trim() +
+              " " +
+              res.data[0].Carversion_date.trim();
+            this.title = carName;
+          });
+        (this.darkModal = true),
+          (this.passPhoto = value.Post_car_frontpic.split("~").slice(0));
+      }
+    },
+    viewDetail(value) {
+      if (value) {
+        axios
+          .get(this.domain + "Car/GetNameById/" + value.Post_car_id)
+          .then((res) => {
+            var carName =
+              res.data[0].Carversion_ManufacturerName.trim() +
+              " " +
+              res.data[0].Carversion_name.trim() +
+              " " +
+              res.data[0].Carversion_date.trim();
+            this.title = carName;
+          });
+        axios
+          .get(this.domain + "Car/GetDataById/" + value.Post_car_id)
+          .then((res) => {
+            this.passCar = res.data[0];
+          });
+        (this.infoModal = true),
+          (this.detailTitle = "Chi tiết xe"),
+          (this.passPost = value);
+      }
+    },
+  },
+};
+</script>
