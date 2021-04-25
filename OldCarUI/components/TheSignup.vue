@@ -57,7 +57,7 @@ export default {
     // insertClick() {
     //   axios
     //     .get(
-    //       "https://localhost:44343/OldCar/Customer/CheckExistAccount/" +
+    //       "https://localhost:44343/Api/Customer/CheckExistAccount/" +
     //         this.account.Account_name +
     //         "/" +
     //         this.account.Account_password

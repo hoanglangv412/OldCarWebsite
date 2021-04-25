@@ -48,6 +48,8 @@
 
 <script>
 import TheSignin from "~/components/TheSignin";
+import axios from "axios";
+import swal from "sweetalert2";
 export default {
   components: {
     TheSignin,
@@ -60,6 +62,7 @@ export default {
       modalFlag: null,
       ModalTitle: null,
       registerFlagCheck: Boolean,
+      customerInfo: {},
     };
   },
   // updated() {
@@ -72,15 +75,65 @@ export default {
   // },
   methods: {
     loginUser(loginInfo) {
-      this.$auth.loginWith("local", { data: loginInfo });
+      this.$auth
+        .loginWith("local", {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Cache-Control": "no-cache",
+          },
+          withCredentials: true,
+          crossDomain: true,
+          data: $.param(loginInfo),
+        })
+        .then((res) => {
+          axios
+            .get(
+              "https://localhost:44343/Api/Customer/GetDataById/" +
+                this.$auth.user
+            )
+            .then((res) => {
+              this.customerInfo = {
+                Customer_id: res.data[0].Customer_id,
+                Customer_avatar: res.data[0].Customer_avatar,
+                Customer_name: res.data[0].Customer_name,
+                Customer_birth: res.data[0].Customer_birth,
+                Customer_email: res.data[0].Customer_email,
+                Customer_address: res.data[0].Customer_address,
+                Customer_phone: res.data[0].Customer_phone,
+                Customer_begindate: res.data[0].Customer_begindate,
+                Account_name: res.data[0].Account_name,
+                Account_password: res.data[0].Account_password,
+                Account_role: res.data[0].Account_role,
+                Account_lastLogin: res.data[0].Account_lastLogin,
+              };
+              this.$auth.$storage.setUniversal("userInfo", this.customerInfo);
+              this.$router.go();
+            });
+        });
     },
-    // logOut() {
-    //   sessionStorage.setItem("jwt", "null");
-    //   this.Session = sessionStorage.getItem("jwt");
-    //   console.log(sessionStorage.getItem("jwt"));
-    //   this.$router.go();
-    // },
+    logOut() {
+      swal
+        .fire({
+          title: "Bạn muốn đăng xuất tài khoản này?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Xác nhận",
+          cancelButtonText: "Không",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$auth.$storage.removeUniversal("userInfo");
+            this.$auth.logout();
+            this.$router.go();
+          }
+        });
+    },
     signinClick(val) {
+      console.log(
+        this.$auth.$storage.getUniversal("userInfo", this.customerInfo)
+      );
       (this.modalFlag = val),
         (this.registerFlagCheck = false),
         (this.infoModal = true),
@@ -98,11 +151,7 @@ export default {
     //     (this.infoModal = true),
     //     (this.ModalTitle = "Đăng kí");
     // },
-    // closeModal(val) {
-    //   sessionStorage.setItem("jwt", "null");
-    //   this.infoModal = val;
-    //   // this.$emit("getListAccounts");
-    // },
+    closeModal(val) {},
   },
 };
 </script>

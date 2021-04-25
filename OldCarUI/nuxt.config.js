@@ -22,13 +22,23 @@ export default {
     ],
     script: [
       {
-        src:
-          "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        src: "https://code.jquery.com/jquery-3.6.0.js",
+        type: "text/javascript"
       },
-      { src: "https://code.jquery.com/jquery-3.3.1.slim.min.js" },
       {
         src:
-          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+          "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js",
+        type: "text/javascript"
+      },
+      {
+        src:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js",
+        type: "text/javascript"
+      },
+      {
+        src:
+          "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js",
+        type: "text/javascript"
       }
     ]
   },
@@ -61,6 +71,8 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     // '@nuxtjs/eslint-module'
+    // Simple usage
+    '@nuxtjs/vuetify',
   ],
   /*
   ** Nuxt.js modules
@@ -71,7 +83,7 @@ export default {
     //auth nuxtjs
     "@nuxtjs/axios",
     "@nuxtjs/auth",
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
   ],
   /*
   ** Axios module configuration
@@ -82,11 +94,12 @@ export default {
   /*
   ** Build configuration
   */
-  build: {},
+  build: {
+  },
 
   //set base url
   axios: {
-    baseURL: "https://localhost:44343/OldCar/"
+    baseURL: "https://localhost:44343/api/"
   },
   // router: {
   //   middleware: ['auth']
@@ -94,12 +107,28 @@ export default {
   auth: {
     strategies: {
       local: {
-        endpoints: {
-          login: { url: '/Customer/Login', method: 'post', propertyName:'token' },
-          logout: false,
-          user: { url: '/user', method: 'get',propertyName:'user' }
+        token: {
+          property: "access_token",
+          required: true,
+          type: "Bearer"
         },
-        tokenType: ''
+        // user: {
+        //   property: "user"
+        //   // autoFetch: true
+        // },
+        endpoints: {
+          login: {
+            url: "/login",
+            method: "post",
+            propertyName: "access_token"
+          },
+          logout: true,
+          user: {
+            url: "/user",
+            method: "get",
+            propertyName: "data"
+          }
+        }
       }
     }
   }

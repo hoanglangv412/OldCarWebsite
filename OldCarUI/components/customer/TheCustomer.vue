@@ -149,7 +149,7 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             axios
-              .delete("https://localhost:44343/OldCar/Customer/" + ID)
+              .delete("https://localhost:44343/Api/Customer/" + ID)
               .then((res) => {
                 this.$emit("getListCustomers");
                 swal.fire(
@@ -165,6 +165,7 @@ export default {
       return date.length > 0 ? moment(date).format("YYYY/MM/DD") : "";
     },
     addClick() {
+      console.log(this.$auth.$storage.getUniversal("userInfo"));
       (this.accountUpdate = {
         Customer_id: 0,
         Customer_account_id: null,
@@ -181,7 +182,7 @@ export default {
     },
     updateClick(ID) {
       axios
-        .get("https://localhost:44343/OldCar/Customer/GetDataById/" + ID)
+        .get("https://localhost:44343/Api/Customer/GetDataById/" + ID)
         .then((res) => {
           this.customerUpdate = {
             Customer_id: res.data[0].Customer_id,

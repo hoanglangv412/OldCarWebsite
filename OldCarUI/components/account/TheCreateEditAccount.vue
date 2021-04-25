@@ -97,7 +97,7 @@ export default {
       );
       if (this.accountname_valid && this.accountpassword_valid) {
         axios
-          .post("https://localhost:44343/OldCar/Account/", this.passAccount)
+          .post("https://localhost:44343/Api/Account/", this.passAccount)
           .then((res) => {
             swal.fire({
               position: "center",
@@ -117,7 +117,7 @@ export default {
       );
       if (this.accountname_valid && this.accountpassword_valid) {
         axios
-          .put("https://localhost:44343/OldCar/Account/", this.passAccount)
+          .put("https://localhost:44343/Api/Account/", this.passAccount)
           .then((res) => {
             swal.fire({
               position: "center",

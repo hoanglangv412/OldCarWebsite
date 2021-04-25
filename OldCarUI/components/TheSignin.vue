@@ -1,11 +1,10 @@
 <template>
   <div>
-    {{ registerFlag }}
     <CRow>
       <CCol md="8">
         <CForm class="form-insert-update">
           <CCardBody>
-            <!-- <CInput
+            <CInput
               @keydown.space.prevent
               type="text"
               placeholder="Nhập họ tên"
@@ -44,7 +43,7 @@
               placeholder="Nhập số điện thoại"
               horizontal
               v-if="registerFlag"
-            /> -->
+            />
             <CInput
               @keydown.space.prevent
               type="text"
@@ -101,7 +100,7 @@ export default {
     // insertClick() {
     //   axios
     //     .get(
-    //       "https://localhost:44343/OldCar/Customer/CheckExistAccount/" +
+    //       "https://localhost:44343/Api/Customer/CheckExistAccount/" +
     //         this.account.Account_name +
     //         "/" +
     //         this.account.Account_password

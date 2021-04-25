@@ -126,7 +126,7 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             axios
-              .delete("https://localhost:44343/OldCar/Account/" + ID)
+              .delete("https://localhost:44343/Api/Account/" + ID)
               .then((res) => {
                 this.$emit("getListAccounts");
                 swal.fire(
@@ -159,7 +159,7 @@ export default {
     },
     updateClick(ID) {
       axios
-        .get("https://localhost:44343/OldCar/Account/GetDataById/" + ID)
+        .get("https://localhost:44343/Api/Account/GetDataById/" + ID)
         .then((res) => {
           this.accountUpdate = {
             Account_id: res.data[0].Account_id,

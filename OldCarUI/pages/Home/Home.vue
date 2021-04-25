@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     getPost() {
-       axios.get(this.domain + "Post/").then((res) => {
+       axios.get(this.domain + "Post/Get").then((res) => {
           this.dataPosts = res.data;
            console.log($appName);      
         });

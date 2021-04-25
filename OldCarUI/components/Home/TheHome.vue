@@ -73,7 +73,7 @@
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 .modal-footer {
   display: none !important;
 }

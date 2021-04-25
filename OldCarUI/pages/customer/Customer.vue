@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     getData() {
-      axios.get("https://localhost:44343/OldCar/Customer/").then((res) => {
+      axios.get("https://localhost:44343/Api/Customer/").then((res) => {
         this.dataCustomers = res.data;
       });
     },
