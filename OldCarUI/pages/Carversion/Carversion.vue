@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <TheCarversion :dataCarversions="dataCarversions" @getCarversion="getCarversion" />
+    <TheCarversion :dataCarversions="dataCarversions" @getCarversion="getCarversion"/>
   </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     getCarversion() {
-       axios.get(this.domain + "Carversion/").then((res) => {
+       axios.get(this.domain + "Carversion/Get").then((res) => {
           this.dataCarversions = res.data;
         });
     },

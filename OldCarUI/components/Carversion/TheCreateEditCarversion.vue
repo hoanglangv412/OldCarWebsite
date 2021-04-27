@@ -5,7 +5,6 @@
         <CCardBody>
           <CInput v-model.trim="passCarverion.Carversion_id" hidden />
           <CInput
-            @keydown.space.prevent
             type="text"
             placeholder="Nhập tên dòng xe"
             label="Tên dòng xe"
@@ -15,7 +14,23 @@
             v-model.trim="passCarverion.Carversion_name"
           />
           <CInput
+            type="text"
+            label="Tên hãng sản xuất"
+            placeholder="Nhập tên hãng sản xuất"
+            list="ManufacturerNames"
+            horizontal
+            v-model.trim="passCarverion.Carversion_ManufacturerName"
+          />
+          <datalist id="ManufacturerNames">
+            <option
+              v-for="item in Manufacturers"
+              :key="item"
+              :value="item"
+            ></option>
+          </datalist>
+          <CInput
             @keydown.space.prevent
+            placeholder="Nhập đời xe"
             maxlength="4"
             step="100"
             type="number"
@@ -26,51 +41,66 @@
             max="2999"
             v-model.trim="passCarverion.Carversion_date"
           />
-          <CSelect
-            @keydown.space.prevent
-            label="Kiểu dáng"
-            horizontal
-            :options="options"
-            placeholder="Please select"
-            v-model.trim="passCarverion.Carversion_style"
-          />
+          <div role="group" class="form-group form-row">
+            <CCol sm="3">
+              <label>Kiểu dáng</label>
+            </CCol>
+            <CCol sm="9">
+              <select
+                class="custom-select"
+                v-model="passCarverion.Carversion_style"
+              >
+                <option v-for="item in options" :key="item" :value="item">
+                  {{ item }}
+                </option>
+              </select>
+            </CCol>
+          </div>
           <CInput
-            @keydown.space.prevent
             type="text"
-            label="Class"
+            label="Phiên bản"
             horizontal
-            v-model.trim="passCarverion.Carversion_class"
+            v-model.trim="passCarverion.Carversion_edition"
           />
-          <CInput
-            @keydown.space.prevent
-            type="text"
-            label="Option"
+          <div role="group" class="form-group form-row">
+            <CCol sm="3">
+              <label>Option</label>
+            </CCol>
+            <CCol sm="9">
+              <!-- <CInputRadio
+                v-for="(option, optionIndex) in CarOptions"
+                :key="optionIndex"
+                :label="option"
+                type="radio"
+                :value="optionIndex"
+                name="Option"
+                v-model="passCarverion.Carversion_option"
+              /> -->
+              <div
+                role="group"
+                class="form-check"
+                v-for="(option, optionIndex) in CarOptions"
+                :key="optionIndex"
+              >
+                <input
+                  :id="option + optionIndex"
+                  type="radio"
+                  name="CarOption"
+                  class="form-check-input"
+                  :value="optionIndex"
+                  v-model="passCarverion.Carversion_option"
+                /><label :for="option + optionIndex" class="form-check-label">
+                  {{ option }}
+                </label>
+              </div>
+              <!-- <input type="radio" name="Car option" :value="optionIndex" /> -->
+            </CCol>
+          </div>
+          <input
+            type="file"
+            label="Chọn logo"
             horizontal
-            v-model.trim="passCarverion.Carversion_option"
-          />
-          <CInput
-            @keydown.space.prevent
-            type="text"
-            label="Tên hãng sản xuất"
-            list="ManufacturerNames"
-            horizontal
-            v-model.trim="passCarverion.Carversion_ManufacturerName"
-          />
-          <datalist id="ManufacturerNames">
-            <option value="Edge"></option>
-            <option value="Firefox"></option>
-            <option value="Chrome"></option>
-            <option value="Opera"></option>
-            <option value="Safari"></option>
-          </datalist>
-
-          <CInput
-            @keydown.space.prevent
-            type="text"
-            label="Logo"
-            horizontal
-            :is-valid="accountpassword_valid"
-            v-model.trim="passCarverion.Carversion_ManufacturerLogo"
+            @change="onFileChange"
           />
         </CCardBody>
         <CCardFooter class="text-center">
@@ -98,6 +128,7 @@
 import Datepicker from "vuejs-datepicker";
 import axios from "axios";
 import { freeSet } from "@coreui/icons";
+import { Domain } from "@/constant/constant";
 import swal from "sweetalert2";
 export default {
   name: "TheCreateEditCarversion",
@@ -114,9 +145,12 @@ export default {
   },
   data() {
     return {
+      filesToSave: { name: null, file: null },
+      domain: Domain,
       selected: [], // Must be an array reference!
       show: true,
       horizontal: { label: "col-3", input: "col-9" },
+      CarOptions: ["Standard", "Advance", "Full option"],
       options: [
         "Micro",
         "Sedan",
@@ -130,32 +164,102 @@ export default {
         "Cabriolet",
         "Minivan",
       ],
+      Manufacturers: [
+        "Acura",
+        "Alfa Romeo",
+        "Audi",
+        "BMW",
+        "Bentley",
+        "Buick",
+        "Cadillac",
+        "Chevrolet",
+        "Chrysler",
+        "Dodge",
+        "Fiat",
+        "Ford",
+        "GMC",
+        "Genesis",
+        "Honda",
+        "Hyundai",
+        "Infiniti",
+        "Jaguar",
+        "Jeep",
+        "Kia",
+        "Land Rover",
+        "Lexus",
+        "Lincoln",
+        "Lotus",
+        "Maserati",
+        "Mazda",
+        "Mercedes-Benz",
+        "Mercury",
+        "Mini",
+        "Mitsubishi",
+        "Nikola",
+        "Nissan",
+        "Polestar",
+        "Pontiac",
+        "Porsche",
+        "Ram",
+        "Rivian",
+        "Rolls-Royce",
+        "Saab",
+        "Saturn",
+        "Scion",
+        "Smart",
+        "Subaru",
+        "Suzuki",
+        "Tesla",
+        "Toyota",
+        "Volkswagen",
+        "Volvo",
+      ],
     };
   },
   methods: {
     validator(val) {
       return val ? val.length >= 5 : false;
     },
-    // insertClick() {
-    //   this.accountname_valid = this.validator(this.passAccount.Account_name);
-    //   this.accountpassword_valid = this.validator(
-    //     this.passAccount.Account_password
-    //   );
-    //   if (this.accountname_valid && this.accountpassword_valid) {
-    //     axios
-    //       .post("https://localhost:44343/Api/Account/", this.passAccount)
-    //       .then((res) => {
-    //         swal.fire({
-    //           position: "center",
-    //           icon: res.data.split("-")[0] == "1" ? "success" : "error",
-    //           title: res.data.split("-")[1],
-    //           showConfirmButton: false,
-    //           timer: 1500,
-    //         });
-    //         this.$emit("closeModal", false);
-    //       });
-    //   }
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.passCarverion.Carversion_ManufacturerLogo = files[0].name;
+      this.filesToSave.file = files[0];
+    },
+    // getFile(files) {
+    //   this.passCarverion.Carversion_ManufacturerLogo = files;
     // },
+    insertClick(value) {
+      console.log(value);
+      // this.accountname_valid = this.validator(this.passAccount.Account_name);
+      // this.accountpassword_valid = this.validator(
+      //   this.passAccount.Account_password
+      // );
+      // if (this.accountname_valid && this.accountpassword_valid) {
+      axios.post(this.domain + "Carversion/post", value).then((res) => {
+        swal.fire({
+          position: "center",
+          icon: res.data.split("-")[0] == "1" ? "success" : "error",
+          title: res.data.split("-")[1],
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        let formData = new FormData();
+        formData.append("file", this.filesToSave.file);
+        console.log(formData);
+        axios
+          .post(this.domain + "Carversion/SaveFile", formData, {
+            headers: {
+              "Content-Type": this.filesToSave.type,
+            },
+          })
+          .then((response) => {
+            console.log(response);
+          });
+        this.$emit("closeModal", false);
+      });
+      // }
+    },
     // updateClick() {
     //   this.accountname_valid = this.validator(this.passAccount.Account_name);
     //   this.accountpassword_valid = this.validator(
@@ -163,7 +267,7 @@ export default {
     //   );
     //   if (this.accountname_valid && this.accountpassword_valid) {
     //     axios
-    //       .put("https://localhost:44343/Api/Account/", this.passAccount)
+    //       .put("https://localhost:44343/Api/Account/", this.passCarverion)
     //       .then((res) => {
     //         swal.fire({
     //           position: "center",

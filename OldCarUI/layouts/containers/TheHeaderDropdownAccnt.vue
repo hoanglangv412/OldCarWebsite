@@ -73,6 +73,9 @@ export default {
   //   this.Session = sessionStorage.getItem("jwt");
   //   console.log(this.Session);
   // },
+  beforeMount() {
+    this.$auth.$storage.removeUniversal("userInfo");
+  },
   methods: {
     loginUser(loginInfo) {
       this.$auth

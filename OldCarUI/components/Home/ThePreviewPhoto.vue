@@ -21,7 +21,7 @@
     </CCol>
   </div>
 </template>
-<style>
+<style scoped>
 .VueCarousel-slide img {
   height: 500px !important;
   width: auto !important;

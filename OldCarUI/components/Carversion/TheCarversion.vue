@@ -116,8 +116,8 @@ export default {
           _style: "min-width:100px;",
         },
         {
-          key: "Carversion_class",
-          label: "Class",
+          key: "Carversion_edition",
+          label: "Phiên bản",
           _style: "min-width:150px",
         },
         {
@@ -148,7 +148,7 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             axios
-              .delete("https://localhost:44343/Api/Carversion/" + ID)
+              .delete("https://localhost:44343/Api/Carversion/Delete/" + ID)
               .then((res) => {
                 this.$emit("getCarversion");
                 swal.fire(
@@ -166,7 +166,7 @@ export default {
         Carversion_name: "",
         Carversion_date: "",
         Carversion_style: "",
-        Carversion_class: "",
+        Carversion_edition: "",
         Carversion_option: "",
         Carversion_ManufacturerName: "",
         Carversion_ManufacturerLogo: "",
@@ -183,7 +183,7 @@ export default {
             Carversion_name: res.data[0].Carversion_name,
             Carversion_date: res.data[0].Carversion_date,
             Carversion_style: res.data[0].Carversion_style,
-            Carversion_class: res.data[0].Carversion_class,
+            Carversion_edition: res.data[0].Carversion_edition,
             Carversion_option: res.data[0].Carversion_option,
             Carversion_ManufacturerName: res.data[0].Carversion_ManufacturerName,
             Carversion_ManufacturerLogo: res.data[0].Carversion_ManufacturerLogo          };
