@@ -2,7 +2,12 @@
   <div class="TheCarversion">
     <CCard>
       <CCardHeader>
-        <h3>Quản lí dòng xe</h3>
+        <CRow style="height: 150px">
+          <CCol col="10"> <h3>Quản lí dòng xe</h3></CCol>
+          <CCol col="2">
+            <CImg style="width:200px;height:130px" :src="this.carversion_photo" />
+          </CCol>
+        </CRow>
       </CCardHeader>
       <CCardBody class="text">
         <CButton
@@ -27,6 +32,7 @@
           <div slot="footer" class="w-100 d-none"></div>
         </CModal>
         <CDataTable
+          class="text-center"
           :items="dataCarversions"
           :fields="carversionItem"
           :items-per-page="8"
@@ -34,6 +40,7 @@
           clickable-rows
           hover
           pagination
+          @row-clicked="handleFunction"
         >
           <template #Carversion_ManufacturerLogo="{ item }">
             <td style="height: 10px; width: 10px">
@@ -42,6 +49,13 @@
                 block
                 class="card-img-top"
               />
+            </td>
+          </template>
+          <template #Carversion_option="{ item }">
+            <td>
+              <CBadge :color="getBadgeColor(item.Carversion_option)">
+                {{ getRole(item.Carversion_option) }}
+              </CBadge>
             </td>
           </template>
           <template #method="{ item }">
@@ -84,7 +98,7 @@ export default {
     },
   },
   components: {
-     TheCreateEditCarversion,
+    TheCreateEditCarversion,
   },
   data() {
     return {
@@ -125,14 +139,44 @@ export default {
           label: "Option",
           _style: "min-width:100px;",
         },
+        // {
+        //   key: "Carversion_photo",
+        //   label: "ảnh",
+        //   _style: "min-width:100px;",
+        // },
         { key: "method", label: "Phương thức", _style: "min-width:100px;" },
       ],
-       carversionUpdate: {},
+      carversionUpdate: {},
       ModalTitle: null,
       infoModal: false,
+      carversion_photo: null,
     };
   },
+  mounted() {
+    //change search name
+    $("label:contains('Filter:')").text("Tìm kiếm");
+    //change search placeholder
+    $("input")
+      .filter(function () {
+        return $(this).attr("placeholder") == "type string...";
+      })
+      .attr("placeholder", "Nhập từ khóa tìm kiếm");
+  },
   methods: {
+    getBadgeColor(Carversion_option) {
+      return Carversion_option == "0"
+        ? "primary"
+        : Carversion_option == "1"
+        ? "warning"
+        : "success";
+    },
+    getRole(Carversion_option) {
+      return Carversion_option == "0"
+        ? "Standard"
+        : Carversion_option == "1"
+        ? "Advance"
+        : "Full option";
+    },
     deleteClick(ID) {
       swal
         .fire({
@@ -185,8 +229,11 @@ export default {
             Carversion_style: res.data[0].Carversion_style,
             Carversion_edition: res.data[0].Carversion_edition,
             Carversion_option: res.data[0].Carversion_option,
-            Carversion_ManufacturerName: res.data[0].Carversion_ManufacturerName,
-            Carversion_ManufacturerLogo: res.data[0].Carversion_ManufacturerLogo          };
+            Carversion_ManufacturerName:
+              res.data[0].Carversion_ManufacturerName,
+            Carversion_ManufacturerLogo:
+              res.data[0].Carversion_ManufacturerLogo,
+          };
         });
       (this.infoModal = true), (this.ModalTitle = "Cập nhật dòng xe");
     },
@@ -203,6 +250,19 @@ export default {
           images = require("@/assets/img/nophoto.png");
         }
         return images;
+      }
+    },
+    handleFunction: function (item) {
+      console.log("hehehe", item.Carversion_photo);
+      try {
+        if (item != null) {
+          this.carversion_photo = require("@/assets/Carversion/" +
+            item.Carversion_photo);
+        } else {
+          this.carversion_photo = require("@/assets/img/nophoto.png");
+        }
+      } catch (e) {
+        this.carversion_photo = require("@/assets/img/nophoto.png");
       }
     },
   },

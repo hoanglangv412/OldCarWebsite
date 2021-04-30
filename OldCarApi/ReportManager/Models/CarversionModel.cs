@@ -18,6 +18,7 @@ namespace OldCarApi.Models
         public string Carversion_option { get; set; }
         public string Carversion_ManufacturerName { get; set; }
         public string Carversion_ManufacturerLogo { get; set; }
+        public string Carversion_photo { get; set; }
 
         public CarversionModel() { }
 
@@ -42,6 +43,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Carversion_option", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Carversion_ManufacturerName", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Carversion_ManufacturerLogo", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Carversion_photo", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 4);
                 SQL_CONNECTION.Open();
                 SqlDataAdapter da = new SqlDataAdapter();
@@ -71,11 +73,12 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Carversion_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Carversion_name", String.IsNullOrEmpty(carVersionModel.Carversion_name) ? null : carVersionModel.Carversion_name);
                 cmd.Parameters.AddWithValue("@Carversion_date", String.IsNullOrEmpty(carVersionModel.Carversion_date) ? null : carVersionModel.Carversion_date);
-                cmd.Parameters.AddWithValue("@Carversion_style", String.IsNullOrEmpty(carVersionModel.Carversion_date) ? null : carVersionModel.Carversion_date);
+                cmd.Parameters.AddWithValue("@Carversion_style", String.IsNullOrEmpty(carVersionModel.Carversion_style) ? null : carVersionModel.Carversion_style);
                 cmd.Parameters.AddWithValue("@Carversion_edition", String.IsNullOrEmpty(carVersionModel.Carversion_edition) ? null : carVersionModel.Carversion_edition);
                 cmd.Parameters.AddWithValue("@Carversion_option", String.IsNullOrEmpty(carVersionModel.Carversion_option) ? null : carVersionModel.Carversion_option);
                 cmd.Parameters.AddWithValue("@Carversion_ManufacturerName", String.IsNullOrEmpty(carVersionModel.Carversion_ManufacturerName) ? null : carVersionModel.Carversion_ManufacturerName);
                 cmd.Parameters.AddWithValue("@Carversion_ManufacturerLogo", String.IsNullOrEmpty(carVersionModel.Carversion_ManufacturerLogo) ? null : carVersionModel.Carversion_ManufacturerLogo);
+                cmd.Parameters.AddWithValue("@Carversion_photo", String.IsNullOrEmpty(carVersionModel.Carversion_photo) ? null : carVersionModel.Carversion_photo);
                 cmd.Parameters.AddWithValue("@Query", 1);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
@@ -103,11 +106,12 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Carversion_id", carVersionModel.Carversion_id);
                 cmd.Parameters.AddWithValue("@Carversion_name", String.IsNullOrEmpty(carVersionModel.Carversion_name) ? null : carVersionModel.Carversion_name);
                 cmd.Parameters.AddWithValue("@Carversion_date", String.IsNullOrEmpty(carVersionModel.Carversion_date) ? null : carVersionModel.Carversion_date);
-                cmd.Parameters.AddWithValue("@Carversion_style", String.IsNullOrEmpty(carVersionModel.Carversion_date) ? null : carVersionModel.Carversion_date);
+                cmd.Parameters.AddWithValue("@Carversion_style", String.IsNullOrEmpty(carVersionModel.Carversion_style) ? null : carVersionModel.Carversion_style);
                 cmd.Parameters.AddWithValue("@Carversion_edition", String.IsNullOrEmpty(carVersionModel.Carversion_edition) ? null : carVersionModel.Carversion_edition);
                 cmd.Parameters.AddWithValue("@Carversion_option", String.IsNullOrEmpty(carVersionModel.Carversion_option) ? null : carVersionModel.Carversion_option);
                 cmd.Parameters.AddWithValue("@Carversion_ManufacturerName", String.IsNullOrEmpty(carVersionModel.Carversion_ManufacturerName) ? null : carVersionModel.Carversion_ManufacturerName);
                 cmd.Parameters.AddWithValue("@Carversion_ManufacturerLogo", String.IsNullOrEmpty(carVersionModel.Carversion_ManufacturerLogo) ? null : carVersionModel.Carversion_ManufacturerLogo);
+                cmd.Parameters.AddWithValue("@Carversion_photo", String.IsNullOrEmpty(carVersionModel.Carversion_photo) ? null : carVersionModel.Carversion_photo);
                 cmd.Parameters.AddWithValue("@Query", 2);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
@@ -142,6 +146,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Carversion_option", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Carversion_ManufacturerName", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Carversion_ManufacturerLogo", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Carversion_photo", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 5);
                 SqlDataAdapter da = new SqlDataAdapter();
                 SQL_CONNECTION.Open();
@@ -176,6 +181,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Carversion_option", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Carversion_ManufacturerName", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Carversion_ManufacturerLogo", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Carversion_photo", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 3);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();

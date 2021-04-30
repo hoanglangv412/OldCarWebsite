@@ -67,15 +67,6 @@
               <label>Option</label>
             </CCol>
             <CCol sm="9">
-              <!-- <CInputRadio
-                v-for="(option, optionIndex) in CarOptions"
-                :key="optionIndex"
-                :label="option"
-                type="radio"
-                :value="optionIndex"
-                name="Option"
-                v-model="passCarverion.Carversion_option"
-              /> -->
               <div
                 role="group"
                 class="form-check"
@@ -97,10 +88,18 @@
             </CCol>
           </div>
           <input
+            id="idphotoselector"
             type="file"
-            label="Chọn logo"
+            label="Logo"
             horizontal
             @change="onFileChange"
+          />
+          <input
+            id="idcarphotoselector"
+            type="file"
+            label="Ảnh dòng xe"
+            horizontal
+            @change="onCarFileChange"
           />
         </CCardBody>
         <CCardFooter class="text-center">
@@ -192,6 +191,7 @@ export default {
         "Maserati",
         "Mazda",
         "Mercedes-Benz",
+        "Mercedes-Benz AMG",
         "Mercury",
         "Mini",
         "Mitsubishi",
@@ -213,6 +213,7 @@ export default {
         "Toyota",
         "Volkswagen",
         "Volvo",
+        "Vinfast",
       ],
     };
   },
@@ -226,17 +227,23 @@ export default {
       this.passCarverion.Carversion_ManufacturerLogo = files[0].name;
       this.filesToSave.file = files[0];
     },
-    // getFile(files) {
-    //   this.passCarverion.Carversion_ManufacturerLogo = files;
-    // },
+    onCarFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.passCarverion.Carversion_photo = files[0].name;
+      this.filesToSave.file = files[0];
+    },
     insertClick(value) {
-      console.log(value);
+      if (value.Carversion_edition == null) {
+        value.Carversion_edition = "Edition 1";
+      }
       // this.accountname_valid = this.validator(this.passAccount.Account_name);
       // this.accountpassword_valid = this.validator(
       //   this.passAccount.Account_password
       // );
       // if (this.accountname_valid && this.accountpassword_valid) {
       axios.post(this.domain + "Carversion/post", value).then((res) => {
+        var photoPath = "";
         swal.fire({
           position: "center",
           icon: res.data.split("-")[0] == "1" ? "success" : "error",
@@ -246,7 +253,56 @@ export default {
         });
         let formData = new FormData();
         formData.append("file", this.filesToSave.file);
-        console.log(formData);
+        if (formData != null) {
+          photoPath += "logo~";
+        }
+        if (document.getElementById("idcarphotoselector").files.length > 0) {
+          photoPath += "Carversion~";
+        }
+        if (photoPath != "") {
+          formData.append("FilePath", photoPath);
+          axios
+            .post(this.domain + "Carversion/SaveFile", formData, {
+              headers: {
+                "Content-Type": this.filesToSave.type,
+              },
+            })
+            .then((response) => {
+              console.log(response);
+            });
+        }
+        this.$emit("closeModal", false);
+      });
+      // }
+    },
+    updateClick(value) {
+      if (value.Carversion_edition == null) {
+        value.Carversion_edition = "Edition 1";
+      }
+      // this.accountname_valid = this.validator(this.passAccount.Account_name);
+      // this.accountpassword_valid = this.validator(
+      //   this.passAccount.Account_password
+      // );
+      // if (this.accountname_valid && this.accountpassword_valid) {
+      axios.put(this.domain + "Carversion/put", value).then((res) => {
+        var photoPath = "";
+        swal.fire({
+          position: "center",
+          icon: res.data.split("-")[0] == "1" ? "success" : "error",
+          title: res.data.split("-")[1],
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        let formData = new FormData();
+        formData.append("file", this.filesToSave.file);
+        if (document.getElementById("idphotoselector").files.length > 0) {
+          photoPath += "logo~";
+        }
+
+        if (document.getElementById("idcarphotoselector").files.length > 0) {
+          photoPath += "Carversion~";
+        }
+        formData.append("FilePath", photoPath);
         axios
           .post(this.domain + "Carversion/SaveFile", formData, {
             headers: {
@@ -260,26 +316,6 @@ export default {
       });
       // }
     },
-    // updateClick() {
-    //   this.accountname_valid = this.validator(this.passAccount.Account_name);
-    //   this.accountpassword_valid = this.validator(
-    //     this.passAccount.Account_password
-    //   );
-    //   if (this.accountname_valid && this.accountpassword_valid) {
-    //     axios
-    //       .put("https://localhost:44343/Api/Account/", this.passCarverion)
-    //       .then((res) => {
-    //         swal.fire({
-    //           position: "center",
-    //           icon: res.data.split("-")[0] == "1" ? "success" : "error",
-    //           title: res.data.split("-")[1],
-    //           showConfirmButton: false,
-    //           timer: 1500,
-    //         });
-    //         this.$emit("closeModal", false);
-    //       });
-    //   }
-    // },
   },
 };
 </script>

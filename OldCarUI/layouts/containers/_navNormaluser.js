@@ -30,6 +30,12 @@ export default [
         },
         {
           _name: 'CSidebarNavItem',
+          name: 'Car',
+          to: '/Car/Car',
+          icon: 'cil-drop',
+        },
+        {
+          _name: 'CSidebarNavItem',
           name: 'Account',
           to: '/account/Account',
           icon: 'cil-drop'

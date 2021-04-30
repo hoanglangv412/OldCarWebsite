@@ -254,7 +254,7 @@
                 <td>{{ passCar.Car_turnradius }}</td>
               </tr>
               <tr>
-                <td>Chiều cao xe</td>
+                <td>Khoảng sáng gầm xe</td>
                 <td>{{ passCar.Car_height }}</td>
               </tr>
             </table>
