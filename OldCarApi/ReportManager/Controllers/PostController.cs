@@ -1,7 +1,9 @@
 ﻿using OldCarApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -66,5 +68,30 @@ namespace OldCarApi.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        #region SavePhoto
+        [Route("api/Post/SaveMultipleFile")]
+        public IHttpActionResult SavePhoto()
+        {
+            try
+            {
+                var httpRequest = HttpContext.Current.Request;
+                string folder_from_config = ConfigurationManager.AppSettings["FileUploadFolder"].ToString();
+                string folderName = folder_from_config + "OldCarPhoto/" + httpRequest.Params["FilePath"];
+                if (!Directory.Exists(folderName))
+                {
+                    Directory.CreateDirectory(folderName);
+                }
+                var postedPhoto = httpRequest.Files[0];
+                postedPhoto.SaveAs(folderName + "\\" + postedPhoto.FileName);
+                return Ok("1-Lưu thành công");
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest("2-Lưu ảnh thất bại");
+            }
+        }
+        #endregion
     }
 }

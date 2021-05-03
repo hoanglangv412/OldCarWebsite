@@ -19,17 +19,20 @@ namespace OldCarApi.Models
         public string Car_maxmomen{get;set;}
         public int? Car_maxspeed { get; set; }
         public string Car_maxpower { get; set; }
-        public int? Car_loadweight { get; set; }
+        public string Car_loadweight { get; set; }
         public int? Car_doors { get; set; }
         public string Car_drivetype { get; set; }
         public string Car_totaldimens { get; set; }
         public int? Car_baselength { get; set; }
         public int? Car_turnradius { get; set; }
         public int? Car_height { get; set; }
-        public int? Car_cylcapacity { get; set; }
+        public string Car_cylcapacity { get; set; }
         public string Car_brakesystem { get; set; }
-        public string Car_fuelsystem { get; set; }
         public int? Car_airnums { get; set; }
+        public string Car_acceleration { get; set; }
+        public string Car_handbrake { get; set; }
+        public string Car_cityfuelconsump { get; set; }
+        public string Car_highwayfuelconsump { get; set; }
         public CarModel(){}
         public List<CarModel> ListCarModels { get; set; }
 
@@ -62,8 +65,11 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_height", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_cylcapacity", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_brakesystem", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_fuelsystem", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_airnums", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_acceleration", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_handbrake", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_cityfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 4);
                 SQL_CONNECTION.Open();
                 SqlDataAdapter da = new SqlDataAdapter();
@@ -99,17 +105,20 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_maxmomen", String.IsNullOrEmpty(carModel.Car_maxmomen) ? null : carModel.Car_maxmomen);
                 cmd.Parameters.AddWithValue("@Car_maxspeed", !carModel.Car_maxspeed.HasValue ? null : carModel.Car_maxspeed);
                 cmd.Parameters.AddWithValue("@Car_maxpower", String.IsNullOrEmpty(carModel.Car_maxpower) ? null : carModel.Car_maxpower);
-                cmd.Parameters.AddWithValue("@Car_loadweight", !carModel.Car_loadweight.HasValue ? null : carModel.Car_loadweight);
+                cmd.Parameters.AddWithValue("@Car_loadweight", String.IsNullOrEmpty(carModel.Car_loadweight) ? null : carModel.Car_loadweight);
                 cmd.Parameters.AddWithValue("@Car_doors", !carModel.Car_doors.HasValue ? null : carModel.Car_doors);
                 cmd.Parameters.AddWithValue("@Car_drivetype", String.IsNullOrEmpty(carModel.Car_drivetype) ? null : carModel.Car_drivetype);
                 cmd.Parameters.AddWithValue("@Car_totaldimens", String.IsNullOrEmpty(carModel.Car_totaldimens) ? null : carModel.Car_totaldimens);
                 cmd.Parameters.AddWithValue("@Car_baselength", !carModel.Car_baselength.HasValue ? null : carModel.Car_baselength);
                 cmd.Parameters.AddWithValue("@Car_turnradius", !carModel.Car_turnradius.HasValue ? null : carModel.Car_turnradius);
                 cmd.Parameters.AddWithValue("@Car_height", !carModel.Car_height.HasValue ? null : carModel.Car_height);
-                cmd.Parameters.AddWithValue("@Car_cylcapacity", !carModel.Car_cylcapacity.HasValue ? null : carModel.Car_cylcapacity);
+                cmd.Parameters.AddWithValue("@Car_cylcapacity", String.IsNullOrEmpty(carModel.Car_cylcapacity) ? null : carModel.Car_cylcapacity);
                 cmd.Parameters.AddWithValue("@Car_brakesystem", String.IsNullOrEmpty(carModel.Car_brakesystem) ? null : carModel.Car_brakesystem);
-                cmd.Parameters.AddWithValue("@Car_fuelsystem", String.IsNullOrEmpty(carModel.Car_fuelsystem) ? null : carModel.Car_fuelsystem);
                 cmd.Parameters.AddWithValue("@Car_airnums", !carModel.Car_airnums.HasValue ? null : carModel.Car_airnums);
+                cmd.Parameters.AddWithValue("@Car_acceleration", String.IsNullOrEmpty(carModel.Car_acceleration) ? null : carModel.Car_acceleration);
+                cmd.Parameters.AddWithValue("@Car_handbrake", String.IsNullOrEmpty(carModel.Car_handbrake) ? null : carModel.Car_handbrake);
+                cmd.Parameters.AddWithValue("@Car_cityfuelconsump", String.IsNullOrEmpty(carModel.Car_cityfuelconsump) ? null : carModel.Car_cityfuelconsump);
+                cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", String.IsNullOrEmpty(carModel.Car_highwayfuelconsump) ? null : carModel.Car_highwayfuelconsump);
                 cmd.Parameters.AddWithValue("@Query", 1);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
@@ -143,18 +152,20 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_maxmomen", String.IsNullOrEmpty(carModel.Car_maxmomen) ? null : carModel.Car_maxmomen);
                 cmd.Parameters.AddWithValue("@Car_maxspeed", !carModel.Car_maxspeed.HasValue ? null : carModel.Car_maxspeed);
                 cmd.Parameters.AddWithValue("@Car_maxpower", String.IsNullOrEmpty(carModel.Car_maxpower) ? null : carModel.Car_maxpower);
-                cmd.Parameters.AddWithValue("@Car_loadweight", !carModel.Car_loadweight.HasValue ? null : carModel.Car_loadweight);
+                cmd.Parameters.AddWithValue("@Car_loadweight", String.IsNullOrEmpty(carModel.Car_loadweight) ? null : carModel.Car_loadweight);
                 cmd.Parameters.AddWithValue("@Car_doors", !carModel.Car_doors.HasValue ? null : carModel.Car_doors);
                 cmd.Parameters.AddWithValue("@Car_drivetype", String.IsNullOrEmpty(carModel.Car_drivetype) ? null : carModel.Car_drivetype);
                 cmd.Parameters.AddWithValue("@Car_totaldimens", String.IsNullOrEmpty(carModel.Car_totaldimens) ? null : carModel.Car_totaldimens);
                 cmd.Parameters.AddWithValue("@Car_baselength", !carModel.Car_baselength.HasValue ? null : carModel.Car_baselength);
                 cmd.Parameters.AddWithValue("@Car_turnradius", !carModel.Car_turnradius.HasValue ? null : carModel.Car_turnradius);
                 cmd.Parameters.AddWithValue("@Car_height", !carModel.Car_height.HasValue ? null : carModel.Car_height);
-                cmd.Parameters.AddWithValue("@Car_cylcapacity", !carModel.Car_cylcapacity.HasValue ? null : carModel.Car_cylcapacity);
+                cmd.Parameters.AddWithValue("@Car_cylcapacity", String.IsNullOrEmpty(carModel.Car_cylcapacity) ? null : carModel.Car_cylcapacity);
                 cmd.Parameters.AddWithValue("@Car_brakesystem", String.IsNullOrEmpty(carModel.Car_brakesystem) ? null : carModel.Car_brakesystem);
-                cmd.Parameters.AddWithValue("@Car_fuelsystem", String.IsNullOrEmpty(carModel.Car_fuelsystem) ? null : carModel.Car_fuelsystem);
                 cmd.Parameters.AddWithValue("@Car_airnums", !carModel.Car_airnums.HasValue ? null : carModel.Car_airnums);
-
+                cmd.Parameters.AddWithValue("@Car_acceleration", String.IsNullOrEmpty(carModel.Car_acceleration) ? null : carModel.Car_acceleration);
+                cmd.Parameters.AddWithValue("@Car_handbrake", String.IsNullOrEmpty(carModel.Car_handbrake) ? null : carModel.Car_handbrake);
+                cmd.Parameters.AddWithValue("@Car_cityfuelconsump", String.IsNullOrEmpty(carModel.Car_cityfuelconsump) ? null : carModel.Car_cityfuelconsump);
+                cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", String.IsNullOrEmpty(carModel.Car_highwayfuelconsump) ? null : carModel.Car_highwayfuelconsump);
                 cmd.Parameters.AddWithValue("@Query", 2);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
@@ -199,8 +210,11 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_height", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_cylcapacity", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_brakesystem", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_fuelsystem", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_airnums", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_acceleration", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_handbrake", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_cityfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 5);
                 SqlDataAdapter da = new SqlDataAdapter();
                 SQL_CONNECTION.Open();
@@ -246,8 +260,11 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_height", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_cylcapacity", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_brakesystem", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_fuelsystem", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_airnums", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_acceleration", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_handbrake", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_cityfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 6);
                 SqlDataAdapter da = new SqlDataAdapter();
                 SQL_CONNECTION.Open();
@@ -292,8 +309,11 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_height", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_cylcapacity", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_brakesystem", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_fuelsystem", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_airnums", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_acceleration", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_handbrake", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_cityfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 3);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();

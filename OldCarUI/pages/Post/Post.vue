@@ -1,40 +1,40 @@
 <template>
   <div class="index">
     <CBreadcrumb :items="items" />
-    <Car :dataCars="dataCars" @getCar="getCar" />
+    <ThePost :dataPosts="dataPosts" @getPost="getPost" />
   </div>
 </template>
 
 <script>
-import Car from "~/components/Car/TheCar";
+import ThePost from "~/components/Post/ThePost";
 import axios from "axios";
 import { Domain } from "@/constant/constant";
 export default {
-  name: "Carversion",
+  name: "Post",
   components: {
-    Car,
+    ThePost,
     Domain,
   },
   data() {
     return {
       auth: false,
-      dataCars: [],
+      dataPosts: [],
       domain: Domain,
       items: [
         {
-          text: "Car Manager",
+          text: "Post Manager",
           active:true
         },
       ],
     };
   },
   mounted() {
-    this.getCar();
+    this.getPost();
   },
   methods: {
-    getCar() {
-      axios.get(this.domain + "Car/Get").then((res) => {
-        this.dataCars = res.data;
+    getPost() {
+      axios.get(this.domain + "Post/Get").then((res) => {
+        this.dataPosts = res.data;
       });
     },
   },

@@ -44,7 +44,7 @@ namespace OldCarApi.Controllers
 
         [HttpDelete]
         public string Delete(string ID)
-        {
+            {
             string result = carModel.DeleteData(ID);
             return result;
         }

@@ -52,9 +52,6 @@
       </CHeaderNavItem>
       <TheHeaderDropdownAccnt />
     </CHeaderNav>
-    <CSubheader class="px-3">
-      <CBreadcrumbRouter class="border-0" />
-    </CSubheader>
   </CHeader>
 </template>
 

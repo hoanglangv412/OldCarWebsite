@@ -74,7 +74,7 @@ export default {
   //   console.log(this.Session);
   // },
   beforeMount() {
-    this.$auth.$storage.removeUniversal("userInfo");
+    // this.$auth.$storage.removeUniversal("userInfo");
   },
   methods: {
     loginUser(loginInfo) {
@@ -109,12 +109,17 @@ export default {
                 Account_role: res.data[0].Account_role,
                 Account_lastLogin: res.data[0].Account_lastLogin,
               };
-              this.$auth.$storage.setUniversal("userInfo", this.customerInfo);
+              this.$auth.data = this.customerInfo;
+              this.$auth.$storage.setUniversal("userInfo",this.customerInfo);
+              // localStorage.setItem("userInfo",this.customerInfo);
+              // console.log("hehe",localStorage.getItem("userInfo"));
+              // console.log("1", this.$auth.$storage.getUniversal("userInfo"));
               this.$router.go();
             });
         });
     },
     logOut() {
+      console.log("2", this.$auth.data);
       swal
         .fire({
           title: "Bạn muốn đăng xuất tài khoản này?",
@@ -127,9 +132,10 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.$auth.$storage.removeUniversal("userInfo");
-            this.$auth.logout();
-            this.$router.go();
+            this.$auth.logout().then((res) => {
+              this.$auth.$storage.removeUniversal("userInfo");
+              this.$router.go();
+            });
           }
         });
     },

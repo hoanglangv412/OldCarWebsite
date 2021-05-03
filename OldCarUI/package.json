@@ -34,6 +34,7 @@
     "sweetalert2": "^10.15.7",
     "vue": "^2.6.12",
     "vue-carousel": "^0.18.0",
+    "vue-native-color-picker": "^1.2.0",
     "vue-session": "^1.0.0",
     "vuejs-datepicker": "^1.6.2"
   },

@@ -87,20 +87,32 @@
               <!-- <input type="radio" name="Car option" :value="optionIndex" /> -->
             </CCol>
           </div>
-          <input
-            id="idphotoselector"
-            type="file"
-            label="Logo"
-            horizontal
-            @change="onFileChange"
-          />
-          <input
-            id="idcarphotoselector"
-            type="file"
-            label="Ảnh dòng xe"
-            horizontal
-            @change="onCarFileChange"
-          />
+          <div role="group" class="form-group form-row">
+            <CCol sm="3">
+              <label>Logo</label>
+            </CCol>
+            <CCol sm="9">
+              <input
+                id="idphotoselector"
+                type="file"
+                horizontal
+                @change="onFileChange"
+              />
+            </CCol>
+          </div>
+          <div role="group" class="form-group form-row">
+            <CCol sm="3">
+              <label>Ảnh dòng xe</label>
+            </CCol>
+            <CCol sm="9">
+              <input
+                id="idcarphotoselector"
+                type="file"
+                horizontal
+                @change="onCarFileChange"
+              />
+            </CCol>
+          </div>
         </CCardBody>
         <CCardFooter class="text-center">
           <CButton
@@ -145,6 +157,7 @@ export default {
   data() {
     return {
       filesToSave: { name: null, file: null },
+      photoToSave: { name: null, file: null },
       domain: Domain,
       selected: [], // Must be an array reference!
       show: true,
@@ -231,7 +244,7 @@ export default {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.passCarverion.Carversion_photo = files[0].name;
-      this.filesToSave.file = files[0];
+      this.photoToSave.file = files[0];
     },
     insertClick(value) {
       if (value.Carversion_edition == null) {
@@ -252,14 +265,15 @@ export default {
           timer: 1500,
         });
         let formData = new FormData();
-        formData.append("file", this.filesToSave.file);
-        if (formData != null) {
+        if (document.getElementById("idphotoselector").files.length > 0) {
           photoPath += "logo~";
         }
         if (document.getElementById("idcarphotoselector").files.length > 0) {
           photoPath += "Carversion~";
         }
         if (photoPath != "") {
+          formData.append("fileLogo", this.filesToSave.file);
+          formData.append("filePhoto", this.photoToSave.file);
           formData.append("FilePath", photoPath);
           axios
             .post(this.domain + "Carversion/SaveFile", formData, {
@@ -276,7 +290,7 @@ export default {
       // }
     },
     updateClick(value) {
-      if (value.Carversion_edition == null) {
+ if (value.Carversion_edition == null) {
         value.Carversion_edition = "Edition 1";
       }
       // this.accountname_valid = this.validator(this.passAccount.Account_name);
@@ -294,24 +308,26 @@ export default {
           timer: 1500,
         });
         let formData = new FormData();
-        formData.append("file", this.filesToSave.file);
         if (document.getElementById("idphotoselector").files.length > 0) {
           photoPath += "logo~";
         }
-
         if (document.getElementById("idcarphotoselector").files.length > 0) {
           photoPath += "Carversion~";
         }
-        formData.append("FilePath", photoPath);
-        axios
-          .post(this.domain + "Carversion/SaveFile", formData, {
-            headers: {
-              "Content-Type": this.filesToSave.type,
-            },
-          })
-          .then((response) => {
-            console.log(response);
-          });
+        if (photoPath != "") {
+          formData.append("fileLogo", this.filesToSave.file);
+          formData.append("filePhoto", this.photoToSave.file);
+          formData.append("FilePath", photoPath);
+          axios
+            .post(this.domain + "Carversion/SaveFile", formData, {
+              headers: {
+                "Content-Type": this.filesToSave.type,
+              },
+            })
+            .then((response) => {
+              console.log(response);
+            });
+        }
         this.$emit("closeModal", false);
       });
       // }

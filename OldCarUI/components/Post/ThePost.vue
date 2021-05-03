@@ -7,7 +7,7 @@
       <CCardBody class="text">
         <CButton
           color="info"
-          to="/Car/CreateAndEditCar"
+          to="/Post/CreateAndEditPost"
           class="m-2 btn-add float-right mr-5"
           @click="addClick()"
         >
@@ -30,25 +30,14 @@
         <CDataTable
           id="id_car"
           class="text-center text-nowrap"
-          :items="dataCars"
-          :fields="carItem"
+          :items="dataPosts"
+          :fields="postItem"
           :items-per-page="8"
           table-filter
           clickable-rows
           hover
           pagination
         >
-          <template #Car_maxspeed="{ item }">
-            <td>{{ item.Car_maxspeed }} km/h</td>
-          </template>
-          <template #Car_acceleration="{ item }">
-            <td>{{ item.Car_acceleration }}</td>
-          </template>
-          <template #Car_maxpower="{ item }">
-            <td style="height: 10px; width: 10px">
-              {{ item.Car_maxpower }}
-            </td>
-          </template>
           <template #method="{ item }">
             <td
               class="py-2 bg-white"
@@ -57,14 +46,14 @@
               <CButton
                 color="warning"
                 class="btn-update"
-                :to="`/Car/${item.Car_id}`"
-                @click="updateClick(item.Car_id)"
+                :to="`/Post/${item.Post_id}`"
+                @click="updateClick(item.Post_id)"
               >
                 <CIcon :content="$options.freeSet.cilPencil" />
               </CButton>
               <CButton
                 color="danger"
-                @click="deleteClick(item.Car_id)"
+                @click="deleteClick(item.Post_id)"
                 class="btn-delete"
               >
                 <CIcon :content="$options.freeSet.cilTrash" />
@@ -102,30 +91,30 @@
                             <CCardImg
                               style="width: 250px; height: 180px"
                               class="rounded border-info"
-                              :src="takePhoto(item.Carversion_photo)"
+                              :src="takePhoto(item.Post_car_frontpic)"
                             />
                           </CCardHeader>
                           <CCardBody>
                             <h6>
-                              {{ item.Carversion_ManufacturerName }}
+                              <!-- {{ item.Carversion_ManufacturerName }}
                               {{ item.Carversion_name }}
                               {{ item.Carversion_edition }}
                               {{ item.Carversion_style }}
-                              {{ item.Carversion_date }}
+                              {{ item.Carversion_date }} -->
                             </h6>
                             <p class="text-monospace">
                               Option:
-                              {{ getRole(item.Carversion_option) }}
+                              <!-- {{ getRole(item.Carversion_option) }} -->
                             </p>
                           </CCardBody>
                         </CCard>
                       </td>
-                      <td>Dài x Rộng x Cao(mm)</td>
+                      <!-- <td>Dài x Rộng x Cao(mm)</td>
                       <td>{{ item.Car_totaldimens }}</td>
                       <td class="border-left">Trọng tải</td>
-                      <td>{{ item.Car_loadweight }}</td>
+                      <td>{{ item.Car_loadweight }}</td> -->
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td>Chiều dài cơ sở</td>
                       <td>{{ item.Car_baselength }}mm</td>
                       <td class="border-left">Số cửa</td>
@@ -142,7 +131,7 @@
                       <td>{{ item.Car_height }}mm</td>
                       <td class="border-left">Số túi khí</td>
                       <td>{{ item.Car_airnums }}</td>
-                    </tr>
+                    </tr> -->
                   </table>
                 </CRow>
               </CCardBody>
@@ -163,175 +152,251 @@ import moment from "moment";
 import axios from "axios";
 import { freeSet } from "@coreui/icons";
 import swal from "sweetalert2";
-import Table from "~/pages/base/Table.vue";
-import TheCreateAndEditCar from "./TheCreateAndEditCar";
 
 export default {
-  name: "TheCarversion",
+  name: "ThePost",
   freeSet,
   props: {
-    dataCars: {
+    dataPosts: {
       type: Array,
       default: () => [],
     },
   },
-  components: {
-    TheCreateAndEditCar,
-  },
+  components: {},
   data() {
     return {
-      carItem: [
-        { key: "Car_id", label: "ID", _style: "min-width:100px;" },
+      postItem: [
+        { key: "Post_id", label: "ID", _style: "min-width:100px;" },
         // {
-        //   key: "Car_carversion_id",
+        //   key: "Post_customer_id",
         //   label: "Logo",
         //   _style: "min-width:100px;",
         // },
+        // {
+        //   key: "Post_car_id",
+        //   label: "Hộp số",
+        //   _style: "min-width:100px;",
+        // },
         {
-          key: "Car_trans",
-          label: "Hộp số",
-          _style: "min-width:100px;",
-        },
-        {
-          key: "Car_fuel",
-          label: "Nhiên liệu",
+          key: "Post_title",
+          label: "Tiêu đề",
           _style: "min-width:150px",
         },
         {
-          key: "Car_engine",
-          label: "Động cơ",
+          key: "Post_car_price",
+          label: "Giá",
           _style: "min-width:100px;",
         },
-        // {
-        //   key: "Car_seats",
-        //   label: "Số ghế",
-        //   _style: "min-width:100px;",
-        // },
         {
-          key: "Car_maxmomen",
-          label: "Momen xoắn cực đại",
+          key: "Post_car_origin",
+          label: "Nguồn gốc",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Post_car_incolor",
+          label: "Màu nội thất",
           _style: "min-width:150px",
         },
         {
-          key: "Car_maxspeed",
-          label: "Vận tốc tối đa",
+          key: "Post_car_outcolor",
+          label: "Màu xe",
           _style: "min-width:100px;",
         },
         {
-          key: "Car_acceleration",
-          label: "Tăng tốc",
+          key: "Post_car_tire",
+          label: "Thông số lốp xe",
           _style: "min-width:100px;",
         },
         {
-          key: "Car_maxpower",
-          label: "Công suất cực đại",
+          key: "Post_car_plate",
+          label: "Thông số mâm xe",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Post_car_province",
+          label: "Nơi đăng kí biển",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Post_car_km",
+          label: "Số km đã đi",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Post_car_detail",
+          label: "Mô tả chi tiết",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Post_car_kpl",
+          label: "km/lít",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Post_car_cond",
+          label: "Độ mới(%)",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Post_car_civilcare",
+          label: "Bảo hiểm dân sự",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Post_car_bodycare",
+          label: "Bảo hiểm thân vỏ",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Post_car_anothercare",
+          label: "Bảo hiểm khác",
           _style: "min-width:100px;",
         },
         // {
-        //   key: "Car_loadweight",
-        //   label: "Trọng tải",
+        //   key: "Post_car_frontpic",
+        //   label: "Hệ thống phanh chân",
         //   _style: "min-width:100px;",
         // },
         // {
-        //   key: "Car_doors",
-        //   label: "Số cửa",
-        //   _style: "min-width:100px;",
-        // },
-        {
-          key: "Car_drivetype",
-          label: "Hệ truyền động",
-          _style: "min-width:100px;",
-        },
-        // {
-        //   key: "Car_totaldimens",
-        //   label: "Kích thước tổng thể",
+        //   key: "Post_car_leftpic",
+        //   label: "Hệ thống phanh tay",
         //   _style: "min-width:100px;",
         // },
         // {
-        //   key: "Car_baselength",
-        //   label: "Chiều dài cơ sở",
+        //   key: "Post_car_rightpic",
+        //   label: "Mức tiêu thụ nhiên liệu trong đô thị",
         //   _style: "min-width:100px;",
         // },
         // {
-        //   key: "Car_turnradius",
-        //   label: "Bán kính quay vòng",
+        //   key: "Post_car_behindpic",
+        //   label: "Mức tiêu thụ nhiên loại ngoài đô thị",
         //   _style: "min-width:100px;",
         // },
         // {
-        //   key: "Car_height",
-        //   label: "Khoảng sáng gầm xe",
-        //   _style: "min-width:100px;",
-        // },
-        {
-          key: "Car_cylcapacity",
-          label: "Dung tích xi lanh",
-          _style: "min-width:100px;",
-        },
-        {
-          key: "Car_brakesystem",
-          label: "Hệ thống phanh chân",
-          _style: "min-width:100px;",
-        },
-        {
-          key: "Car_handbrake",
-          label: "Hệ thống phanh tay",
-          _style: "min-width:100px;",
-        },
-        {
-          key: "Car_cityfuelconsump",
-          label: "Mức tiêu thụ nhiên liệu trong đô thị",
-          _style: "min-width:100px;",
-        },
-        {
-          key: "Car_highwayfuelconsump",
-          label: "Mức tiêu thụ nhiên loại ngoài đô thị",
-          _style: "min-width:100px;",
-        },
-        // {
-        //   key: "Car_airnums",
+        //   key: "Post_car_inpic",
         //   label: "Số túi khí",
         //   _style: "min-width:100px;",
         // },
         // {
-        //   key: "Carversion_name",
+        //   key: "Post_car_outpic",
         //   label: "Tên dòng xe",
         //   _style: "min-width:100px;",
         // },
         // {
-        //   key: "Carversion_date",
+        //   key: "Post_car_tirepic",
         //   label: "Đời",
         //   _style: "min-width:100px;",
         // },
         // {
-        //   key: "Carversion_style",
+        //   key: "Post_car_enginepic",
         //   label: "Kiểu dáng",
         //   _style: "min-width:100px;",
         // },
         // {
-        //   key: "Carversion_edition",
+        //   key: "Post_car_trunkpic",
         //   label: "Phiên bản",
         //   _style: "min-width:100px;",
         // },
-        // {
-        //   key: "Carversion_option",
-        //   label: "Option",
-        //   _style: "min-width:100px;",
-        // },
-        // {
-        //   key: "Carversion_ManufacturerName",
-        //   label: "Tên hãng sản xuất",
-        //   _style: "min-width:100px;",
-        // },
-        // {
-        //   key: "Carversion_ManufacturerLogo",
-        //   label: "Logo",
-        //   _style: "min-width:100px;",
-        // },
-        // {
-        //   key: "Carversion_photo",
-        //   label: "Photo",
-        //   _style: "min-width:100px;",
-        // },
+        {
+          key: "Post_car_replaceditems",
+          label: "Các linh kiện đã thay thế",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Post_car_like",
+          label: "Lượt yêu thích",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Post_car_date",
+          label: "Ngày đăng",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_camera",
+          label: "Camera",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_doortype",
+          label: "Loại cửa",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_mirror",
+          label: "Loại gương",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_seattype",
+          label: "Loại ghế",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_sound",
+          label: "Hệ thống âm thanh",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_gps",
+          label: "GPS",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_touchscreen",
+          label: "Màn cảm ứng",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_skyview",
+          label: "Cửa sổ trời",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_electrunk",
+          label: "Cốp điện",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_cruisecontrol",
+          label: "Kiểm soát hành trình",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_tirepressurealert",
+          label: "Cảnh báo áp suất lốp",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_electricbalance",
+          label: "Cân bằng điện tử(ESP)",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_blindalert",
+          label: "Cảnh báo điểm mù",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_distancesensor",
+          label: "Cảm biển khoảng cách",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_camera360",
+          label: "Camera 360",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_acrosshillsupport",
+          label: "Hỗ trợ khởi hành ngang dốc",
+          _style: "min-width:100px;",
+        },
+        {
+          key: "Car_autoairconditioner",
+          label: "Hệ thống điều hòa tự động",
+          _style: "min-width:100px;",
+        },
         {
           key: "method",
           label: "Phương thức",
@@ -395,9 +460,9 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             axios
-              .delete("https://localhost:44343/Api/Car/Delete/" + ID)
+              .delete("https://localhost:44343/Api/Post/Delete/" + ID)
               .then((res) => {
-                this.$emit("getCar");
+                this.$emit("getPost");
                 swal.fire(
                   res.data.split("-")[1],
                   res.data.split("-")[0] == "1"
@@ -410,36 +475,7 @@ export default {
         });
     },
     addClick() {},
-    updateClick(ID) {
-      // axios
-      //   .get("https://localhost:44343/Api/Car/GetDataById/" + ID)
-      //   .then((res) => {
-      //     console.log("hahaha", res);
-      //     this.carUpdate = {
-      //       Car_id: res.data[0].Car_id,
-      //       Car_carversion_id: res.data[0].Car_carversion_id,
-      //       Car_trans: res.data[0].Car_trans,
-      //       Car_fuel: res.data[0].Car_fuel,
-      //       Car_engine: res.data[0].Car_engine,
-      //       Car_seats: res.data[0].Car_seats,
-      //       Car_maxmomen: res.data[0].Car_maxmomen,
-      //       Car_maxspeed: res.data[0].Car_maxspeed,
-      //       Car_maxpower: res.data[0].Car_maxpower,
-      //       Car_loadweight: res.data[0].Car_loadweight,
-      //       Car_doors: res.data[0].Car_doors,
-      //       Car_drivetype: res.data[0].Car_drivetype,
-      //       Car_totaldimens: res.data[0].Car_totaldimens,
-      //       Car_baselength: res.data[0].Car_baselength,
-      //       Car_turnradius: res.data[0].Car_turnradius,
-      //       Car_height: res.data[0].Car_height,
-      //       Car_cylcapacity: res.data[0].Car_cylcapacity,
-      //       Car_brakesystem: res.data[0].Car_brakesystem,
-      //       Car_fuelsystem: res.data[0].Car_fuelsystem,
-      //       Car_airnums: res.data[0].Car_airnums,
-      //     };
-      //   });
-      // (this.infoModal = true), (this.ModalTitle = "Cập nhật xe");
-    },
+    updateClick(ID) {},
     closeModal(val) {
       this.infoModal = val;
       this.$emit("getCar");

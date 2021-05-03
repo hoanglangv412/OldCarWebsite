@@ -77,21 +77,20 @@ namespace OldCarApi.Controllers
             try
             {
                 var httpRequest = HttpContext.Current.Request;
-                foreach (var item in httpRequest.Params["FilePath"].Split('~'))
+                string folder_from_config = ConfigurationManager.AppSettings["FileUploadFolder"].ToString();
+                string[] folderName = httpRequest.Params["FilePath"].Split('~');
+                for (int i = 0; i < folderName.Length; i++)
                 {
-                    if(item != "")
-                    {
-                        string folder_from_config = ConfigurationManager.AppSettings["FileUploadFolder"].ToString();
-                        //var pathFolder = HttpContext.Current.Server.MapPath("D:/kieu/myself-project/Blog-VueJS/OldCarWebsite/OldCarUI/assets/logo");
-                        //bool IsExist = System.IO.Directory.Exists(pathFolder);
-                        //if (!IsExist)
-                        //{
-                        //    System.IO.Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Blog-VueJS/OldCarWebsite/OldCarUI/assets/logo"));
-                        //}
-                        var postedPhoto = httpRequest.Files[0];
-                        postedPhoto.SaveAs(folder_from_config + item + "\\" + postedPhoto.FileName);
-                    }
+                    var postedPhoto = httpRequest.Files[i];
+                    postedPhoto.SaveAs(folder_from_config + folderName[i] + "\\" + postedPhoto.FileName);
                 }
+                //foreach (var item in httpRequest.Params["FilePath"].Split('~'))
+                //{
+                //    if(item != "")
+                //    {
+
+                //    }
+                //}
                 return Ok("1-Lưu thành công");
             }
             catch (Exception ex)

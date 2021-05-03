@@ -5,7 +5,7 @@
         <CRow style="height: 150px">
           <CCol col="10"> <h3>Quản lí dòng xe</h3></CCol>
           <CCol col="2">
-            <CImg style="width:200px;height:130px" :src="this.carversion_photo" />
+            <CImg style="width:200px;height:130px" class="rounded" :src="this.carversion_photo" />
           </CCol>
         </CRow>
       </CCardHeader>
@@ -35,7 +35,7 @@
           class="text-center"
           :items="dataCarversions"
           :fields="carversionItem"
-          :items-per-page="8"
+          :items-per-page="6"
           table-filter
           clickable-rows
           hover
