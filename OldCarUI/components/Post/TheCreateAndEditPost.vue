@@ -2,10 +2,10 @@
   <div>
     <CCol>
       <CForm class="form-insert-update">
-        <CCardBody class="text-nowrap">
+        <CCardBody class="text-nowrap pt-0">
           <CRow>
             <CCol col="12" md="12" lg="6" sm="12">
-              <fieldset class="border p-4">
+              <fieldset class="border pl-4 pr-4">
                 <legend style="width:0;float-left">Thông tin mô tả</legend>
                 <CInput v-model="passPost.Post_id" hidden />
                 <label>Tiêu đề</label>
@@ -42,7 +42,7 @@
                     <label>Giá(VND)</label>
                     <input
                       class="form-control"
-                      v-model="passPost.Car_price"
+                      v-model="passPost.Post_car_price"
                       type="number"
                       step="100000000"
                       min="0"
@@ -52,13 +52,13 @@
                     <label>Nguồn gốc</label>
                     <input
                       class="form-control"
-                      v-model.trim="passPost.Car_origin"
+                      v-model.trim="passPost.Post_car_origin"
                   /></CCol>
                   <CCol>
                     <label>Nơi đăng kí biển</label>
                     <input
                       class="form-control"
-                      v-model="passPost.Car_province"
+                      v-model="passPost.Post_car_province"
                       list="cityNames"
                   /></CCol>
                   <datalist id="cityNames">
@@ -74,7 +74,7 @@
                     <label>Số km đã đi</label>
                     <input
                       class="form-control"
-                      v-model="passPost.Car_km"
+                      v-model="passPost.Post_car_km"
                       type="number"
                       step="1000"
                       min="0"
@@ -84,7 +84,7 @@
                     <label>Số km đi được trên một lít xăng</label>
                     <input
                       class="form-control"
-                      v-model="passPost.Car_kpl"
+                      v-model="passPost.Post_car_kpl"
                       type="number"
                       step="10"
                       min="0"
@@ -95,7 +95,7 @@
                 <CRow>
                   <CCol>
                     <label>Mô tả chi tiết</label>
-                    <CTextarea rows="4" v-model="passPost.Car_detail" />
+                    <CTextarea rows="4" v-model="passPost.Post_car_detail" />
                   </CCol>
                 </CRow>
                 <CRow>
@@ -111,39 +111,9 @@
                   </CCol>
                 </CRow>
               </fieldset>
-
-              <!-- <CInput
-                label="Tiêu đề"
-                horizontal
-                v-model="passPost.Post_title"
-              /> -->
-
-              <!-- <CInput
-                label="Bảo hiểm dân sự"
-                horizontal
-                v-model="passPost.Post_car_civilcare"
-              /> -->
-              <!-- <CInput
-                label="Bảo hiểm thân vỏ"
-                horizontal
-                v-model="passPost.Post_car_bodycare"
-              /> -->
-
-              <!-- <CInput label="Camera" horizontal v-model="passPost.Car_camera" /> -->
-              <!-- <CInput
-                label="Các linh kiện đã thay thế"
-                horizontal
-                v-model="passPost.Car_replaceditems"
-              /> -->
-              <!-- <CInput label="ảnh" horizontal v-model="passPost.Car_frontpic" /> -->
             </CCol>
             <CCol col="12" md="12" lg="6" sm="12">
-              <!-- <CInput
-                label="Ngày đăng"
-                horizontal
-                v-model="passPost.Car_date"
-              /> -->
-              <fieldset class="border p-4">
+              <fieldset class="border pl-4 pr-4 pb-4">
                 <legend style="width:0;float-left">Ngoại thất</legend>
                 <CInput v-model="passPost.Post_customer_id" hidden />
                 <CRow>
@@ -151,7 +121,7 @@
                     <label>Độ mới(%)</label>
                     <input
                       class="form-control"
-                      v-model="passPost.Car_cond"
+                      v-model="passPost.Post_car_cond"
                       type="number"
                       step="10"
                       min="0"
@@ -160,11 +130,16 @@
                   </CCol>
                   <CCol>
                     <label>Thông số mâm xe</label>
-                    <input class="form-control" v-model="passPost.Car_plate"
+                    <input
+                      class="form-control"
+                      v-model="passPost.Post_car_plate"
                   /></CCol>
                   <CCol>
                     <label>Thông số lốp xe</label>
-                    <input class="form-control" v-model="passPost.Car_tire" />
+                    <input
+                      class="form-control"
+                      v-model="passPost.Post_car_tire"
+                    />
                   </CCol>
                 </CRow>
                 <CRow>
@@ -176,11 +151,10 @@
                           id="id_outcolor"
                           class="form-control rounded"
                           background-color="light"
-                          v-model.trim="passPost.Car_outcolor"
+                          v-model.trim="passPost.Post_car_outcolor"
                         />
                       </CCol>
                     </fieldset>
-                    <!-- <input class="form-control" v-model="passPost.Car_outcolor" /> -->
                   </CCol>
                   <CCol>
                     <fieldset>
@@ -228,19 +202,15 @@
               </fieldset>
 
               <CRow>
-                <fieldset class="border p-4 w-100 mt-2">
+                <fieldset class="border pl-4 pr-4 pb-4 w-100 mt-2">
                   <legend style="width:0;float-left">Nội thất</legend>
                   <CRow>
                     <CCol col="2">
                       <label>Màu nội thất</label>
-                      <!-- <input
-                    class="form-control"
-                    v-model.trim="passPost.Car_incolor"
-                /> -->
                       <v-input-colorpicker
                         class="form-control rounded"
                         id="id_incolor"
-                        v-model.trim="passPost.Car_incolor"
+                        v-model.trim="passPost.Post_car_incolor"
                         background-color="light"
                       />
                     </CCol>
@@ -266,77 +236,178 @@
                 </fieldset>
               </CRow>
               <CRow>
-                <fieldset class="border p-4">
-                  <legend style="width:0;float-left">
-                    Bảo hiểm xe hiện tại
-                  </legend>
-                  <CInputCheckbox
-                    column="3"
-                    v-for="item in carCares"
-                    :key="item"
-                    :label="item"
-                    :value="item"
-                    inline="true"
+                <fieldset class="border pl-4 pr-4 pb-4">
+                  <legend style="width:0;float-left">Bảo hiểm xe</legend>
+                  <input
+                    type="checkbox"
+                    id="cares_0"
+                    value="Bảo hiểm thân vỏ"
                   />
+                  <label for="cares_0">Bảo hiểm thân vỏ</label><br />
+
+                  <input
+                    type="checkbox"
+                    id="cares_1"
+                    value="Bảo hiểm trách nhiệm dân sự"
+                  />
+                  <label for="cares_1">Bảo hiểm trách nhiệm dân sự</label><br />
+
+                  <input
+                    type="checkbox"
+                    id="cares_2"
+                    value="Bảo hiểm vật chất"
+                  />
+                  <label for="cares_2">Bảo hiểm vật chất</label><br />
+                  <input
+                    type="checkbox"
+                    id="cares_3"
+                    value="Bảo hiểm người ngồi trên xe"
+                  />
+                  <label for="cares_3">Bảo hiểm người ngồi trên xe</label><br />
                 </fieldset>
               </CRow>
               <CRow>
-                <CCol
-                  ><fieldset class="border p-4">
+                <CCol col="7"
+                  ><fieldset class="border pl-4 pr-4 pb-4">
                     <legend style="width:0;float-left">Trang bị đi kèm</legend>
-                    <CInputCheckbox v-model="passPost.Car_gps" label="GPS" />
-                    <CInputCheckbox
-                      v-model="passPost.Car_touchscreen"
-                      label="Màn hình cảm ứng"
-                    />
-                    <CInputCheckbox
-                      v-model="passPost.Car_skyview"
-                      label="Cửa sổ trời"
-                    />
-                    <CInputCheckbox
-                      v-model="passPost.Car_electrunk"
-                      label="Cốp điện"
-                    />
-                    <CInputCheckbox
-                      v-model="passPost.Car_cruisecontrol"
-                      label="Kiểm soát hành trình"
-                    />
-                    <CInputCheckbox
-                      v-model="passPost.Car_tirepressurealert"
-                      label="Cảnh báo áp suất lốp"
-                    />
-                    <CInputCheckbox
-                      v-model="passPost.Car_electricbalance"
-                      label="Cân bằng điện tử (ESP)"
-                    />
-                    <CInputCheckbox
-                      v-model="passPost.Car_blindalert"
-                      label="Cảnh báo điểm mù"
-                    />
-                    <CInputCheckbox
-                      v-model="passPost.Car_distancesensor"
-                      label="Cảm biến khoảng cách"
-                    />
-                    <CInputCheckbox
-                      v-model="passPost.Car_acrosshillsupport"
-                      label="Hỗ trợ khởi hành ngang dốc"
-                    />
-                    <CInputCheckbox
-                      v-model="passPost.Car_autoairconditioner"
-                      label="Điều hòa không khí tự động"
-                    /></fieldset
+                    <div class="row">
+                      <div class="col-7">
+                        <input type="checkbox" id="technology_0" value="GPS" />
+                        <label for="technology_0">GPS</label><br />
+                        <input
+                          type="checkbox"
+                          id="technology_1"
+                          value="Màn hình cảm ứng"
+                        />
+                        <label for="technology_1">Màn hình cảm ứng</label><br />
+                        <input
+                          type="checkbox"
+                          id="technology_2"
+                          value="Cửa sổ trời"
+                        />
+                        <label for="technology_2">Cửa sổ trời</label><br />
+                        <input
+                          type="checkbox"
+                          id="technology_3"
+                          value="Kiểm soát hành trình"
+                        />
+                        <label for="technology_3">Kiểm soát hành trình</label
+                        ><br />
+                        <input
+                          type="checkbox"
+                          id="technology_4"
+                          value="Hỗ trợ khởi hành ngang dốc"
+                        />
+                        <label for="technology_4"
+                          >Hỗ trợ khởi hành ngang dốc</label
+                        ><br />
+                        <input
+                          type="checkbox"
+                          id="technology_5"
+                          value="Điều hòa không khí tự động"
+                        />
+                        <label for="technology_5"
+                          >Điều hòa không khí tự động</label
+                        ><br />
+                      </div>
+                      <div class="col-5">
+                        <input
+                          type="checkbox"
+                          id="technology_6"
+                          value="Cốp điện"
+                        />
+                        <label for="technology_6">Cốp điện</label><br />
+                        <input
+                          type="checkbox"
+                          id="technology_7"
+                          value="Cảnh báo áp suất lốp"
+                        />
+                        <label for="technology_7">Cảnh báo áp suất lốp</label
+                        ><br />
+                        <input
+                          type="checkbox"
+                          id="technology_8"
+                          value="Cân bằng điện tử (ESP)"
+                        />
+                        <label for="technology_8">Cân bằng điện tử (ESP)</label
+                        ><br />
+
+                        <input
+                          type="checkbox"
+                          id="technology_9"
+                          value="Cảnh báo điểm mù"
+                        />
+                        <label for="technology_9">Cảnh báo điểm mù</label><br />
+                        <input
+                          type="checkbox"
+                          id="technology_10"
+                          value="Cảm biến khoảng cách"
+                        />
+                        <label for="technology_10">Cảm biến khoảng cách</label
+                        ><br />
+                      </div>
+                    </div></fieldset
                 ></CCol>
-                <CCol>
-                  <fieldset class="border p-4">
+                <CCol col="5">
+                  <fieldset class="border pl-4 pr-4 pb-4">
                     <legend style="width:0;float-left">
                       Linh kiện thay thế
                     </legend>
-                    <CInputCheckbox
-                      v-for="item in replacedItems"
-                      :key="item"
-                      :label="item"
-                      :value="item"
-                    />
+                    <input
+                      type="checkbox"
+                      id="replacedItem_0"
+                      value="Lốp xe"
+                    /><label for="replacedItem_0" class="pl-2"> Lốp xe </label
+                    ><br />
+
+                    <input
+                      type="checkbox"
+                      id="replacedItem_1"
+                      value="Lazang"
+                    /><label for="replacedItem_1" class="pl-2"> Lazang </label
+                    ><br />
+
+                    <input
+                      type="checkbox"
+                      id="replacedItem_2"
+                      value="Gương"
+                    /><label for="replacedItem_2" class="pl-2"> Gương </label
+                    ><br />
+
+                    <input
+                      type="checkbox"
+                      id="replacedItem_3"
+                      value="Sơn"
+                    /><label for="replacedItem_3" class="pl-2"> Sơn </label
+                    ><br />
+
+                    <input
+                      type="checkbox"
+                      id="replacedItem_4"
+                      value="Đèn"
+                    /><label for="replacedItem_4" class="pl-2"> Đèn </label
+                    ><br />
+
+                    <input
+                      type="checkbox"
+                      id="replacedItem_5"
+                      value="Phanh"
+                    /><label for="replacedItem_5" class="pl-2"> Phanh </label
+                    ><br />
+
+                    <input
+                      type="checkbox"
+                      id="replacedItem_6"
+                      value="Loa"
+                    /><label for="replacedItem_6" class="pl-2"> Loa </label
+                    ><br />
+
+                    <input
+                      type="checkbox"
+                      id="replacedItem_7"
+                      value="Màn hình"
+                    /><label for="replacedItem_7" class="pl-2"> Màn hình </label
+                    ><br />
                   </fieldset>
                 </CCol>
               </CRow>
@@ -378,13 +449,13 @@ import swal from "sweetalert2";
 export default {
   name: "TheCreateEditCarversion",
   components: {
-    "v-input-colorpicker": InputColorPicker,
+    "v-input-colorpicker": InputColorPicker
   },
   props: {
     passPost: {
       type: Object,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   mounted() {
     this.getPostcars();
@@ -395,6 +466,7 @@ export default {
       Selectpostcars: [],
       carUpdate: {},
       postlist: [],
+      photoNames: {},
       cityNames: [
         "An Giang",
         "Bà Rịa - Vũng Tàu",
@@ -458,41 +530,22 @@ export default {
         "Đà Nẵng",
         "Hải Phòng",
         "Hà Nội",
-        "TP Hồ Chí Minh",
-      ],
-      replacedItems: [
-        "Lốp xe",
-        "Lazang",
-        "Gương",
-        "Sơn",
-        "Đèn",
-        "Phanh",
-        "Loa",
-        "Màn hình",
-        "Khác",
+        "TP Hồ Chí Minh"
       ],
       cameras: ["Camera lùi", "Camera 180°", "Camera 360°"],
-      carCares: [
-        "Bảo hiểm thân vỏ",
-        "Bảo hiểm trách nhiệm dân sự",
-        "Bảo hiểm vật chất",
-        "Bảo hiểm người ngồi trên xe",
-        "Khác",
-      ],
       carMirrors: ["Gương điện", "Gương tay"],
       domain: Domain,
-      horizontal: { label: "col-6", input: "col-6" },
+      horizontal: { label: "col-6", input: "col-6" }
     };
   },
   methods: {
     onFileChange(e) {
-      let formData = new FormData();
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
-
+      this.photoNames = "";
       for (var i = 0; i < files.length; i++) {
-        this.passPost.Car_frontpic += files[i].name + ",";
         this.postlist.push(files[i]);
+        this.photoNames += files[i].name + ",";
         // this.filesToSave.file = files[0];
         //   formData.append("files[" + i + "]", files[i]);
         // console.log("hehe", this.formData.get("files[" + i + "]"));
@@ -500,7 +553,7 @@ export default {
       //   this.passCarverion.Carversion_ManufacturerLogo = files[0].name;
     },
     getPostcars() {
-      axios.get(this.domain + "Car/Get").then((res) => {
+      axios.get(this.domain + "Car/Get").then(res => {
         this.Selectpostcars = res.data;
       });
     },
@@ -508,7 +561,30 @@ export default {
       return val ? val.length >= 5 : false;
     },
     insertClick(value) {
-      //   console.log("hehe", this.postlist);
+      value.Post_car_replaceditems = "";
+      value.Car_technology = "";
+      value.Post_car_anothercare = "";
+      for (var i = 0; i < 8; i++) {
+        $("#replacedItem_" + i + "").prop("checked") == true
+          ? (value.Post_car_replaceditems +=
+              $("#replacedItem_" + i + "").val() + ",")
+          : "";
+      }
+      for (var i = 0; i < 10; i++) {
+        $("#technology_" + i + "").prop("checked") == true
+          ? (value.Car_technology += $("#technology_" + i + "").val() + ",")
+          : "";
+      }
+      for (var i = 0; i < 4; i++) {
+        $("#cares_" + i + "").prop("checked") == true
+          ? (value.Post_car_anothercare += $("#cares_" + i + "").val() + ",")
+          : "";
+      }
+      value.Post_car_like = 0;
+      value.Post_car_date = 0;
+      value.Post_car_frontpic = this.photoNames;
+      value.Post_customer_id = this.$auth.user;
+      value.Post_id = null;
       // this.accountname_valid = this.validator(this.passAccount.Account_name);
       // this.accountpassword_valid = this.validator(
       //   this.passAccount.Account_password
@@ -520,16 +596,17 @@ export default {
         .text()
         .replaceAll(" ", "")
         .replaceAll("\n", "");
-      axios.post(this.domain + "Post/post", value).then((res) => {
+      console.log("hehehehe", value);
+      axios.post(this.domain + "Post/post", value).then(res => {
         swal
           .fire({
             position: "center",
             icon: res.data.split("-")[0] == "1" ? "success" : "error",
             title: res.data.split("-")[1],
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1500
           })
-          .then((res) => {
+          .then(res => {
             for (var i = 0; i < this.postlist.length; i++) {
               let formData = new FormData();
               formData.append("FilePath", folderName);
@@ -537,10 +614,10 @@ export default {
               axios
                 .post(this.domain + "Post/SaveMultipleFile", formData, {
                   headers: {
-                    "Content-Type": this.filesToSave.type,
-                  },
+                    "Content-Type": this.filesToSave.type
+                  }
                 })
-                .then((response) => {
+                .then(response => {
                   console.log(response);
                 });
               this.$emit("closeModal", false);
@@ -548,7 +625,7 @@ export default {
           });
       });
       // }
-    },
+    }
     // updateClick(value) {
     //   // this.accountname_valid = this.validator(this.passAccount.Account_name);
     //   // this.accountpassword_valid = this.validator(
@@ -573,6 +650,6 @@ export default {
     //   });
     //   // }
     // },
-  },
+  }
 };
 </script>

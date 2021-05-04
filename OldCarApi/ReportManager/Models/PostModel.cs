@@ -25,38 +25,17 @@ namespace OldCarApi.Models
         public string Post_car_detail { get; set; }
         public int? Post_car_kpl { get; set; }
         public int? Post_car_cond { get; set; }
-        public int? Post_car_civilcare { get; set; }
-        public int? Post_car_bodycare {get; set; }
         public string Post_car_anothercare { get; set; }
         public string Post_car_frontpic { get; set; }
-        public string Post_car_leftpic { get; set; }
-        public string Post_car_rightpic { get; set; }
-        public string Post_car_behindpic { get; set; }
-        public string Post_car_inpic { get; set; }
-        public string Post_car_outpic { get; set; }
-        public string Post_car_tirepic { get; set; }
-        public string Post_car_enginepic { get; set; }
-        public string Post_car_trunkpic { get; set; }
         public string Post_car_replaceditems { get; set; }
-        public int? Post_car_like { get; set; }
         public DateTime? Post_car_date { get; set; }
         public string Car_camera { get; set; }
         public string Car_doortype { get; set; }
         public string Car_mirror { get; set; }
         public string Car_seattype { get; set; }
         public string Car_sound { get; set; }
-        public int? Car_gps { get; set; }
-        public int? Car_touchscreen { get; set; }
-        public int? Car_skyview { get; set; }
-        public int? Car_electrunk { get; set; }
-        public int? Car_cruisecontrol { get; set; }
-        public int? Car_tirepressurealert { get; set; }
-        public int? Car_electricbalance { get; set; }
-        public int? Car_blindalert { get; set; }
-        public int? Car_distancesensor { get; set; }
-        public int? Car_camera360 { get; set; }
-        public int? Car_acrosshillsupport { get; set; }
-        public int? Car_autoairconditioner { get; set; }
+        public string Car_technology { get; set; }
+        public int? Post_car_like { get; set; }
         public PostModel() { }
         public SqlConnection SQL_CONNECTION = new SqlConnection(ConfigurationManager.ConnectionStrings["OldCarApi"].ToString());
 
@@ -84,18 +63,8 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Post_car_detail", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_kpl", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_cond", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_civilcare", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_bodycare", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_anothercare", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_frontpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_leftpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_rightpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_behindpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_inpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_outpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_tirepic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_enginepic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_trunkpic", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_replaceditems", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_date", DBNull.Value);
@@ -104,18 +73,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_mirror", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_seattype", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_sound", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_gps", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_touchscreen", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_skyview", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_electrunk", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_cruisecontrol", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_tirepressurealert", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_electricbalance", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_blindalert", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_distancesensor", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_camera360", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_acrosshillsupport", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_autoairconditioner", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_technology", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 4);
                 SQL_CONNECTION.Open();
                 SqlDataAdapter da = new SqlDataAdapter();
@@ -156,39 +114,18 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Post_car_km", postModel.Post_car_km.HasValue ? postModel.Post_car_km : null);
                 cmd.Parameters.AddWithValue("@Post_car_detail", String.IsNullOrEmpty(postModel.Post_car_detail) ? null : postModel.Post_car_detail);
                 cmd.Parameters.AddWithValue("@Post_car_kpl", postModel.Post_car_kpl.HasValue ? postModel.Post_car_kpl : null);
-                cmd.Parameters.AddWithValue("@Post_car_cond", postModel.Post_car_cond.HasValue ? postModel.Post_car_cond : null);
-                cmd.Parameters.AddWithValue("@Post_car_civilcare", postModel.Post_car_civilcare.HasValue ? postModel.Post_car_civilcare : null);
-                cmd.Parameters.AddWithValue("@Post_car_bodycare", postModel.Post_car_bodycare.HasValue ? postModel.Post_car_bodycare : null);
+                cmd.Parameters.AddWithValue("@Post_car_cond", postModel.Post_car_cond.HasValue ? postModel.Post_car_cond : null);            
                 cmd.Parameters.AddWithValue("@Post_car_anothercare", String.IsNullOrEmpty(postModel.Post_car_anothercare) ? null : postModel.Post_car_anothercare);
                 cmd.Parameters.AddWithValue("@Post_car_frontpic", String.IsNullOrEmpty(postModel.Post_car_frontpic) ? null : postModel.Post_car_frontpic);
-                cmd.Parameters.AddWithValue("@Post_car_leftpic", String.IsNullOrEmpty(postModel.Post_car_leftpic) ? null : postModel.Post_car_leftpic);
-                cmd.Parameters.AddWithValue("@Post_car_rightpic", String.IsNullOrEmpty(postModel.Post_car_rightpic) ? null : postModel.Post_car_rightpic);
-                cmd.Parameters.AddWithValue("@Post_car_behindpic", String.IsNullOrEmpty(postModel.Post_car_behindpic) ? null : postModel.Post_car_behindpic); ;
-                cmd.Parameters.AddWithValue("@Post_car_inpic", String.IsNullOrEmpty(postModel.Post_car_inpic) ? null : postModel.Post_car_inpic);
-                cmd.Parameters.AddWithValue("@Post_car_outpic", String.IsNullOrEmpty(postModel.Post_car_outpic) ? null : postModel.Post_car_outpic);
-                cmd.Parameters.AddWithValue("@Post_car_tirepic", String.IsNullOrEmpty(postModel.Post_car_tirepic) ? null : postModel.Post_car_tirepic);
-                cmd.Parameters.AddWithValue("@Post_car_enginepic", String.IsNullOrEmpty(postModel.Post_car_enginepic) ? null : postModel.Post_car_enginepic);
-                cmd.Parameters.AddWithValue("@Post_car_trunkpic", String.IsNullOrEmpty(postModel.Post_car_trunkpic) ? null : postModel.Post_car_trunkpic);
                 cmd.Parameters.AddWithValue("@Post_car_replaceditems", String.IsNullOrEmpty(postModel.Post_car_replaceditems) ? null : postModel.Post_car_replaceditems);
-                cmd.Parameters.AddWithValue("@Post_car_like", postModel.Post_car_like.HasValue ? postModel.Post_car_like : null);
                 cmd.Parameters.AddWithValue("@Post_car_date", postModel.Post_car_date.HasValue ? postModel.Post_car_date : null);
                 cmd.Parameters.AddWithValue("@Car_camera", String.IsNullOrEmpty(postModel.Car_camera) ? null : postModel.Car_camera);
                 cmd.Parameters.AddWithValue("@Car_doortype", String.IsNullOrEmpty(postModel.Car_doortype) ? null : postModel.Car_doortype);
                 cmd.Parameters.AddWithValue("@Car_mirror", String.IsNullOrEmpty(postModel.Car_mirror) ? null : postModel.Car_mirror);
                 cmd.Parameters.AddWithValue("@Car_seattype", String.IsNullOrEmpty(postModel.Car_seattype) ? null : postModel.Car_seattype);
                 cmd.Parameters.AddWithValue("@Car_sound", String.IsNullOrEmpty(postModel.Car_sound) ? null : postModel.Car_sound);
-                cmd.Parameters.AddWithValue("@Car_gps", postModel.Car_gps.HasValue ? postModel.Car_gps : 0);
-                cmd.Parameters.AddWithValue("@Car_touchscreen", postModel.Car_touchscreen.HasValue ? postModel.Car_touchscreen : 0);
-                cmd.Parameters.AddWithValue("@Car_skyview", postModel.Car_skyview.HasValue ? postModel.Car_skyview : 0);
-                cmd.Parameters.AddWithValue("@Car_electrunk", postModel.Car_electrunk.HasValue ? postModel.Car_electrunk : 0);
-                cmd.Parameters.AddWithValue("@Car_cruisecontrol", postModel.Car_cruisecontrol.HasValue ? postModel.Car_cruisecontrol : 0);
-                cmd.Parameters.AddWithValue("@Car_tirepressurealert", postModel.Car_tirepressurealert.HasValue ? postModel.Car_tirepressurealert : 0);
-                cmd.Parameters.AddWithValue("@Car_electricbalance", postModel.Car_electricbalance.HasValue ? postModel.Car_electricbalance : 0);
-                cmd.Parameters.AddWithValue("@Car_blindalert", postModel.Car_blindalert.HasValue ? postModel.Car_blindalert : 0);
-                cmd.Parameters.AddWithValue("@Car_distancesensor", postModel.Car_distancesensor.HasValue ? postModel.Car_distancesensor : 0);
-                cmd.Parameters.AddWithValue("@Car_camera360", postModel.Car_camera360.HasValue ? postModel.Car_camera360 : 0);
-                cmd.Parameters.AddWithValue("@Car_acrosshillsupport", postModel.Car_acrosshillsupport.HasValue ? postModel.Car_acrosshillsupport : 0);
-                cmd.Parameters.AddWithValue("@Car_autoairconditioner", postModel.Car_autoairconditioner.HasValue ? postModel.Car_autoairconditioner : 0);
+                cmd.Parameters.AddWithValue("@Car_technology", String.IsNullOrEmpty(postModel.Car_technology) ? null : postModel.Car_technology);
+                cmd.Parameters.AddWithValue("@Post_car_like", postModel.Post_car_like.HasValue ? postModel.Post_car_like : null);
                 cmd.Parameters.AddWithValue("@Query", 1);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
@@ -213,7 +150,7 @@ namespace OldCarApi.Models
             {
                 SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Post", SQL_CONNECTION);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Post_id", postModel.Post_id);
+                cmd.Parameters.AddWithValue("@Post_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_customer_id", postModel.Post_customer_id);
                 cmd.Parameters.AddWithValue("@Post_car_id", postModel.Post_car_id.HasValue ? postModel.Post_car_id : null);
                 cmd.Parameters.AddWithValue("@Post_title", String.IsNullOrEmpty(postModel.Post_title) ? null : postModel.Post_title);
@@ -228,38 +165,17 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Post_car_detail", String.IsNullOrEmpty(postModel.Post_car_detail) ? null : postModel.Post_car_detail);
                 cmd.Parameters.AddWithValue("@Post_car_kpl", postModel.Post_car_kpl.HasValue ? postModel.Post_car_kpl : null);
                 cmd.Parameters.AddWithValue("@Post_car_cond", postModel.Post_car_cond.HasValue ? postModel.Post_car_cond : null);
-                cmd.Parameters.AddWithValue("@Post_car_civilcare", postModel.Post_car_civilcare.HasValue ? postModel.Post_car_civilcare : null);
-                cmd.Parameters.AddWithValue("@Post_car_bodycare", postModel.Post_car_bodycare.HasValue ? postModel.Post_car_bodycare : null);
                 cmd.Parameters.AddWithValue("@Post_car_anothercare", String.IsNullOrEmpty(postModel.Post_car_anothercare) ? null : postModel.Post_car_anothercare);
                 cmd.Parameters.AddWithValue("@Post_car_frontpic", String.IsNullOrEmpty(postModel.Post_car_frontpic) ? null : postModel.Post_car_frontpic);
-                cmd.Parameters.AddWithValue("@Post_car_leftpic", String.IsNullOrEmpty(postModel.Post_car_leftpic) ? null : postModel.Post_car_leftpic);
-                cmd.Parameters.AddWithValue("@Post_car_rightpic", String.IsNullOrEmpty(postModel.Post_car_rightpic) ? null : postModel.Post_car_rightpic);
-                cmd.Parameters.AddWithValue("@Post_car_behindpic", String.IsNullOrEmpty(postModel.Post_car_behindpic) ? null : postModel.Post_car_behindpic); ;
-                cmd.Parameters.AddWithValue("@Post_car_inpic", String.IsNullOrEmpty(postModel.Post_car_inpic) ? null : postModel.Post_car_inpic);
-                cmd.Parameters.AddWithValue("@Post_car_outpic", String.IsNullOrEmpty(postModel.Post_car_outpic) ? null : postModel.Post_car_outpic);
-                cmd.Parameters.AddWithValue("@Post_car_tirepic", String.IsNullOrEmpty(postModel.Post_car_tirepic) ? null : postModel.Post_car_tirepic);
-                cmd.Parameters.AddWithValue("@Post_car_enginepic", String.IsNullOrEmpty(postModel.Post_car_enginepic) ? null : postModel.Post_car_enginepic);
-                cmd.Parameters.AddWithValue("@Post_car_trunkpic", String.IsNullOrEmpty(postModel.Post_car_trunkpic) ? null : postModel.Post_car_trunkpic);
                 cmd.Parameters.AddWithValue("@Post_car_replaceditems", String.IsNullOrEmpty(postModel.Post_car_replaceditems) ? null : postModel.Post_car_replaceditems);
-                cmd.Parameters.AddWithValue("@Post_car_like", postModel.Post_car_like.HasValue ? postModel.Post_car_like : null);
                 cmd.Parameters.AddWithValue("@Post_car_date", postModel.Post_car_date.HasValue ? postModel.Post_car_date : null);
                 cmd.Parameters.AddWithValue("@Car_camera", String.IsNullOrEmpty(postModel.Car_camera) ? null : postModel.Car_camera);
                 cmd.Parameters.AddWithValue("@Car_doortype", String.IsNullOrEmpty(postModel.Car_doortype) ? null : postModel.Car_doortype);
                 cmd.Parameters.AddWithValue("@Car_mirror", String.IsNullOrEmpty(postModel.Car_mirror) ? null : postModel.Car_mirror);
                 cmd.Parameters.AddWithValue("@Car_seattype", String.IsNullOrEmpty(postModel.Car_seattype) ? null : postModel.Car_seattype);
                 cmd.Parameters.AddWithValue("@Car_sound", String.IsNullOrEmpty(postModel.Car_sound) ? null : postModel.Car_sound);
-                cmd.Parameters.AddWithValue("@Car_gps", postModel.Car_gps.HasValue ? postModel.Car_gps : null);
-                cmd.Parameters.AddWithValue("@Car_touchscreen", postModel.Car_touchscreen.HasValue ? postModel.Car_touchscreen : null);
-                cmd.Parameters.AddWithValue("@Car_skyview", postModel.Car_skyview.HasValue ? postModel.Car_skyview : null);
-                cmd.Parameters.AddWithValue("@Car_electrunk", postModel.Car_electrunk.HasValue ? postModel.Car_electrunk : null);
-                cmd.Parameters.AddWithValue("@Car_cruisecontrol", postModel.Car_cruisecontrol.HasValue ? postModel.Car_cruisecontrol : null);
-                cmd.Parameters.AddWithValue("@Car_tirepressurealert", postModel.Car_tirepressurealert.HasValue ? postModel.Car_tirepressurealert : null);
-                cmd.Parameters.AddWithValue("@Car_electricbalance", postModel.Car_electricbalance.HasValue ? postModel.Car_electricbalance : null);
-                cmd.Parameters.AddWithValue("@Car_blindalert", postModel.Car_blindalert.HasValue ? postModel.Car_blindalert : null);
-                cmd.Parameters.AddWithValue("@Car_distancesensor", postModel.Car_distancesensor.HasValue ? postModel.Car_distancesensor : null);
-                cmd.Parameters.AddWithValue("@Car_camera360", postModel.Car_camera360.HasValue ? postModel.Car_camera360 : null);
-                cmd.Parameters.AddWithValue("@Car_acrosshillsupport", postModel.Car_acrosshillsupport.HasValue ? postModel.Car_acrosshillsupport : null);
-                cmd.Parameters.AddWithValue("@Car_autoairconditioner", postModel.Car_autoairconditioner.HasValue ? postModel.Car_autoairconditioner : null);
+                cmd.Parameters.AddWithValue("@Car_technology", String.IsNullOrEmpty(postModel.Car_technology) ? null : postModel.Car_technology);
+                cmd.Parameters.AddWithValue("@Post_car_like", postModel.Post_car_like.HasValue ? postModel.Post_car_like : null);
                 cmd.Parameters.AddWithValue("@Query", 2);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
@@ -285,8 +201,7 @@ namespace OldCarApi.Models
             try
             {
                 SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Post", SQL_CONNECTION);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Post_id", ID);
+                cmd.Parameters.AddWithValue("@Post_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_customer_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_title", DBNull.Value);
@@ -301,18 +216,8 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Post_car_detail", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_kpl", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_cond", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_civilcare", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_bodycare", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_anothercare", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_frontpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_leftpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_rightpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_behindpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_inpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_outpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_tirepic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_enginepic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_trunkpic", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_replaceditems", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_date", DBNull.Value);
@@ -321,18 +226,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_mirror", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_seattype", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_sound", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_gps", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_touchscreen", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_skyview", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_electrunk", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_cruisecontrol", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_tirepressurealert", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_electricbalance", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_blindalert", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_distancesensor", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_camera360", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_acrosshillsupport", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_autoairconditioner", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_technology", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 5);
                 SqlDataAdapter da = new SqlDataAdapter();
                 SQL_CONNECTION.Open();
@@ -358,8 +252,7 @@ namespace OldCarApi.Models
             try
             {
                 SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Post", SQL_CONNECTION);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Post_id", ID);
+                cmd.Parameters.AddWithValue("@Post_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_customer_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_title", DBNull.Value);
@@ -374,18 +267,8 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Post_car_detail", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_kpl", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_cond", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_civilcare", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_bodycare", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_anothercare", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_frontpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_leftpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_rightpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_behindpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_inpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_outpic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_tirepic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_enginepic", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_trunkpic", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_replaceditems", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_date", DBNull.Value);
@@ -394,18 +277,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_mirror", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_seattype", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_sound", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_gps", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_touchscreen", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_skyview", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_electrunk", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_cruisecontrol", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_tirepressurealert", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_electricbalance", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_blindalert", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_distancesensor", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_camera360", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_acrosshillsupport", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Car_autoairconditioner", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_technology", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 3);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
