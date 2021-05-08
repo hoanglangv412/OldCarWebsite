@@ -14,6 +14,7 @@
                   v-model="passPost.Post_title"
                   type="text"
                   horizontal
+                  autocomplete="true"
                 />
                 <div role="group" class="form-group form-row">
                   <CCol>
@@ -53,6 +54,7 @@
                     <input
                       class="form-control"
                       v-model.trim="passPost.Post_car_origin"
+                      autocomplete="true"
                   /></CCol>
                   <CCol>
                     <label>Nơi đăng kí biển</label>
@@ -60,6 +62,7 @@
                       class="form-control"
                       v-model="passPost.Post_car_province"
                       list="cityNames"
+                      autocomplete="true"
                   /></CCol>
                   <datalist id="cityNames">
                     <option
@@ -72,24 +75,47 @@
                 <CRow>
                   <CCol>
                     <label>Số km đã đi</label>
-                    <input
-                      class="form-control"
-                      v-model="passPost.Post_car_km"
-                      type="number"
-                      step="1000"
-                      min="0"
-                      max="1000000"
-                  /></CCol>
+                    <div class="row">
+                      <div class="col-2 pr-0">
+                        <input
+                          class="form-control text-center pr-0 pl-0"
+                          value="Trên"
+                          readonly
+                        />
+                      </div>
+                      <div class="col-10 pr-0 pl-0">
+                        <input
+                          class="form-control"
+                          v-model="passPost.Post_car_km"
+                          type="number"
+                          step="1000"
+                          min="0"
+                          max="1000000"
+                        />
+                      </div>
+                    </div>
+                  </CCol>
                   <CCol>
                     <label>Số km đi được trên một lít xăng</label>
-                    <input
-                      class="form-control"
-                      v-model="passPost.Post_car_kpl"
-                      type="number"
-                      step="10"
-                      min="0"
-                      max="500"
-                    />
+                    <div class="row">
+                      <div class="col-2 pr-0">
+                        <input
+                          class="form-control text-center pr-0 pl-0"
+                          value="Trên"
+                          readonly
+                        />
+                      </div>
+                      <div class="col-10 pr-0 pl-0">
+                        <input
+                          class="form-control"
+                          v-model="passPost.Post_car_kpl"
+                          type="number"
+                          step="10"
+                          min="0"
+                          max="500"
+                        />
+                      </div>
+                    </div>
                   </CCol>
                 </CRow>
                 <CRow>
@@ -119,40 +145,60 @@
                 <CRow>
                   <CCol>
                     <label>Độ mới(%)</label>
-                    <input
-                      class="form-control"
-                      v-model="passPost.Post_car_cond"
-                      type="number"
-                      step="10"
-                      min="0"
-                      max="100"
-                    />
+                    <div class="row">
+                      <div class="col-3 pr-0">
+                        <input
+                          class="form-control text-center pr-0 pl-0"
+                          value="Trên"
+                          readonly
+                        />
+                      </div>
+                      <div class="col-9 pr-0 pl-0">
+                        <input
+                          class="form-control"
+                          v-model="passPost.Post_car_cond"
+                          type="number"
+                          step="10"
+                          min="0"
+                          max="100"
+                        />
+                      </div>
+                    </div>
                   </CCol>
                   <CCol>
                     <label>Thông số mâm xe</label>
                     <input
                       class="form-control"
                       v-model="passPost.Post_car_plate"
+                      autocomplete="true"
                   /></CCol>
                   <CCol>
                     <label>Thông số lốp xe</label>
                     <input
                       class="form-control"
                       v-model="passPost.Post_car_tire"
+                      autocomplete="true"
                     />
                   </CCol>
                 </CRow>
                 <CRow>
-                  <CCol col="2">
+                  <CCol col="3">
                     <fieldset>
                       <legend class="h6 pl-2">Màu xe</legend>
                       <CCol class="form-inline">
-                        <v-input-colorpicker
+                        <input
+                          type="color"
+                          id="id_outcolor"
+                          class="form-control w-75"
+                          background-color="light"
+                          v-model="passPost.Post_car_outcolor"
+                        />
+                        <!-- <v-input-colorpicker
                           id="id_outcolor"
                           class="form-control rounded"
                           background-color="light"
                           v-model.trim="passPost.Post_car_outcolor"
-                        />
+                        /> -->
                       </CCol>
                     </fieldset>
                   </CCol>
@@ -207,18 +253,26 @@
                   <CRow>
                     <CCol col="2">
                       <label>Màu nội thất</label>
-                      <v-input-colorpicker
+                      <input
+                        type="color"
+                        id="id_outcolor"
+                        class="form-control"
+                        background-color="light"
+                        v-model="passPost.Post_car_incolor"
+                      />
+                      <!-- <v-input-colorpicker
                         class="form-control rounded"
                         id="id_incolor"
                         v-model.trim="passPost.Post_car_incolor"
                         background-color="light"
-                      />
+                      /> -->
                     </CCol>
                     <CCol>
                       <label>Hệ thống âm thanh</label>
                       <input
                         class="form-control"
                         v-model="passPost.Car_sound"
+                        autocomplete="true"
                       />
                     </CCol>
                     <CCol>
@@ -243,27 +297,31 @@
                     id="cares_0"
                     value="Bảo hiểm thân vỏ"
                   />
-                  <label for="cares_0">Bảo hiểm thân vỏ</label><br />
+                  <label for="cares_0" class="pr-4">Bảo hiểm thân vỏ</label>
 
                   <input
                     type="checkbox"
                     id="cares_1"
                     value="Bảo hiểm trách nhiệm dân sự"
                   />
-                  <label for="cares_1">Bảo hiểm trách nhiệm dân sự</label><br />
+                  <label for="cares_1" class="pr-4"
+                    >Bảo hiểm trách nhiệm dân sự</label
+                  >
 
                   <input
                     type="checkbox"
                     id="cares_2"
                     value="Bảo hiểm vật chất"
                   />
-                  <label for="cares_2">Bảo hiểm vật chất</label><br />
+                  <label for="cares_2" class="pr-4">Bảo hiểm vật chất</label>
                   <input
                     type="checkbox"
                     id="cares_3"
                     value="Bảo hiểm người ngồi trên xe"
                   />
-                  <label for="cares_3">Bảo hiểm người ngồi trên xe</label><br />
+                  <label for="cares_3" class="pr-4"
+                    >Bảo hiểm người ngồi trên xe</label
+                  >
                 </fieldset>
               </CRow>
               <CRow>
@@ -449,13 +507,13 @@ import swal from "sweetalert2";
 export default {
   name: "TheCreateEditCarversion",
   components: {
-    "v-input-colorpicker": InputColorPicker
+    "v-input-colorpicker": InputColorPicker,
   },
   props: {
     passPost: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   mounted() {
     this.getPostcars();
@@ -530,12 +588,12 @@ export default {
         "Đà Nẵng",
         "Hải Phòng",
         "Hà Nội",
-        "TP Hồ Chí Minh"
+        "TP Hồ Chí Minh",
       ],
       cameras: ["Camera lùi", "Camera 180°", "Camera 360°"],
       carMirrors: ["Gương điện", "Gương tay"],
       domain: Domain,
-      horizontal: { label: "col-6", input: "col-6" }
+      horizontal: { label: "col-6", input: "col-6" },
     };
   },
   methods: {
@@ -545,7 +603,13 @@ export default {
       this.photoNames = "";
       for (var i = 0; i < files.length; i++) {
         this.postlist.push(files[i]);
-        this.photoNames += files[i].name + ",";
+        var carSelect = $("#carSelector").val();
+        var folderName = $("#carSelector")
+          .find("option[value=" + carSelect + "]")
+          .text()
+          .replaceAll(" ", "")
+          .replaceAll("\n", "");
+        this.photoNames += folderName + "/" + files[i].name + ",";
         // this.filesToSave.file = files[0];
         //   formData.append("files[" + i + "]", files[i]);
         // console.log("hehe", this.formData.get("files[" + i + "]"));
@@ -553,7 +617,7 @@ export default {
       //   this.passCarverion.Carversion_ManufacturerLogo = files[0].name;
     },
     getPostcars() {
-      axios.get(this.domain + "Car/Get").then(res => {
+      axios.get(this.domain + "Car/Get").then((res) => {
         this.Selectpostcars = res.data;
       });
     },
@@ -567,17 +631,17 @@ export default {
       for (var i = 0; i < 8; i++) {
         $("#replacedItem_" + i + "").prop("checked") == true
           ? (value.Post_car_replaceditems +=
-              $("#replacedItem_" + i + "").val() + ",")
+              $("#replacedItem_" + i + "").val() + ", ")
           : "";
       }
       for (var i = 0; i < 10; i++) {
         $("#technology_" + i + "").prop("checked") == true
-          ? (value.Car_technology += $("#technology_" + i + "").val() + ",")
+          ? (value.Car_technology += $("#technology_" + i + "").val() + ", ")
           : "";
       }
       for (var i = 0; i < 4; i++) {
         $("#cares_" + i + "").prop("checked") == true
-          ? (value.Post_car_anothercare += $("#cares_" + i + "").val() + ",")
+          ? (value.Post_car_anothercare += $("#cares_" + i + "").val() + ", ")
           : "";
       }
       value.Post_car_like = 0;
@@ -597,16 +661,16 @@ export default {
         .replaceAll(" ", "")
         .replaceAll("\n", "");
       console.log("hehehehe", value);
-      axios.post(this.domain + "Post/post", value).then(res => {
+      axios.post(this.domain + "Post/post", value).then((res) => {
         swal
           .fire({
             position: "center",
             icon: res.data.split("-")[0] == "1" ? "success" : "error",
             title: res.data.split("-")[1],
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           })
-          .then(res => {
+          .then((res) => {
             for (var i = 0; i < this.postlist.length; i++) {
               let formData = new FormData();
               formData.append("FilePath", folderName);
@@ -614,10 +678,10 @@ export default {
               axios
                 .post(this.domain + "Post/SaveMultipleFile", formData, {
                   headers: {
-                    "Content-Type": this.filesToSave.type
-                  }
+                    "Content-Type": this.filesToSave.type,
+                  },
                 })
-                .then(response => {
+                .then((response) => {
                   console.log(response);
                 });
               this.$emit("closeModal", false);
@@ -625,7 +689,7 @@ export default {
           });
       });
       // }
-    }
+    },
     // updateClick(value) {
     //   // this.accountname_valid = this.validator(this.passAccount.Account_name);
     //   // this.accountpassword_valid = this.validator(
@@ -650,6 +714,6 @@ export default {
     //   });
     //   // }
     // },
-  }
+  },
 };
 </script>

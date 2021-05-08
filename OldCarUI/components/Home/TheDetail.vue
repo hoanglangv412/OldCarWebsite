@@ -4,154 +4,27 @@
       <CCardHeader>
         <h1>{{ passPost.Post_title }}</h1>
       </CCardHeader>
-      <CCardBody>
-        <CRow>
-          <CCol col="9">
+      <CCardBody class="text-nowrap">
+        <CCard style="border: 0px">
+          <CCardBody class="p-0">
             <CRow>
-              <CCol col="6">
-                <h5>Thông tin người dùng</h5>
-                <table class="table">
+              <CCol
+                ><table class="table">
                   <tr>
-                    <td>Tên xe</td>
+                    <td class="h5">Tên xe</td>
                     <td>{{ carName }}</td>
                   </tr>
                   <tr>
-                    <td>Giá</td>
+                    <td class="h5">Giá</td>
                     <td>{{ formatPrice(passPost.Post_car_price) }}</td>
                   </tr>
                   <tr>
-                    <td>Xuất xứ</td>
-                    <td>{{ passPost.Post_car_origin }}</td>
-                  </tr>
-                  <tr>
-                    <td>Màu nội thất</td>
-                    <td>{{ passPost.Post_car_incolor }}</td>
-                  </tr>
-                  <tr>
-                    <td>Màu xe</td>
-                    <td>{{ passPost.Post_car_outcolor }}</td>
-                  </tr>
-                  <tr>
-                    <td>Thông số lốp xe</td>
-                    <td>{{ passPost.Post_car_tire }}</td>
-                  </tr>
-                  <tr>
-                    <td>Mâm xe</td>
-                    <td>{{ passPost.Post_car_plate }}</td>
-                  </tr>
-                  <tr>
-                    <td>Nơi đăng kí biển</td>
+                    <td class="h5">Địa chỉ</td>
                     <td>{{ passPost.Post_car_province }}</td>
                   </tr>
                   <tr>
-                    <td>Số km đã đi</td>
-                    <td>{{ passPost.Post_car_km }} km</td>
-                  </tr>
-                  <tr>
-                    <td>Số km/lít</td>
-                    <td>{{ passPost.Post_car_detail }}</td>
-                  </tr>
-                  <tr>
-                    <td>Mô tả chi tiết</td>
-                    <td>{{ passPost.Post_car_kpl }} km/lít</td>
-                  </tr>
-                  <tr>
-                    <td>Độ mới xe</td>
-                    <td>{{ passPost.Post_car_cond }}%</td>
-                  </tr>
-                  <tr>
-                    <td>Bảo hiểm dân sự</td>
+                    <td class="h5">Lượt yêu thích</td>
                     <td>
-                      <CBadge
-                        :color="getBadgeColor(passPost.Post_car_civilcare)"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          class="bi bi-check2-circle"
-                          viewBox="0 0 16 16"
-                          v-if="passPost.Post_car_civilcare == true"
-                        >
-                          <path
-                            d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                          />
-                          <path
-                            d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                          />
-                        </svg>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          class="bi bi-file-excel"
-                          viewBox="0 0 16 16"
-                          v-else
-                        >
-                          <path
-                            d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                          />
-                          <path
-                            d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                          />
-                        </svg>
-                      </CBadge>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Bảo hiểm thân vỏ</td>
-                    <td>
-                      <CBadge
-                        :color="getBadgeColor(passPost.Post_car_bodycare)"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          class="bi bi-check2-circle"
-                          viewBox="0 0 16 16"
-                          v-if="passPost.Post_car_bodycare == true"
-                        >
-                          <path
-                            d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                          />
-                          <path
-                            d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                          />
-                        </svg>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          class="bi bi-file-excel"
-                          viewBox="0 0 16 16"
-                          v-else
-                        >
-                          <path
-                            d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                          />
-                          <path
-                            d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                          />
-                        </svg>
-                      </CBadge>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Bảo hiểm khác</td>
-                    <td>{{ passPost.Post_car_anothercare }}</td>
-                  </tr>
-                  <tr>
-                    <td>Các linh kiện đã thay</td>
-                    <td>{{ passPost.Post_car_replaceditems }}</td>
-                  </tr>
-                  <tr>
-                    <td>Lượt yêu thích</td>
-                    <td class="h5">
                       <CBadge color="danger">
                         {{
                           passPost.Post_car_like != null
@@ -173,9 +46,13 @@
                       </CBadge>
                     </td>
                   </tr>
-                </table>
-              </CCol>
-              <CCol col="6">
+                  <tr>
+                    <td class="h5">Ngày đăng</td>
+                    <td>{{ formatDate(passPost.Post_car_date) }}</td>
+                  </tr>
+                </table></CCol
+              >
+              <CCol>
                 <CButton class="p-0" @click="previewPhoto(passPost)">
                   <CImg
                     :src="takePhoto(passPost.Post_car_frontpic)"
@@ -183,591 +60,457 @@
                     class="card-img-top"
                   />
                 </CButton>
-                <h5>Thông số kĩ thuật</h5>
-                <table class="table">
-                  <tr>
-                    <td>Hệ truyền động</td>
-                    <td>{{ passCar.Car_trans }}</td>
-                  </tr>
-                  <tr>
-                    <td>Nhiên liệu</td>
-                    <td>{{ passCar.Car_fuel }}</td>
-                  </tr>
-                  <tr>
-                    <td>Động cơ</td>
-                    <td>{{ passCar.Car_engine }}</td>
-                  </tr>
-                  <tr>
-                    <td>Lực mô men xoắn cực đại</td>
-                    <td>{{ passCar.Car_maxmomen }}</td>
-                  </tr>
-                  <tr>
-                    <td>Vận tốc tối đa</td>
-                    <td>{{ passCar.Car_maxspeed }}</td>
-                  </tr>
-                  <tr>
-                    <td>Công suất tối đa</td>
-                    <td>{{ passCar.Car_maxpower }}</td>
-                  </tr>
-                  <tr>
-                    <td>Trọng tải</td>
-                    <td>{{ passCar.Car_loadweight }}</td>
-                  </tr>
-                  <tr>
-                    <td>Hệ truyền động</td>
-                    <td>{{ passCar.Car_drivetype }}</td>
-                  </tr>
-                  <tr>
-                    <td>Dung tích xi lanh</td>
-                    <td>{{ passCar.Car_cylcapacity }}</td>
-                  </tr>
-                  <tr>
-                    <td>Hệ thống phanh</td>
-                    <td>{{ passCar.Car_brakesystem }}</td>
-                  </tr>
-                  <tr>
-                    <td>Hệ thống nhiên liệu</td>
-                    <td>{{ passCar.Car_fuelsystem }}</td>
-                  </tr>
-                </table>
               </CCol>
             </CRow>
-            <CImg
-              :src="takeSecondPhoto(passPost.Post_car_frontpic)"
-              block
-              class="card-img-top"
-            />
-          </CCol>
-          <CCol col="3">
-            <h5 class="text-left">Kích thước xe</h5>
-            <table class="table text-left">
-              <tr>
-                <td>Kích thước tổng thể</td>
-                <td>{{ passCar.Car_totaldimens }}</td>
-              </tr>
-              <tr>
-                <td>Chiều dài cơ sở</td>
-                <td>{{ passCar.Car_baselength }}</td>
-              </tr>
-              <tr>
-                <td>Bán kính quay vòng</td>
-                <td>{{ passCar.Car_turnradius }}</td>
-              </tr>
-              <tr>
-                <td>Khoảng sáng gầm xe</td>
-                <td>{{ passCar.Car_height }}</td>
-              </tr>
-            </table>
-            <h5>Options</h5>
-            <table class="table">
-              <tr>
-                <td>Số cửa</td>
-                <td>{{ passCar.Car_doors }}</td>
-              </tr>
-              <tr>
-                <td>Số ghế</td>
-                <td>{{ passCar.Car_seats }}</td>
-              </tr>
-              <tr>
-                <td>Số túi khí</td>
-                <td>{{ passCar.Car_airnums }}</td>
-              </tr>
-              <tr>
-                <td>Camera</td>
-                <td>{{ passPost.Car_camera }}</td>
-              </tr>
-              <tr>
-                <td>Loại cửa</td>
-                <td>{{ passPost.Car_doortype }}</td>
-              </tr>
-              <tr>
-                <td>Loại gương</td>
-                <td>{{ passPost.Car_mirror }}</td>
-              </tr>
-              <tr>
-                <td>Loại ghế</td>
-                <td>{{ passPost.Car_seattype }}</td>
-              </tr>
-              <tr>
-                <td>Hệ thống âm thanh</td>
-                <td>{{ passPost.Car_sound }}</td>
-              </tr>
-              <tr>
-                <td>GPS</td>
-                <td>
-                  <CBadge :color="getBadgeColor(passPost.Car_gps)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-circle"
-                      viewBox="0 0 16 16"
-                      v-if="passPost.Car_gps == true"
-                    >
-                      <path
-                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                      />
-                      <path
-                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-file-excel"
-                      viewBox="0 0 16 16"
-                      v-else
-                    >
-                      <path
-                        d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                      />
-                      <path
-                        d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                      />
-                    </svg>
-                  </CBadge>
-                </td>
-              </tr>
-              <tr>
-                <td>Màn hình cảm ứng</td>
-                <td>
-                  <CBadge :color="getBadgeColor(passPost.Car_touchscreen)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-circle"
-                      viewBox="0 0 16 16"
-                      v-if="passPost.Car_touchscreen == true"
-                    >
-                      <path
-                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                      />
-                      <path
-                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-file-excel"
-                      viewBox="0 0 16 16"
-                      v-else
-                    >
-                      <path
-                        d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                      />
-                      <path
-                        d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                      />
-                    </svg>
-                  </CBadge>
-                </td>
-              </tr>
-              <tr>
-                <td>Cửa sổ trời</td>
-                <td>
-                  <CBadge :color="getBadgeColor(passPost.Car_skyview)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-circle"
-                      viewBox="0 0 16 16"
-                      v-if="passPost.Car_skyview == true"
-                    >
-                      <path
-                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                      />
-                      <path
-                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-file-excel"
-                      viewBox="0 0 16 16"
-                      v-else
-                    >
-                      <path
-                        d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                      />
-                      <path
-                        d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                      />
-                    </svg>
-                  </CBadge>
-                </td>
-              </tr>
-              <tr>
-                <td>Cốp điện</td>
-                <td>
-                  <CBadge :color="getBadgeColor(passPost.Car_electrunk)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-circle"
-                      viewBox="0 0 16 16"
-                      v-if="passPost.Car_electrunk == true"
-                    >
-                      <path
-                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                      />
-                      <path
-                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-file-excel"
-                      viewBox="0 0 16 16"
-                      v-else
-                    >
-                      <path
-                        d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                      />
-                      <path
-                        d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                      />
-                    </svg>
-                  </CBadge>
-                </td>
-              </tr>
-              <tr>
-                <td>Kiểm soát hành trình</td>
-                <td>
-                  <CBadge :color="getBadgeColor(passPost.Car_cruisecontrol)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-circle"
-                      viewBox="0 0 16 16"
-                      v-if="passPost.Car_cruisecontrol == true"
-                    >
-                      <path
-                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                      />
-                      <path
-                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-file-excel"
-                      viewBox="0 0 16 16"
-                      v-else
-                    >
-                      <path
-                        d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                      />
-                      <path
-                        d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                      />
-                    </svg>
-                  </CBadge>
-                </td>
-              </tr>
-              <tr>
-                <td>Cảnh báo áp suất lốp</td>
-                <td>
-                  <CBadge
-                    :color="getBadgeColor(passPost.Car_tirepressurealert)"
+          </CCardBody>
+        </CCard>
+
+        <CCard>
+          <CCardBody>
+            <div class="row">
+              <div class="col">
+                <h4>Thông tin người bán cung cấp</h4>
+              </div>
+              <div class="col">
+                <CButton
+                  color="light"
+                  class="float-right"
+                  @click="collapse = !collapse"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-double-down"
+                    viewBox="0 0 16 16"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-circle"
-                      viewBox="0 0 16 16"
-                      v-if="passPost.Car_tirepressurealert == true"
-                    >
-                      <path
-                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                      />
-                      <path
-                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-file-excel"
-                      viewBox="0 0 16 16"
-                      v-else
-                    >
-                      <path
-                        d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                      />
-                      <path
-                        d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                      />
-                    </svg>
-                  </CBadge>
-                </td>
-              </tr>
-              <tr>
-                <td>Hệ thống cân bằng điện tử</td>
-                <td>
-                  <CBadge :color="getBadgeColor(passPost.Car_electricbalance)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-circle"
-                      viewBox="0 0 16 16"
-                      v-if="passPost.Car_electricbalance == true"
-                    >
-                      <path
-                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                      />
-                      <path
-                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-file-excel"
-                      viewBox="0 0 16 16"
-                      v-else
-                    >
-                      <path
-                        d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                      />
-                      <path
-                        d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                      />
-                    </svg>
-                  </CBadge>
-                </td>
-              </tr>
-              <tr>
-                <td>Cảnh báo điểm mù</td>
-                <td>
-                  <CBadge :color="getBadgeColor(passPost.Car_blindalert)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-circle"
-                      viewBox="0 0 16 16"
-                      v-if="passPost.Car_blindalert == true"
-                    >
-                      <path
-                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                      />
-                      <path
-                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-file-excel"
-                      viewBox="0 0 16 16"
-                      v-else
-                    >
-                      <path
-                        d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                      />
-                      <path
-                        d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                      />
-                    </svg>
-                  </CBadge>
-                </td>
-              </tr>
-              <tr>
-                <td>Cảm biến khoảng cách</td>
-                <td>
-                  <CBadge :color="getBadgeColor(passPost.Car_distancesensor)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-circle"
-                      viewBox="0 0 16 16"
-                      v-if="passPost.Car_distancesensor == true"
-                    >
-                      <path
-                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                      />
-                      <path
-                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-file-excel"
-                      viewBox="0 0 16 16"
-                      v-else
-                    >
-                      <path
-                        d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                      />
-                      <path
-                        d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                      />
-                    </svg>
-                  </CBadge>
-                </td>
-              </tr>
-              <tr>
-                <td>Camera 360</td>
-                <td>
-                  <CBadge :color="getBadgeColor(passPost.Car_camera360)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-circle"
-                      viewBox="0 0 16 16"
-                      v-if="passPost.Car_camera360 == true"
-                    >
-                      <path
-                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                      />
-                      <path
-                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-file-excel"
-                      viewBox="0 0 16 16"
-                      v-else
-                    >
-                      <path
-                        d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                      />
-                      <path
-                        d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                      />
-                    </svg>
-                  </CBadge>
-                </td>
-              </tr>
-              <tr>
-                <td>Hỗ trợ khởi hành ngang dốc</td>
-                <td>
-                  <CBadge
-                    :color="getBadgeColor(passPost.Car_acrosshillsupport)"
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    />
+                  </svg>
+                </CButton>
+              </div>
+            </div>
+
+            <CCollapse :show="collapse" class="mt-2">
+              <CRow>
+                <CCol>
+                  <table class="table">
+                    <tr>
+                      <td class="h5">Xuất xứ</td>
+                      <td>{{ passPost.Post_car_origin }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Màu nội thất</td>
+                      <td>
+                        <input
+                          type="color"
+                          v-model="passPost.Post_car_incolor"
+                          disabled
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Màu xe</td>
+                      <td>
+                        <input
+                          type="color"
+                          v-model="passPost.Post_car_outcolor"
+                          disabled
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Số km đã đi</td>
+                      <td>{{ passPost.Post_car_km }} km</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Số km/lít</td>
+                      <td>{{ passPost.Post_car_kpl }} km/lít</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Độ mới xe</td>
+                      <td>{{ passPost.Post_car_cond }}%</td>
+                    </tr>
+                  </table>
+                </CCol>
+                <CCol col="8">
+                  <div
+                    class="list-group"
+                    v-if="passPost.Post_car_replaceditems != undefined"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-circle"
-                      viewBox="0 0 16 16"
-                      v-if="passPost.Car_acrosshillsupport == true"
+                    <a
+                      href="#"
+                      class="list-group-item"
+                      style="color:black"
                     >
-                      <path
-                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                      />
-                      <path
-                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-file-excel"
-                      viewBox="0 0 16 16"
-                      v-else
+                      <h5>Linh kiện đã thay thế</h5>
+                    </a>
+                    <a
+                      href="#"
+                      class="list-group-item list-group-item-action"
+                      v-for="item in passPost.Post_car_replaceditems.split(',')"
+                      :key="item"
                     >
-                      <path
-                        d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                      />
-                      <path
-                        d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                      />
-                    </svg>
-                  </CBadge>
-                </td>
-              </tr>
-              <tr>
-                <td>Điều hòa tự động</td>
-                <td>
-                  <CBadge
-                    :color="getBadgeColor(passPost.Car_autoairconditioner)"
+                      {{ item }}
+                    </a>
+                  </div>
+                </CCol>
+              </CRow>
+              <CRow>
+                <h5>Mô tả chi tiết</h5>
+                <CTextarea
+                  class="w-100"
+                  rows="8"
+                  readonly
+                  v-model="passPost.Post_car_detail"
+                />
+              </CRow>
+            </CCollapse>
+          </CCardBody>
+        </CCard>
+        <CCard>
+          <CCardBody>
+            <div class="row">
+              <div class="col">
+                <h4>Tổng quan</h4>
+              </div>
+              <div class="col">
+                <CButton
+                  color="light"
+                  class="float-right"
+                  @click="collapse3 = !collapse3"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-double-down"
+                    viewBox="0 0 16 16"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-circle"
-                      viewBox="0 0 16 16"
-                      v-if="passPost.Car_autoairconditioner == true"
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    />
+                  </svg>
+                </CButton>
+              </div>
+            </div>
+
+            <CCollapse :show="collapse3" class="mt-2">
+              <CRow>
+                <CCol col="6">
+                  <CImg
+                    :src="takeSecondPhoto(passPost.Post_car_frontpic)"
+                    block
+                    class="card-img-top"
+                  />
+                </CCol>
+                <CCol col="6">
+                  <fieldset class="border rounded">
+                    <legend class="text-left ml-3" style="width: 0">
+                      Kích thước xe
+                    </legend>
+                    <table class="table text-left">
+                      <tr>
+                        <td class="h5">Kích thước tổng thể</td>
+                        <td>{{ passCar.Car_totaldimens }}</td>
+                      </tr>
+                      <tr>
+                        <td class="h5">Chiều dài cơ sở</td>
+                        <td>{{ passCar.Car_baselength }}</td>
+                      </tr>
+                      <tr>
+                        <td class="h5">Bán kính quay vòng</td>
+                        <td>{{ passCar.Car_turnradius }}</td>
+                      </tr>
+                      <tr>
+                        <td class="h5">Khoảng sáng gầm xe</td>
+                        <td>{{ passCar.Car_height }}</td>
+                      </tr>
+                      <tr>
+                        <td class="h5">Số cửa</td>
+                        <td>{{ passCar.Car_doors }}</td>
+                      </tr>
+                      <tr>
+                        <td class="h5">Số ghế</td>
+                        <td>{{ passCar.Car_seats }}</td>
+                      </tr>
+                      <tr>
+                        <td class="h5">Thông số lốp xe</td>
+                        <td>{{ passPost.Post_car_tire }}</td>
+                      </tr>
+                      <tr>
+                        <td class="h5">Mâm xe</td>
+                        <td>{{ passPost.Post_car_plate }}</td>
+                      </tr>
+                    </table>
+                  </fieldset>
+                </CCol>
+              </CRow></CCollapse
+            >
+          </CCardBody>
+        </CCard>
+        <CCard>
+          <CCardBody>
+            <div class="row">
+              <div class="col">
+                <h4>Thông số kĩ thuật</h4>
+              </div>
+              <div class="col">
+                <CButton
+                  color="light"
+                  class="float-right"
+                  @click="collapse1 = !collapse1"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-double-down"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    />
+                  </svg>
+                </CButton>
+              </div>
+            </div>
+
+            <CCollapse :show="collapse1" class="mt-2">
+              <table class="table">
+                <tr>
+                  <td class="h5">Hệ truyền động</td>
+                  <td>{{ passCar.Car_trans }}</td>
+                </tr>
+                <tr>
+                  <td class="h5">Nhiên liệu</td>
+                  <td>{{ passCar.Car_fuel }}</td>
+                </tr>
+                <tr>
+                  <td class="h5">Động cơ</td>
+                  <td>{{ passCar.Car_engine }}</td>
+                </tr>
+                <tr>
+                  <td class="h5">Lực mô men xoắn cực đại</td>
+                  <td>{{ passCar.Car_maxmomen }}</td>
+                </tr>
+                <tr>
+                  <td class="h5">Vận tốc tối đa</td>
+                  <td>{{ passCar.Car_maxspeed }}</td>
+                </tr>
+                <tr>
+                  <td class="h5">Công suất tối đa</td>
+                  <td>{{ passCar.Car_maxpower }}</td>
+                </tr>
+                <tr>
+                  <td class="h5">Trọng tải</td>
+                  <td>{{ passCar.Car_loadweight }}</td>
+                </tr>
+                <tr>
+                  <td class="h5">Hệ truyền động</td>
+                  <td>{{ passCar.Car_drivetype }}</td>
+                </tr>
+                <tr>
+                  <td class="h5">Dung tích xi lanh</td>
+                  <td>{{ passCar.Car_cylcapacity }}</td>
+                </tr>
+                <tr>
+                  <td class="h5">Hệ thống phanh</td>
+                  <td>{{ passCar.Car_brakesystem }}</td>
+                </tr>
+              </table>
+            </CCollapse>
+          </CCardBody>
+        </CCard>
+        <CCard>
+          <CCardBody>
+            <div class="row">
+              <div class="col">
+                <h4>Trang bị</h4>
+              </div>
+              <div class="col">
+                <CButton
+                  color="light"
+                  class="float-right"
+                  @click="collapse2 = !collapse2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-double-down"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    />
+                  </svg>
+                </CButton>
+              </div>
+            </div>
+
+            <CCollapse :show="collapse2" class="mt-2">
+              <CRow>
+                <CCol col="7"
+                  ><table class="table">
+                    <tr>
+                      <td class="h5">Số túi khí</td>
+                      <td>{{ passCar.Car_airnums }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Camera</td>
+                      <td>{{ passPost.Car_camera }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Loại cửa</td>
+                      <td>{{ passPost.Car_doortype }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Loại gương</td>
+                      <td>{{ passPost.Car_mirror }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Loại ghế</td>
+                      <td>{{ passPost.Car_seattype }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Hệ thống âm thanh</td>
+                      <td>{{ passPost.Car_sound }}</td>
+                    </tr>
+                  </table></CCol
+                >
+                <CCol col="5">
+                  <table
+                    v-if="passPost.Car_technology != undefined"
+                    class="table"
+                  >
+                    <tr
+                      v-for="item in passPost.Car_technology.split(',')"
+                      :key="item"
                     >
-                      <path
-                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
-                      />
-                      <path
-                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-file-excel"
-                      viewBox="0 0 16 16"
-                      v-else
+                      <td class="h5">{{ item }}</td>
+                      <td>
+                        <CBadge color="success" v-if="item != ''">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-check2-circle"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
+                            />
+                            <path
+                              d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
+                            />
+                          </svg>
+                        </CBadge>
+                      </td>
+                    </tr>
+                  </table>
+                </CCol>
+              </CRow>
+            </CCollapse>
+          </CCardBody>
+        </CCard>
+        <CCard>
+          <CCardBody>
+            <div class="row">
+              <div class="col">
+                <h4>Bảo hiểm</h4>
+              </div>
+              <div class="col">
+                <CButton
+                  color="light"
+                  class="float-right"
+                  @click="collapse4 = !collapse4"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-double-down"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    />
+                  </svg>
+                </CButton>
+              </div>
+            </div>
+
+            <CCollapse :show="collapse4" class="mt-2">
+              <CRow>
+                <CCol>
+                  <table
+                    v-if="passPost.Post_car_anothercare != undefined"
+                    class="table"
+                  >
+                    <tr
+                      v-for="item in passPost.Post_car_anothercare.split(',')"
+                      :key="item"
                     >
-                      <path
-                        d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"
-                      />
-                      <path
-                        d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-                      />
-                    </svg>
-                  </CBadge>
-                </td>
-              </tr></table
-          ></CCol>
-        </CRow>
+                      <td class="h5">{{ item }}</td>
+                      <td>
+                        <CBadge color="success" v-if="item != ''">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-check2-circle"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"
+                            />
+                            <path
+                              d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"
+                            />
+                          </svg>
+                        </CBadge>
+                      </td>
+                    </tr>
+                  </table>
+                </CCol>
+              </CRow>
+            </CCollapse>
+          </CCardBody>
+        </CCard>
       </CCardBody>
     </CForm>
     <!-- Modal preview ảnh -->
@@ -778,11 +521,26 @@
     </CModal>
   </div>
 </template>
+<style>
+table td,
+th {
+  font-size: 1rem;
+  border-width: 0px !important;
+}
+.modal-footer {
+  display: none !important;
+  background-color: black;
+}
+.text-nowrap {
+  white-space: nowrap !important;
+}
+</style>
 <script>
 import axios from "axios";
 import swal from "sweetalert2";
 import { Domain } from "@/constant/constant";
 import ThePreviewPhoto from "./ThePreviewPhoto";
+import Table from "~/pages/base/Table.vue";
 
 export default {
   name: "TheDetail",
@@ -798,11 +556,25 @@ export default {
       ThePreviewPhoto,
       darkModal: false,
       passPhoto: {},
+      collapse: false,
+      collapse1: false,
+      collapse2: false,
+      collapse3: false,
+      collapse4: false,
+      technologyName: [],
     };
   },
   methods: {
+    getTechnologyName(value) {
+      return value.split(",");
+    },
+    formatDate(value) {
+      if (value != undefined) {
+        return value.substring(0, 10);
+      }
+    },
     formatPrice(value) {
-      if (value) {
+      if (value != undefined) {
         var returnVal = value.toLocaleString("it-IT", {
           style: "currency",
           currency: "VND",
@@ -811,19 +583,21 @@ export default {
       }
     },
     previewPhoto(value) {
-      if (value) {
+      if (value != undefined) {
         (this.darkModal = true),
-          (this.passPhoto = value.Post_car_frontpic.split("~").slice(0));
+          (this.passPhoto = value.Post_car_frontpic.split(",").slice(0));
       }
     },
     getBadgeColor(value) {
-      return value == true ? "success" : "dark";
+      if (value != undefined) {
+        return value.includes("GPS") ? "success" : "dark";
+      }
     },
     takeSecondPhoto(value) {
-      if (value) {
+      if (value != undefined) {
         var images;
         try {
-          images = require("@/assets/OldCarPhoto/" + value.split("~")[1]);
+          images = require("@/assets/OldCarPhoto/" + value.split(",")[1]);
         } catch (e) {
           images = require("@/assets/img/nophoto.png");
         }
@@ -831,10 +605,10 @@ export default {
       }
     },
     takePhoto(value) {
-      if (value) {
+      if (value != undefined) {
         var images;
         try {
-          images = require("@/assets/OldCarPhoto/" + value.split("~")[0]);
+          images = require("@/assets/OldCarPhoto/" + value.split(",")[0]);
         } catch (e) {
           images = require("@/assets/img/nophoto.png");
         }
@@ -842,6 +616,5 @@ export default {
       }
     },
   },
-  mounted() {},
 };
 </script>

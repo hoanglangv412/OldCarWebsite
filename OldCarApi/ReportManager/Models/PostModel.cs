@@ -66,7 +66,6 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Post_car_anothercare", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_frontpic", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_replaceditems", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_date", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_camera", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_doortype", DBNull.Value);
@@ -74,6 +73,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_seattype", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_sound", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_technology", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 4);
                 SQL_CONNECTION.Open();
                 SqlDataAdapter da = new SqlDataAdapter();
@@ -201,7 +201,8 @@ namespace OldCarApi.Models
             try
             {
                 SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Post", SQL_CONNECTION);
-                cmd.Parameters.AddWithValue("@Post_id", DBNull.Value);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Post_id", ID);
                 cmd.Parameters.AddWithValue("@Post_customer_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_title", DBNull.Value);
@@ -219,7 +220,6 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Post_car_anothercare", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_frontpic", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_replaceditems", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_date", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_camera", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_doortype", DBNull.Value);
@@ -227,6 +227,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_seattype", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_sound", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_technology", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 5);
                 SqlDataAdapter da = new SqlDataAdapter();
                 SQL_CONNECTION.Open();
@@ -252,7 +253,8 @@ namespace OldCarApi.Models
             try
             {
                 SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Post", SQL_CONNECTION);
-                cmd.Parameters.AddWithValue("@Post_id", DBNull.Value);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Post_id", ID);
                 cmd.Parameters.AddWithValue("@Post_customer_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_title", DBNull.Value);
@@ -270,7 +272,6 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Post_car_anothercare", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_frontpic", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_replaceditems", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_date", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_camera", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_doortype", DBNull.Value);
@@ -278,6 +279,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_seattype", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_sound", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_technology", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 3);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();

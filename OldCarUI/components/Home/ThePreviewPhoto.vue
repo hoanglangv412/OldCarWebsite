@@ -5,15 +5,14 @@
         <CCardBody>
           <carousel
             :per-page="1"
-            :paginationEnabled="true"
-            paginationPosition="bottom-overlay"
+            :paginationEnabled="false"
             :navigationEnabled="true"
             :navigationNextLabel="Next"
             :navigationPrevLabel="Prev"
             :mouseDrag="false"
           >
             <slide v-for="photoLink in passPhoto" :key="photoLink">
-              <CImg :src="takePhoto(photoLink)" block />
+              <CImg :src="takePhoto(photoLink)" block  class="w-100 h-100"/>
             </slide>
           </carousel>
         </CCardBody>
@@ -22,11 +21,6 @@
   </div>
 </template>
 <style scoped>
-.VueCarousel-slide img {
-  height: 500px !important;
-  width: auto !important;
-  margin: 0 auto;
-}
 </style>
 <script>
 import { Carousel, Slide } from "vue-carousel";

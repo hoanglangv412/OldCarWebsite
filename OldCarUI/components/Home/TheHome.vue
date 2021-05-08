@@ -2,7 +2,14 @@
   <div>
     <div class="TheHome" v-if="dataPosts && dataPosts.length > 0">
       <CRow>
-        <CCol v-for="post in dataPosts" :key="post.Post_id" col="12" lg="3" md="4" sm="5">
+        <CCol
+          v-for="post in dataPosts"
+          :key="post.Post_id"
+          col="12"
+          lg="3"
+          md="4"
+          sm="5"
+        >
           <div class="card w-100">
             <CButton class="p-0" @click="previewPhoto(post)">
               <CImg
@@ -12,7 +19,7 @@
               />
             </CButton>
             <div class="card-body">
-              <h4 class="card-title h-100" style="min-height:80px">
+              <h4 class="card-title h-100" style="min-height: 80px">
                 {{ post.Post_title }}
               </h4>
               <div class="card-text border-top pt-2">
@@ -62,12 +69,7 @@
         :show.sync="infoModal"
       >
         <div class="p-0 rounded">
-          <TheDetail
-            :passPost="passPost"
-            :carName="title"
-            :passCar="passCar"
-            @takePhoto="takePhoto"
-          />
+          <TheDetail :passPost="passPost" :carName="title" :passCar="passCar" />
         </div>
       </CModal>
     </div>
@@ -107,7 +109,7 @@ export default {
       darkModal: false,
       infoModal: false,
       passPhoto: {},
-      passCar:{},
+      passCar: {},
       title: null,
       domain: Domain,
       detailTitle: null,
@@ -128,7 +130,7 @@ export default {
       if (value) {
         var images;
         try {
-          images = require("@/assets/OldCarPhoto/" + value.split("~")[0]);
+          images = require("@/assets/OldCarPhoto/" + value.split(",")[0]);
         } catch (e) {
           images = require("@/assets/img/nophoto.png");
         }
