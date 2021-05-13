@@ -23,19 +23,23 @@ export default {
       items: [
         {
           text: "Post Manager",
-          active:true
+          active: true,
         },
       ],
     };
   },
   mounted() {
-    this.getPost();
+    if (this.$auth.loggedIn) {
+      this.getPost(this.$auth.user);
+    }
   },
   methods: {
-    getPost() {
-      axios.get(this.domain + "Post/Get").then((res) => {
-        this.dataPosts = res.data;
-      });
+    getPost(value) {
+      axios
+        .get(this.domain + "Post/SelectDataByCustomerId/" + value)
+        .then((res) => {
+          this.dataPosts = res.data;
+        });
     },
   },
 };

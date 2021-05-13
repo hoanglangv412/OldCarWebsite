@@ -7,19 +7,22 @@
 <script>
 import TheCustomer from "~/components/customer/TheCustomer";
 import axios from "axios";
+import { Domain } from "@/constant/constant";
 export default {
   name: "Customer",
   components: {
     TheCustomer,
+    Domain,
   },
   data() {
     return {
       dataCustomers: [],
+      domain: Domain,
     };
   },
   methods: {
     getData() {
-      axios.get("https://localhost:44343/Api/Customer/").then((res) => {
+      axios.get(this.domain + "Customer/Get").then((res) => {
         this.dataCustomers = res.data;
       });
     },

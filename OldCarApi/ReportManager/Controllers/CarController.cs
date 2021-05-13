@@ -84,5 +84,23 @@ namespace OldCarApi.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        [Route("api/Car/Selectalldataforcombobox/")]
+        [HttpGet]
+        public IHttpActionResult Selectalldataforcombobox()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = carModel.Selectalldataforcombobox();
+
+                return Ok(dt);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.ToString());
+            }
+        }
     }
 }

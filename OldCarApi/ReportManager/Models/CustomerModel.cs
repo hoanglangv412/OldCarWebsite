@@ -107,11 +107,11 @@ namespace OldCarApi.Models
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
 
-                return "1-Thêm thành công";
+                return "1-Đăng kí thành công";
             }
             catch (Exception ex)
             {
-                return "2-Lỗi khi thêm";
+                return "2-Lỗi khi đăng kí";
             }
             finally
             {
@@ -232,6 +232,84 @@ namespace OldCarApi.Models
             }
         }
         #endregion DeleteData
+
+        #region SelectDataByEmail
+        public DataTable SelectDataByEmail(string email)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Customer", SQL_CONNECTION);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Customer_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Customer_avatar", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Customer_name", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Customer_birth", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Customer_email", email);
+                cmd.Parameters.AddWithValue("@Customer_address", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Customer_phone", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Customer_begindate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Account_name", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Account_password", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Account_role", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Account_lastLogin", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Query", 7);
+                SqlDataAdapter da = new SqlDataAdapter();
+                SQL_CONNECTION.Open();
+                da.SelectCommand = cmd;
+                da.Fill(dt);
+                return dt;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                SQL_CONNECTION.Close();
+            }
+        }
+        #endregion
+
+        #region SelectDataByEmail
+        public DataTable SelectDataByNumber(string number)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Customer", SQL_CONNECTION);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Customer_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Customer_avatar", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Customer_name", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Customer_birth", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Customer_email", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Customer_address", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Customer_phone", number);
+                cmd.Parameters.AddWithValue("@Customer_begindate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Account_name", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Account_password", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Account_role", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Account_lastLogin", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Query", 7);
+                SqlDataAdapter da = new SqlDataAdapter();
+                SQL_CONNECTION.Open();
+                da.SelectCommand = cmd;
+                da.Fill(dt);
+                return dt;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                SQL_CONNECTION.Close();
+            }
+        }
+        #endregion
 
         #region
         public CustomerModel checkExist(string username, string password)

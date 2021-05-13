@@ -63,7 +63,7 @@ namespace OldCarApi.Models
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
 
-                return "1-Thêm thành công";
+                return "1-Tạo thành công";
             }
             catch (Exception ex)
             {

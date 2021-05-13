@@ -2,14 +2,13 @@
   <div class="TheCarversion">
     <CCard>
       <CCardHeader>
-        <h3>Quản lí dòng xe</h3>
+        <h3>Quản lí bài đăng</h3>
       </CCardHeader>
       <CCardBody class="text">
         <CButton
           color="info"
           to="/Post/CreateAndEditPost"
           class="m-2 btn-add float-right mr-5"
-          @click="addClick()"
         >
           + Thêm
         </CButton>
@@ -40,12 +39,12 @@
         >
           <template #Post_car_incolor="{ item }">
             <td>
-              <input type="color" v-model="item.Post_incolor" disabled/>
+              <input type="color" v-model="item.Post_incolor" disabled />
             </td>
           </template>
           <template #Post_car_outcolor="{ item }">
             <td>
-              <input type="color" v-model="item.Post_outcolor" disabled/>
+              <input type="color" v-model="item.Post_outcolor" disabled />
             </td>
           </template>
           <template #Post_car_date="{ item }">
@@ -80,6 +79,13 @@
               {{ formatPrice(item.Post_car_price) }}
             </td>
           </template>
+          <template #Post_car_sold="{ item }">
+            <td>
+              <CBadge :color="getBadgeColor(item.Post_car_sold)">
+                {{ getSold(item.Post_car_sold) }}
+              </CBadge>
+            </td>
+          </template>
           <template #method="{ item }">
             <td
               class="py-2 bg-white"
@@ -89,7 +95,6 @@
                 color="warning"
                 class="btn-update"
                 :to="`/Post/${item.Post_id}`"
-                @click="updateClick(item.Post_id)"
               >
                 <CIcon :content="$options.freeSet.cilPencil" />
               </CButton>
@@ -101,7 +106,7 @@
                 <CIcon :content="$options.freeSet.cilTrash" />
               </CButton>
               <CButton
-                class="btn btn-info float-right"
+                class="btn btn-outline-info"
                 @click="viewDetail(item)"
               >
                 Chi tiết
@@ -117,6 +122,8 @@
         >
           <div class="p-0 rounded">
             <TheDetail
+              :contactFlag="contactFlag"
+              :buyFlag="buyFlag"
               :passPost="passPost"
               :carName="title"
               :passCar="passCar"
@@ -152,6 +159,8 @@ export default {
   components: { TheDetail },
   data() {
     return {
+      contactFlag: false,
+      buyFlag: true,
       postItem: [
         { key: "Post_id", label: "ID", _style: "min-width:100px;" },
         // {
@@ -201,7 +210,7 @@ export default {
         // },
         {
           key: "Post_car_province",
-          label: "Nơi đăng kí biển",
+          label: "Địa chỉ",
           _style: "min-width:100px;",
         },
         {
@@ -385,6 +394,11 @@ export default {
         //   _style: "min-width:100px;",
         // },
         {
+          key: "Post_car_sold",
+          label: "Đã bán",
+          _style: "min-width:100px;",
+        },
+        {
           key: "method",
           label: "Phương thức",
           _style:
@@ -412,9 +426,15 @@ export default {
       .attr("placeholder", "Nhập từ khóa tìm kiếm");
   },
   methods: {
+    getBadgeColor(value) {
+      return value ? "danger" : "success";
+    },
+    getSold(value) {
+      return value ? "Đã bán" : "Chưa bán";
+    },
     formatDate(value) {
       if (value != undefined) {
-        return value.substring(0,10);
+        return value.substring(0, 10);
       }
     },
     formatPrice(value) {
@@ -424,26 +444,6 @@ export default {
           currency: "VND",
         });
         return returnVal;
-      }
-    },
-    getRole(value) {
-      if (value != undefined) {
-        return value == "0"
-          ? "Standard"
-          : value == "1"
-          ? "Advance"
-          : "Full option";
-      }
-    },
-    takePhoto(value) {
-      if (value != undefined) {
-        var images;
-        try {
-          images = require("@/assets/OldCarPhoto/" + value);
-        } catch (e) {
-          images = require("@/assets/img/nophoto.png");
-        }
-        return images;
       }
     },
     viewDetail(value) {

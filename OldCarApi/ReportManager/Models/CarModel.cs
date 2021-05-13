@@ -89,6 +89,56 @@ namespace OldCarApi.Models
         }
         #endregion Selectalldata
 
+        #region SelectalldataFORCOMBOBOX
+        public DataTable Selectalldataforcombobox()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Car", SQL_CONNECTION);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Car_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_carversion_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_trans", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_fuel", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_engine", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_seats", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_maxmomen", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_maxspeed", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_maxpower", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_loadweight", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_doors", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_drivetype", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_totaldimens", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_baselength", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_turnradius", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_height", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_cylcapacity", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_brakesystem", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_airnums", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_acceleration", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_handbrake", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_cityfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Query", 7);
+                SQL_CONNECTION.Open();
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                SQL_CONNECTION.Close();
+            }
+
+            return dt;
+        }
+        #endregion Selectalldata
         #region InsertData
         public string Insertdata(CarModel carModel)
         {

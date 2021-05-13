@@ -20,8 +20,6 @@
     </CCol>
   </div>
 </template>
-<style scoped>
-</style>
 <script>
 import { Carousel, Slide } from "vue-carousel";
 

@@ -69,6 +69,24 @@ namespace OldCarApi.Controllers
             }
         }
 
+        [Route("api/Carversion/SelectDataByManufacturerName/{ID}")]
+        [HttpGet]
+        public IHttpActionResult SelectDataByManufacturerName(string ID)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = carversionModel.SelectDataBySearchValue(ID);
+
+                return Ok(dt);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.ToString());
+            }
+        }
+
 
         #region SavePhoto
         [Route("api/Carversion/SaveFile")]
@@ -84,13 +102,6 @@ namespace OldCarApi.Controllers
                     var postedPhoto = httpRequest.Files[i];
                     postedPhoto.SaveAs(folder_from_config + folderName[i] + "\\" + postedPhoto.FileName);
                 }
-                //foreach (var item in httpRequest.Params["FilePath"].Split('~'))
-                //{
-                //    if(item != "")
-                //    {
-
-                //    }
-                //}
                 return Ok("1-Lưu thành công");
             }
             catch (Exception ex)

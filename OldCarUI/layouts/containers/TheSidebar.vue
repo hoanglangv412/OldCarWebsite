@@ -1,27 +1,33 @@
 <template>
-  <CSidebar fixed :minimize="minimize" :show.sync="show">
-    <CSidebarBrand
-      :img-full="{
-        width: 118,
-        height: 46,
-        alt: 'Logo',
-        src: 'img/brand/coreui-base-white.svg',
-      }"
-      :img-minimized="{
-        width: 118,
-        height: 46,
-        alt: 'Logo',
-        src: 'img/brand/coreui-signet-white.svg',
-      }"
-      :wrapped-in-link="{ href: 'https://coreui.io/', target: '_blank' }"
-    />
-    <CRenderFunction flat :content-to-render="navAdmin" v-if="Role == 0" />
+  <CSidebar
+    fixed
+    :minimize="minimize"
+    :show.sync="show"
+    style="background-color: #303c54"
+  >
+    <CSidebarBrand>
+      <CButton to="/Home/Home">
+        <img src="@/assets/img/logobrand.jpg" class="c-avatar-img" />
+      </CButton>
+    </CSidebarBrand>
     <CRenderFunction
+      style="background-color: #263047"
+      flat
+      :content-to-render="navAdmin"
+      v-if="Role == 0 && this.$auth.loggedIn"
+    />
+    <CRenderFunction
+      style="background-color: #263047"
       flat
       :content-to-render="navCustomer"
-      v-else-if="Role == 1"
+      v-else-if="Role == 1 && this.$auth.loggedIn"
     />
-    <CRenderFunction flat :content-to-render="navNormaluser" v-else />
+    <CRenderFunction
+      flat
+      :content-to-render="navNormaluser"
+      style="background-color: #263047"
+      v-else
+    />
     <CSidebarMinimizer
       class="d-md-down-none"
       @click.native="minimize = !minimize"

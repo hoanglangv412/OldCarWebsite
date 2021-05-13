@@ -3,14 +3,18 @@
     <CRow>
       <CCol md="8">
         <CForm class="form-insert-update">
-          <CCardBody>
+          <CCardBody v-if="registerFlag">
             <CInput
-              @keydown.space.prevent
+              type="text"
+              v-model.trim="registForm.Customer_id"
+              hidden
+            />
+            <CInput
               type="text"
               placeholder="Nhập họ tên"
               label="Họ tên"
               horizontal
-              v-if="registerFlag"
+              v-model.trim="registForm.Customer_name"
             />
             <CInput
               @keydown.space.prevent
@@ -18,7 +22,7 @@
               label="Ngày sinh"
               placeholder=""
               horizontal
-              v-if="registerFlag"
+              v-model.trim="registForm.Customer_birth"
             />
             <CInput
               @keydown.space.prevent
@@ -26,24 +30,50 @@
               placeholder="Nhập email"
               label="Email"
               horizontal
-              v-if="registerFlag"
+              v-model.trim="registForm.Customer_email"
             />
             <CInput
-              @keydown.space.prevent
               type="text"
               label="Address"
               placeholder="Nhập địa chỉ"
+              list="cityNames"
               horizontal
-              v-if="registerFlag"
+              v-model.trim="registForm.Customer_address"
             />
+            <datalist id="cityNames">
+              <option
+                v-for="item in cityNames"
+                :key="item"
+                :value="item"
+              ></option>
+            </datalist>
             <CInput
               @keydown.space.prevent
               type="text"
               label="Điện thoại"
               placeholder="Nhập số điện thoại"
+              v-model.trim="registForm.Customer_phone"
               horizontal
-              v-if="registerFlag"
             />
+
+            <CInput
+              @keydown.space.prevent
+              type="text"
+              placeholder="Tài khoản"
+              label="Tên tài khoản"
+              horizontal
+              v-model.trim="registForm.Account_name"
+            />
+            <CInput
+              @keydown.space.prevent
+              type="password"
+              label="Mật khẩu"
+              placeholder="Mật khẩu"
+              horizontal
+              v-model.trim="registForm.Account_password"
+            />
+          </CCardBody>
+          <CCardBody v-else>
             <CInput
               @keydown.space.prevent
               type="text"
@@ -62,7 +92,14 @@
             />
           </CCardBody>
           <CCardFooter class="text-center">
-            <CButton color="info" @click="submitForm(userInfo)">
+            <CButton
+              color="info"
+              @click="registerForm(registForm)"
+              v-if="registerFlag"
+            >
+              {{ buttonText }}
+            </CButton>
+            <CButton color="info" @click="submitForm(userInfo)" v-else>
               {{ buttonText }}
             </CButton>
           </CCardFooter>
@@ -76,13 +113,17 @@
     </CRow>
   </div>
 </template>
-
+<style>
+label {
+  color: black;
+}
+</style>
 <script>
 import axios from "axios";
 import swal from "sweetalert2";
 export default {
   name: "TheSignin",
-  props: ["submitForm", "buttonText", "registerFlag"],
+  props: ["submitForm", "buttonText", "registerFlag","registerForm"],
   data() {
     return {
       userInfo: {
@@ -90,6 +131,85 @@ export default {
         Password: "",
         grant_type: "password",
       },
+      registForm: {
+        Customer_id: null,
+        Customer_avatar: "",
+        Customer_name: "",
+        Customer_birth: "",
+        Customer_email: "",
+        Customer_address: "",
+        Customer_phone: "",
+        Customer_begindate: "",
+        Account_name: "",
+        Account_password: "",
+        Account_role: "",
+        Account_lastLogin: "",
+      },
+      cityNames: [
+        "An Giang",
+        "Bà Rịa - Vũng Tàu",
+        "Bắc Giang",
+        "Bắc Kạn",
+        "Bạc Liêu",
+        "Bắc Ninh",
+        "Bến Tre",
+        "Bình Định",
+        "Bình Dương",
+        "Bình Phước",
+        "Bình Thuận",
+        "Cà Mau",
+        "Cao Bằng",
+        "Đắk Lắk",
+        "Đắk Nông",
+        "Điện Biên",
+        "Đồng Nai",
+        "Đồng Tháp",
+        "Gia Lai",
+        "Hà Giang",
+        "Hà Nam",
+        "Hà Tĩnh",
+        "Hải Dương",
+        "Hậu Giang",
+        "Hòa Bình",
+        "Hưng Yên",
+        "Khánh Hòa",
+        "Kiên Giang",
+        "Kon Tum",
+        "Lai Châu",
+        "Lâm Đồng",
+        "Lạng Sơn",
+        "Lào Cai",
+        "Long An",
+        "Nam Định",
+        "Nghệ An",
+        "Ninh Bình",
+        "Ninh Thuận",
+        "Phú Thọ",
+        "Quảng Bình",
+        "Quảng Nam",
+        "Quảng Ngãi",
+        "Quảng Ninh",
+        "Quảng Trị",
+        "Sóc Trăng",
+        "Sơn La",
+        "Tây Ninh",
+        "Thái Bình",
+        "Thái Nguyên",
+        "Thanh Hóa",
+        "Thừa Thiên Huế",
+        "Tiền Giang",
+        "Trà Vinh",
+        "Tuyên Quang",
+        "Vĩnh Long",
+        "Vĩnh Phúc",
+        "Yên Bái",
+        "Phú Yên",
+        "Cần Thơ",
+        "Đà Nẵng",
+        "Hải Phòng",
+        "Hà Nội",
+        "TP Hồ Chí Minh",
+      ],
       selected: [], // Must be an array reference!
       show: true,
       horizontal: { label: "col-3", input: "col-9" },

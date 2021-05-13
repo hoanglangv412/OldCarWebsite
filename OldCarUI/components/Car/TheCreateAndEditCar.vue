@@ -2,6 +2,7 @@
   <div>
     <CCol md="12">
       <CForm class="form-insert-update">
+        {{ passCar }}
         <CCardBody class="text-nowrap">
           <CRow>
             <CCol col="12" md="12" lg="6" sm="12">
@@ -15,7 +16,9 @@
                       v-model="passCar.Car_carversion_id"
                     >
                       <option
-                        v-for="item in Carversions"
+                        v-for="item in passCar.Car_id == 0
+                          ? Carversions
+                          : CarversionsUpdate"
                         :key="item.Carversion_id"
                         :value="item.Carversion_id"
                       >
@@ -94,25 +97,41 @@
                 <CRow>
                   <CCol>
                     <label>Vận tốc tối đa</label>
-                    <input
-                      class="form-control"
-                      placeholder="(km/h)"
-                      v-model.trim="passCar.Car_maxspeed"
-                  /></CCol>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model.trim="passCar.Car_maxspeed"
+                      />
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2"
+                          >km/h</span
+                        >
+                      </div>
+                    </div></CCol
+                  >
                   <CCol>
                     <label>Tăng tốc</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model.trim="passCar.Car_acceleration"
-                  /></CCol>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model.trim="passCar.Car_acceleration"
+                      />
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2"
+                          >0-100km/h</span
+                        >
+                      </div>
+                    </div></CCol
+                  >
                 </CRow>
               </fieldset>
               <fieldset class="border p-4">
                 <legend style="width: 0">Hệ thống phanh</legend>
                 <CRow>
                   <CCol>
-                    <label>Hệ thống phanh chân</label>
+                    <label>Hệ thống phanh chân(Trước/Sau)</label>
                     <select
                       class="custom-select form-control"
                       v-model.trim="passCar.Car_brakesystem"
@@ -158,21 +177,27 @@
                           class="form-control"
                           placeholder="Dài"
                           id="idlength"
-                          :value="[passLength != '[object Object]' ? passLength : '']"
+                          :value="[
+                            passLength != '[object Object]' ? passLength : '',
+                          ]"
                       /></CCol>
                       <CCol>
                         <input
                           class="form-control"
                           placeholder="Rộng"
                           id="idwidth"
-                          :value="[passWidth != '[object Object]' ? passWidth : '']"
+                          :value="[
+                            passWidth != '[object Object]' ? passWidth : '',
+                          ]"
                       /></CCol>
                       <CCol>
                         <input
                           class="form-control"
                           placeholder="Cao"
                           id="idheight"
-                          :value="[passHeight != '[object Object]' ? passHeight : '']"
+                          :value="[
+                            passHeight != '[object Object]' ? passHeight : '',
+                          ]"
                       /></CCol>
                     </CRow>
                   </CCol>
@@ -228,16 +253,33 @@
                 <CRow>
                   <CCol>
                     <label>Mức tiêu thụ nhiên liệu trong đô thị</label>
-                    <input
-                      class="form-control"
-                      v-model.trim="passCar.Car_cityfuelconsump"
-                  /></CCol>
+                    <div class="input-group">
+                      <input
+                        class="form-control"
+                        type="text"
+                        v-model.trim="passCar.Car_cityfuelconsump"
+                      />
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2"
+                          >lít/100km</span
+                        >
+                      </div>
+                    </div></CCol
+                  >
                   <CCol>
                     <label>Mức tiêu thụ nhiên liệu ngoài đô thị</label>
-                    <input
-                      class="form-control"
-                      v-model.trim="passCar.Car_highwayfuelconsump"
-                  /></CCol>
+                    <div class="input-group">
+                      <input
+                        class="form-control"
+                        v-model.trim="passCar.Car_highwayfuelconsump"
+                      />
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2"
+                          >lít/100km</span
+                        >
+                      </div>
+                    </div></CCol
+                  >
                 </CRow>
               </fieldset>
               <fieldset class="border p-4">
@@ -339,11 +381,13 @@ export default {
   },
   mounted() {
     this.getCarversions();
+    this.getCarversionsForUpdate();
   },
   data() {
     return {
       carUpdate: {},
       Carversions: [],
+      CarversionsUpdate: [],
       Cartrans: [
         "Hộp số sàn (MT)",
         "Hộp số tự động có cấp (AT)",
@@ -356,7 +400,11 @@ export default {
         "AWD (All-Wheel Drive)",
         "4WD (4-Wheels Drive)",
       ],
-      Carbrakes: ["Phanh đĩa", "Phanh tang trống"],
+      Carbrakes: [
+        "Phanh đĩa/Phanh tang trống",
+        "Phanh tang trống/Phanh đĩa",
+        "Phanh đĩa/Phanh đĩa",
+      ],
       Carhandbrakes: ["Phanh tay điện tử", "Phanh tay cơ"],
       fuels: ["Gasoline", "Diesel Fuel", "Bio-diesel", "Ethanol", "Electric"],
       domain: Domain,
@@ -365,8 +413,13 @@ export default {
   },
   methods: {
     getCarversions() {
-      axios.get(this.domain + "Carversion/Get").then((res) => {
+      axios.get(this.domain + "Car/Selectalldataforcombobox").then((res) => {
         this.Carversions = res.data;
+      });
+    },
+    getCarversionsForUpdate() {
+      axios.get(this.domain + "Car/Get").then((res) => {
+        this.CarversionsUpdate = res.data;
       });
     },
     validator(val) {
@@ -392,7 +445,7 @@ export default {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.$router.push('/Car/Car');
+        this.$router.push("/Car/Car");
       });
       // }
     },
@@ -416,7 +469,7 @@ export default {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.$router.push('/Car/Car');
+        this.$router.push("/Car/Car");
       });
       // }
     },

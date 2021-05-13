@@ -2,7 +2,7 @@
   <div class="TheCarversion">
     <CCard>
       <CCardHeader>
-        <h3>Quản lí dòng xe</h3>
+        <h3>Quản lí xe</h3>
       </CCardHeader>
       <CCardBody class="text">
         <CButton
@@ -29,7 +29,7 @@
         </CModal> -->
         <CDataTable
           id="id_car"
-          class="text-center text-nowrap"
+          class="text-nowrap"
           :items="dataCars"
           :fields="carItem"
           :items-per-page="8"
@@ -38,6 +38,17 @@
           hover
           pagination
         >
+          <template #Car_name="{ item }">
+            <td>
+              <h6>
+                {{ item.Carversion_ManufacturerName }}
+                {{ item.Carversion_name }}
+                {{ item.Carversion_edition }}
+                {{ item.Carversion_style }}
+                {{ item.Carversion_date }}
+              </h6>
+            </td>
+          </template>
           <template #Car_maxspeed="{ item }">
             <td>{{ item.Car_maxspeed }} km/h</td>
           </template>
@@ -182,6 +193,7 @@ export default {
     return {
       carItem: [
         { key: "Car_id", label: "ID", _style: "min-width:100px;" },
+        { key: "Car_name", label: "Tên xe", _style: "min-width:100px;" },
         // {
         //   key: "Car_carversion_id",
         //   label: "Logo",
@@ -408,37 +420,6 @@ export default {
               });
           }
         });
-    },
-    addClick() {},
-    updateClick(ID) {
-      // axios
-      //   .get("https://localhost:44343/Api/Car/GetDataById/" + ID)
-      //   .then((res) => {
-      //     console.log("hahaha", res);
-      //     this.carUpdate = {
-      //       Car_id: res.data[0].Car_id,
-      //       Car_carversion_id: res.data[0].Car_carversion_id,
-      //       Car_trans: res.data[0].Car_trans,
-      //       Car_fuel: res.data[0].Car_fuel,
-      //       Car_engine: res.data[0].Car_engine,
-      //       Car_seats: res.data[0].Car_seats,
-      //       Car_maxmomen: res.data[0].Car_maxmomen,
-      //       Car_maxspeed: res.data[0].Car_maxspeed,
-      //       Car_maxpower: res.data[0].Car_maxpower,
-      //       Car_loadweight: res.data[0].Car_loadweight,
-      //       Car_doors: res.data[0].Car_doors,
-      //       Car_drivetype: res.data[0].Car_drivetype,
-      //       Car_totaldimens: res.data[0].Car_totaldimens,
-      //       Car_baselength: res.data[0].Car_baselength,
-      //       Car_turnradius: res.data[0].Car_turnradius,
-      //       Car_height: res.data[0].Car_height,
-      //       Car_cylcapacity: res.data[0].Car_cylcapacity,
-      //       Car_brakesystem: res.data[0].Car_brakesystem,
-      //       Car_fuelsystem: res.data[0].Car_fuelsystem,
-      //       Car_airnums: res.data[0].Car_airnums,
-      //     };
-      //   });
-      // (this.infoModal = true), (this.ModalTitle = "Cập nhật xe");
     },
     closeModal(val) {
       this.infoModal = val;

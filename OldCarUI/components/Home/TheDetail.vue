@@ -1,14 +1,25 @@
 <template>
-  <div>
+  <div> 
     <CForm class="form-insert-update">
       <CCardHeader>
-        <h1>{{ passPost.Post_title }}</h1>
+        <CRow>
+          <CCol>
+            <h1>{{ passPost.Post_title }}</h1></CCol
+          >
+          <CCol v-if="buyFlag && $auth.loggedIn && !passPost.Post_car_sold">
+            <CButton
+              class="btn btn-outline-danger float-right"
+              :to="`/Contract/${passPost.Post_id}`"
+              >Tạo hóa đơn mua bán</CButton
+            >
+          </CCol>
+        </CRow>
       </CCardHeader>
-      <CCardBody class="text-nowrap">
-        <CCard style="border: 0px">
+      <CCardBody class="text-nowrap bg-light">
+        <CCard style="border: 0px" class="p-4">
           <CCardBody class="p-0">
             <CRow>
-              <CCol
+              <CCol col="12" sm="12" md="12" lg="7" xl="7"
                 ><table class="table">
                   <tr>
                     <td class="h5">Tên xe</td>
@@ -49,6 +60,26 @@
                   <tr>
                     <td class="h5">Ngày đăng</td>
                     <td>{{ formatDate(passPost.Post_car_date) }}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td colspan="2">
+                      <CBadge
+                        :color="getBadgeSoldColor(passPost.Post_car_sold)"
+                        class="float-left"
+                      >
+                        {{ getSold(passPost.Post_car_sold) }}
+                      </CBadge>
+                    </td>
+                  </tr>
+                  <tr v-if="contactFlag && $auth.loggedIn">
+                    <td colspan="2">
+                      <CButton
+                        class="btn btn-info float-right mt-5 mr-5 h6"
+                        :to="`/Customer/${passPost.Post_customer_id}`"
+                        >Liên hệ với người bán</CButton
+                      >
+                    </td>
                   </tr>
                 </table></CCol
               >
@@ -100,7 +131,7 @@
 
             <CCollapse :show="collapse" class="mt-2">
               <CRow>
-                <CCol>
+                <CCol col="12" sm="12" md="12" lg="4" xl="4">
                   <table class="table">
                     <tr>
                       <td class="h5">Xuất xứ</td>
@@ -140,16 +171,12 @@
                     </tr>
                   </table>
                 </CCol>
-                <CCol col="8">
+                <CCol col="12" sm="12" md="12" lg="8" xl="4">
                   <div
                     class="list-group"
                     v-if="passPost.Post_car_replaceditems != undefined"
                   >
-                    <a
-                      href="#"
-                      class="list-group-item"
-                      style="color:black"
-                    >
+                    <a href="#" class="list-group-item" style="color: black">
                       <h5>Linh kiện đã thay thế</h5>
                     </a>
                     <a
@@ -210,14 +237,14 @@
 
             <CCollapse :show="collapse3" class="mt-2">
               <CRow>
-                <CCol col="6">
+                <CCol col="12" sm="12" md="12" lg="6" xl="6">
                   <CImg
                     :src="takeSecondPhoto(passPost.Post_car_frontpic)"
                     block
                     class="card-img-top"
                   />
                 </CCol>
-                <CCol col="6">
+                <CCol>
                   <fieldset class="border rounded">
                     <legend class="text-left ml-3" style="width: 0">
                       Kích thước xe
@@ -296,48 +323,52 @@
             </div>
 
             <CCollapse :show="collapse1" class="mt-2">
-              <table class="table">
-                <tr>
-                  <td class="h5">Hệ truyền động</td>
-                  <td>{{ passCar.Car_trans }}</td>
-                </tr>
-                <tr>
-                  <td class="h5">Nhiên liệu</td>
-                  <td>{{ passCar.Car_fuel }}</td>
-                </tr>
-                <tr>
-                  <td class="h5">Động cơ</td>
-                  <td>{{ passCar.Car_engine }}</td>
-                </tr>
-                <tr>
-                  <td class="h5">Lực mô men xoắn cực đại</td>
-                  <td>{{ passCar.Car_maxmomen }}</td>
-                </tr>
-                <tr>
-                  <td class="h5">Vận tốc tối đa</td>
-                  <td>{{ passCar.Car_maxspeed }}</td>
-                </tr>
-                <tr>
-                  <td class="h5">Công suất tối đa</td>
-                  <td>{{ passCar.Car_maxpower }}</td>
-                </tr>
-                <tr>
-                  <td class="h5">Trọng tải</td>
-                  <td>{{ passCar.Car_loadweight }}</td>
-                </tr>
-                <tr>
-                  <td class="h5">Hệ truyền động</td>
-                  <td>{{ passCar.Car_drivetype }}</td>
-                </tr>
-                <tr>
-                  <td class="h5">Dung tích xi lanh</td>
-                  <td>{{ passCar.Car_cylcapacity }}</td>
-                </tr>
-                <tr>
-                  <td class="h5">Hệ thống phanh</td>
-                  <td>{{ passCar.Car_brakesystem }}</td>
-                </tr>
-              </table>
+              <CRow>
+                <CCol col="12">
+                  <table class="table">
+                    <tr>
+                      <td class="h5">Hệ truyền động</td>
+                      <td>{{ passCar.Car_trans }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Nhiên liệu</td>
+                      <td>{{ passCar.Car_fuel }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Động cơ</td>
+                      <td>{{ passCar.Car_engine }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Lực mô men xoắn cực đại</td>
+                      <td>{{ passCar.Car_maxmomen }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Vận tốc tối đa</td>
+                      <td>{{ passCar.Car_maxspeed }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Công suất tối đa</td>
+                      <td>{{ passCar.Car_maxpower }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Trọng tải</td>
+                      <td>{{ passCar.Car_loadweight }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Hệ truyền động</td>
+                      <td>{{ passCar.Car_drivetype }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Dung tích xi lanh</td>
+                      <td>{{ passCar.Car_cylcapacity }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Hệ thống phanh</td>
+                      <td>{{ passCar.Car_brakesystem }}</td>
+                    </tr>
+                  </table>
+                </CCol>
+              </CRow>
             </CCollapse>
           </CCardBody>
         </CCard>
@@ -376,7 +407,7 @@
 
             <CCollapse :show="collapse2" class="mt-2">
               <CRow>
-                <CCol col="7"
+                <CCol col="12" sm="12" md="12" lg="7" xl="7"
                   ><table class="table">
                     <tr>
                       <td class="h5">Số túi khí</td>
@@ -404,7 +435,7 @@
                     </tr>
                   </table></CCol
                 >
-                <CCol col="5">
+                <CCol>
                   <table
                     v-if="passPost.Car_technology != undefined"
                     class="table"
@@ -475,7 +506,7 @@
 
             <CCollapse :show="collapse4" class="mt-2">
               <CRow>
-                <CCol>
+                <CCol col="12" sm="12" md="12" lg="6" xl="6">
                   <table
                     v-if="passPost.Post_car_anothercare != undefined"
                     class="table"
@@ -521,11 +552,15 @@
     </CModal>
   </div>
 </template>
-<style>
+<style scope>
+.card:hover {
+  box-shadow: 2px 2px 15px;
+  transition-duration: 0.5s;
+}
 table td,
 th {
   font-size: 1rem;
-  border-width: 0px !important;
+  /* border-width: 0px !important; */
 }
 .modal-footer {
   display: none !important;
@@ -548,7 +583,13 @@ export default {
     ThePreviewPhoto,
   },
 
-  props: { passPost: Object, carName: String, passCar: Object },
+  props: {
+    passPost: Object,
+    carName: String,
+    passCar: Object,
+    contactFlag: Boolean,
+    buyFlag: Boolean,
+  },
   data() {
     return {
       title: null,
@@ -565,6 +606,12 @@ export default {
     };
   },
   methods: {
+    getBadgeSoldColor(value) {
+      return value ? "danger" : "success";
+    },
+    getSold(value) {
+      return value ? "Đã bán" : "Chưa bán";
+    },
     getTechnologyName(value) {
       return value.split(",");
     },
@@ -584,8 +631,24 @@ export default {
     },
     previewPhoto(value) {
       if (value != undefined) {
+        axios
+          .get(this.domain + "Car/GetNameById/" + value.Post_car_id)
+          .then((res) => {
+            var carName =
+              res.data[0].Carversion_ManufacturerName.trim() +
+              " " +
+              res.data[0].Carversion_name.trim() +
+              " " +
+              res.data[0].Carversion_date.trim();
+            this.title = carName;
+          });
         (this.darkModal = true),
-          (this.passPhoto = value.Post_car_frontpic.split(",").slice(0));
+          (this.passPhoto = value.Post_car_frontpic.substring(
+            0,
+            value.Post_car_frontpic.length - 1
+          )
+            .split(",")
+            .slice(0));
       }
     },
     getBadgeColor(value) {

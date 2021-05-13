@@ -51,6 +51,25 @@ namespace OldCarApi.Controllers
             return result;
         }
 
+
+        [Route("api/Post/Selectalldatasortbydate")]
+        [HttpGet]
+        public IHttpActionResult Selectalldatasortbydate()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = postModel.Selectalldatasortbydate();
+
+                return Ok(dt);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.ToString());
+            }
+        }
+
         [Route("api/Post/GetDataById/{ID}")]
         [HttpGet]
         public IHttpActionResult GetDataById(string ID)
@@ -59,6 +78,24 @@ namespace OldCarApi.Controllers
             {
                 DataTable dt = new DataTable();
                 dt = postModel.SelectDataById(ID);
+
+                return Ok(dt);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [Route("api/Post/SelectDataByCustomerId/{ID}")]
+        [HttpGet]
+        public IHttpActionResult SelectDataByCustomerId(string ID)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = postModel.SelectDataByCustomerId(ID);
 
                 return Ok(dt);
             }

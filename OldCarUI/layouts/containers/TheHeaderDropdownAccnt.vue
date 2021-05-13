@@ -9,16 +9,35 @@
     <template #toggler>
       <CHeaderNavLink>
         <div class="c-avatar">
-          <img src="@/assets/img/kaikaikiki.jpg" class="c-avatar-img" />
+          <CImg
+          style="height:40px;width:40px"
+            class="c-avatar_img rounded-circle"
+            :src="
+              takePhoto(
+                $auth.$storage.getUniversal('userInfo') == null
+                  ? ''
+                  : $auth.$storage.getUniversal('userInfo').Customer_avatar
+              )
+            "
+          />
+          <!-- <img src="@/assets/avatar/kaikaikiki.jpg" class="c-avatar-img" /> -->
         </div>
       </CHeaderNavLink>
     </template>
     <CDropdownHeader tag="div" class="text-center" color="light">
-      <strong>"Tên"</strong>
+      <strong>{{
+        this.$auth.$storage.getUniversal("userInfo") == null
+          ? ""
+          : this.$auth.$storage.getUniversal("userInfo").Customer_name
+      }}</strong>
     </CDropdownHeader>
-    <CDropdownItem> <CIcon name="cil-bell" /> Quản lí tài khoản </CDropdownItem>
     <CDropdownItem>
-      <CIcon name="cil-envelope-open" /> Quản lí bài đăng
+      <CButton
+        class="text-black-100 text-center w-100"
+        to="/customer/CreateAndEditCustomer"
+      >
+        Quản lí tài khoản
+      </CButton>
     </CDropdownItem>
     <CDropdownItem class="border-top d-flex justify-content-center">
       <button class="btn btn-outline-danger text-black-100" @click="logOut()">
@@ -39,6 +58,7 @@
         @closeModal="closeModal"
         :buttonText="this.ModalTitle"
         :submitForm="loginUser"
+        :registerForm="signinUser"
         :registerFlag="this.registerFlagCheck"
       />
       <div slot="footer" class="w-100 d-none"></div>
@@ -58,6 +78,7 @@ export default {
   props: {},
   data() {
     return {
+      // Name: null,
       infoModal: false,
       modalFlag: null,
       ModalTitle: null,
@@ -73,11 +94,26 @@ export default {
   //   this.Session = sessionStorage.getItem("jwt");
   //   console.log(this.Session);
   // },
-  beforeMount() {
-    // this.$auth.$storage.removeUniversal("userInfo");
-  },
   methods: {
     loginUser(loginInfo) {
+      // console.log(loginInfo);
+      axios
+        .post(
+          "https://localhost:44343/api/Customer/CheckExist/" +
+            loginInfo.Username +
+            "," +
+            loginInfo.Password
+        )
+        .then((res) => {
+          if (res.data == false)
+            swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Sai tài khoản hoặc mật khẩu",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+        });
       this.$auth
         .loginWith("local", {
           headers: {
@@ -110,12 +146,33 @@ export default {
                 Account_lastLogin: res.data[0].Account_lastLogin,
               };
               this.$auth.data = this.customerInfo;
-              this.$auth.$storage.setUniversal("userInfo",this.customerInfo);
+              this.$auth.$storage.setUniversal("userInfo", this.customerInfo);
               // localStorage.setItem("userInfo",this.customerInfo);
               // console.log("hehe",localStorage.getItem("userInfo"));
               // console.log("1", this.$auth.$storage.getUniversal("userInfo"));
-              this.$router.go();
+              this.closeModal(false);
+              this.$router.push("/Home/Home");
+              // this.$router.go();
             });
+        });
+    },
+    signinUser(value) {
+      value.Account_role = 1;
+      value.Account_lastLogin = "2020/11/11";
+      value.Customer_begindate = "2020/11/11";
+      value.Customer_avatar = "123.jpg";
+      console.log("ahihihihihi", value);
+      axios
+        .post("https://localhost:44343/api/Customer/Post", value)
+        .then((res) => {
+          swal.fire({
+            position: "center",
+            icon: res.data.split("-")[0] == "1" ? "success" : "error",
+            title: res.data.split("-")[1],
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.closeModal(false);
         });
     },
     logOut() {
@@ -134,7 +191,8 @@ export default {
           if (result.isConfirmed) {
             this.$auth.logout().then((res) => {
               this.$auth.$storage.removeUniversal("userInfo");
-              this.$router.go();
+              this.$router.push("/Home/Home");
+              // this.$router.go();
             });
           }
         });
@@ -154,13 +212,22 @@ export default {
         (this.infoModal = true),
         (this.ModalTitle = "Đăng kí");
     },
-    // signupClick(val) {
-    //   console.log(this.Session);
-    //   (this.modalFlag = val),
-    //     (this.infoModal = true),
-    //     (this.ModalTitle = "Đăng kí");
-    // },
-    closeModal(val) {},
+    closeModal(val) {
+      this.infoModal = val;
+      // this.$emit("getCarversion");
+    },
+    takePhoto(value) {
+      console.log("hahahahahaha", "@/assets/avatar/" + images);
+      if (value) {
+        var images;
+        try {
+          images = require("@/assets/avatar/" + value);
+        } catch (e) {
+          images = require("@/assets/img/nophoto.png");
+        }
+        return images;
+      }
+    },
   },
 };
 </script>

@@ -290,7 +290,7 @@ export default {
       // }
     },
     updateClick(value) {
- if (value.Carversion_edition == null) {
+      if (value.Carversion_edition == null) {
         value.Carversion_edition = "Edition 1";
       }
       // this.accountname_valid = this.validator(this.passAccount.Account_name);
