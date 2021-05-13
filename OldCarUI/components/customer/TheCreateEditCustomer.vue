@@ -2,7 +2,6 @@
   <div>
     <CRow>
       <CCol col="12" class="p-5">
-        {{ customerData }}
         <CForm class="form-insert-update m-5">
           <CCard>
             <CCardHeader>
