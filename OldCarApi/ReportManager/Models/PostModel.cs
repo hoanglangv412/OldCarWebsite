@@ -95,6 +95,61 @@ namespace OldCarApi.Models
         }
         #endregion Selectalldata
 
+        #region Selectalldata
+        public DataTable SelectalldatawithoutTOP()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Post", SQL_CONNECTION);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Post_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_customer_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_title", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_price", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_origin", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_incolor", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_outcolor", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_tire", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_plate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_province", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_km", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_detail", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_kpl", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_cond", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_anothercare", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_frontpic", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_replaceditems", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_date", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_camera", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_doortype", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_mirror", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_seattype", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_sound", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_technology", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_sold", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Query", 4);
+                SQL_CONNECTION.Open();
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                SQL_CONNECTION.Close();
+            }
+
+            return dt;
+        }
+        #endregion SelectalldatawithoutTOP
+
         #region InsertData
         public string Insertdata(PostModel postModel)
         {
@@ -129,7 +184,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_technology", String.IsNullOrEmpty(postModel.Car_technology) ? null : postModel.Car_technology);
                 cmd.Parameters.AddWithValue("@Post_car_like", postModel.Post_car_like.HasValue ? postModel.Post_car_like : null);
                 cmd.Parameters.AddWithValue("@Post_car_sold", postModel.Post_car_like.HasValue ? postModel.Post_car_like : null);
-                cmd.Parameters.AddWithValue("@Query", 1);
+                cmd.Parameters.AddWithValue("@Query", 9);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
 
@@ -395,6 +450,116 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Post_car_sold", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 8);
+                SQL_CONNECTION.Open();
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                SQL_CONNECTION.Close();
+            }
+
+            return dt;
+        }
+        #endregion Selectalldata
+
+        #region Selectalldatasortbydate
+        public DataTable SelectSoldCount(string ID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Post", SQL_CONNECTION);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Post_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_customer_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_title", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_price", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_origin", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_incolor", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_outcolor", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_tire", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_plate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_province", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_km", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_detail", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_kpl", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_cond", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_anothercare", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_frontpic", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_replaceditems", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_date", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_camera", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_doortype", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_mirror", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_seattype", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_sound", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_technology", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_sold", ID);
+                cmd.Parameters.AddWithValue("@Query", 10);
+                SQL_CONNECTION.Open();
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                SQL_CONNECTION.Close();
+            }
+
+            return dt;
+        }
+        #endregion Selectalldata
+
+        #region Selectalldatasortbydate
+        public DataTable SelectMostLike()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Post", SQL_CONNECTION);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Post_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_customer_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_title", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_price", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_origin", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_incolor", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_outcolor", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_tire", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_plate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_province", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_km", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_detail", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_kpl", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_cond", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_anothercare", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_frontpic", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_replaceditems", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_date", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_camera", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_doortype", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_mirror", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_seattype", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_sound", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_technology", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_like", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Post_car_sold", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Query", 11);
                 SQL_CONNECTION.Open();
                 SqlDataAdapter da = new SqlDataAdapter();
                 da.SelectCommand = cmd;

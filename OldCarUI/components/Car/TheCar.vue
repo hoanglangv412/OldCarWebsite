@@ -174,7 +174,6 @@ import moment from "moment";
 import axios from "axios";
 import { freeSet } from "@coreui/icons";
 import swal from "sweetalert2";
-import Table from "~/pages/base/Table.vue";
 import TheCreateAndEditCar from "./TheCreateAndEditCar";
 
 export default {

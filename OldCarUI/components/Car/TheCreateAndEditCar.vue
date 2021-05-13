@@ -2,7 +2,6 @@
   <div>
     <CCol md="12">
       <CForm class="form-insert-update">
-        {{ passCar }}
         <CCardBody class="text-nowrap">
           <CRow>
             <CCol col="12" md="12" lg="6" sm="12">

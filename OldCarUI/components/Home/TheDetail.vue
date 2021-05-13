@@ -575,7 +575,6 @@ import axios from "axios";
 import swal from "sweetalert2";
 import { Domain } from "@/constant/constant";
 import ThePreviewPhoto from "./ThePreviewPhoto";
-import Table from "~/pages/base/Table.vue";
 
 export default {
   name: "TheDetail",
@@ -671,7 +670,7 @@ export default {
       if (value != undefined) {
         var images;
         try {
-          images = require("@/assets/OldCarPhoto/" + value.split(",")[0]);
+          images = require("@/assets/Ol12412412dCarPhoto/" + value.split(",")[0]);
         } catch (e) {
           images = require("@/assets/img/nophoto.png");
         }

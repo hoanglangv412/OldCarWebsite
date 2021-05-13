@@ -30,6 +30,23 @@ namespace OldCarApi.Controllers
             }
         }
 
+        [Route("api/Post/GetwithoutTOP/")]
+        [HttpGet]
+        public IHttpActionResult GetwithoutTOP()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = postModel.SelectalldatawithoutTOP();
+
+                return Ok(dt);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.ToString());
+            }
+        }
         [HttpPost]
         public string Post(PostModel objPost)
         {
@@ -127,6 +144,46 @@ namespace OldCarApi.Controllers
             {
 
                 return BadRequest("2-Lưu ảnh thất bại");
+            }
+        }
+        #endregion
+
+        #region SavePhoto
+        [Route("api/Post/SelectSoldCount/{ID}")]
+        [HttpGet]
+        public IHttpActionResult SelectSoldCount(string ID)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = postModel.SelectSoldCount(ID);
+
+                return Ok(dt);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.ToString());
+            }
+        }
+        #endregion
+
+        #region SavePhoto
+        [Route("api/Post/SelectMostLike/")]
+        [HttpGet]
+        public IHttpActionResult SelectMostLike()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = postModel.SelectMostLike();
+
+                return Ok(dt);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.ToString());
             }
         }
         #endregion

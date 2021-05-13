@@ -148,7 +148,7 @@
             </CCol>
           </CRow>
         </CCol>
-        <CCol>
+        <CCol v-if="searchFlag">
           <fieldset class="border p-2 mt-3">
             <legend class="ml-2 w-0">Bài đăng mới nhất</legend>
             <CRow>

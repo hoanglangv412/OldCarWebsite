@@ -38,7 +38,6 @@ export default {
         console.log($appName);
       });
       axios.get(this.domain + "Post/Selectalldatasortbydate").then((res) => {
-        console.log('hhiihihihihih', this.dataPostSorts);
         this.dataPostSorts = res.data;
         console.log($appName);
       });

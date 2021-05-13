@@ -152,7 +152,7 @@ export default {
               // console.log("1", this.$auth.$storage.getUniversal("userInfo"));
               this.closeModal(false);
               this.$router.push("/Home/Home");
-              // this.$router.go();
+              this.$router.go();
             });
         });
     },
@@ -192,7 +192,7 @@ export default {
             this.$auth.logout().then((res) => {
               this.$auth.$storage.removeUniversal("userInfo");
               this.$router.push("/Home/Home");
-              // this.$router.go();
+              this.$router.go();
             });
           }
         });
