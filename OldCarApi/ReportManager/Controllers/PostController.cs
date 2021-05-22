@@ -29,24 +29,6 @@ namespace OldCarApi.Controllers
                 return BadRequest(ex.ToString());
             }
         }
-
-        [Route("api/Post/GetwithoutTOP/")]
-        [HttpGet]
-        public IHttpActionResult GetwithoutTOP()
-        {
-            try
-            {
-                DataTable dt = new DataTable();
-                dt = postModel.SelectalldatawithoutTOP();
-
-                return Ok(dt);
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.ToString());
-            }
-        }
         [HttpPost]
         public string Post(PostModel objPost)
         {

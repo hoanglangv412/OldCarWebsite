@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     getCarversion() {
-      axios.get(this.domain + "Post/GetwithoutTOP").then((res) => {
+      axios.get(this.domain + "Post/Get").then((res) => {
         this.dataPosts = res.data;
       });
     },

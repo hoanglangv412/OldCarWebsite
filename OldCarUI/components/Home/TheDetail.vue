@@ -620,12 +620,8 @@ export default {
       }
     },
     formatPrice(value) {
-      if (value != undefined) {
-        var returnVal = value.toLocaleString("it-IT", {
-          style: "currency",
-          currency: "VND",
-        });
-        return returnVal;
+      if(value){
+        return value + " VND";
       }
     },
     previewPhoto(value) {
@@ -650,11 +646,6 @@ export default {
             .slice(0));
       }
     },
-    getBadgeColor(value) {
-      if (value != undefined) {
-        return value.includes("GPS") ? "success" : "dark";
-      }
-    },
     takeSecondPhoto(value) {
       if (value != undefined) {
         var images;
@@ -667,10 +658,11 @@ export default {
       }
     },
     takePhoto(value) {
+      // console.log('ahahahahahahahah',value);  
       if (value != undefined) {
         var images;
         try {
-          images = require("@/assets/Ol12412412dCarPhoto/" + value.split(",")[0]);
+          images = require("@/assets/OldCarPhoto/" + value.split(",")[0]);
         } catch (e) {
           images = require("@/assets/img/nophoto.png");
         }

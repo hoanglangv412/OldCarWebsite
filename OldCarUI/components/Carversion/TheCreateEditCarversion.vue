@@ -250,6 +250,7 @@ export default {
       if (value.Carversion_edition == null) {
         value.Carversion_edition = "Edition 1";
       }
+      value.Carversion_adder = "Người quản trị";
       // this.accountname_valid = this.validator(this.passAccount.Account_name);
       // this.accountpassword_valid = this.validator(
       //   this.passAccount.Account_password
@@ -293,6 +294,7 @@ export default {
       if (value.Carversion_edition == null) {
         value.Carversion_edition = "Edition 1";
       }
+      value.Carversion_adder = "Người quản trị";
       // this.accountname_valid = this.validator(this.passAccount.Account_name);
       // this.accountpassword_valid = this.validator(
       //   this.passAccount.Account_password

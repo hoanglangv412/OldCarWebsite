@@ -92,11 +92,16 @@
               sm="6"
             >
               <div class="card w-100">
-                <CButton class="p-0" @click="previewPhoto(post)">
+                <CButton
+                  class="p-0"
+                  @click="previewPhoto(post)"
+                  style="display:block;width:100%;height:300px"
+                >
                   <CImg
                     :src="takePhoto(post.Post_car_frontpic)"
                     block
                     class="card-img-top image"
+                    style="width:100%;height:100%"
                   />
                 </CButton>
                 <div class="card-body">
@@ -317,12 +322,8 @@ export default {
       return value ? "Đã bán" : "Chưa bán";
     },
     formatPrice(value) {
-      if (value) {
-        var returnVal = value.toLocaleString("it-IT", {
-          style: "currency",
-          currency: "VND",
-        });
-        return returnVal;
+      if (value != undefined) {
+        return value + " VND";
       }
     },
     takePhoto(value) {
@@ -358,29 +359,6 @@ export default {
             .slice(0));
       }
     },
-    // viewDetail(value) {
-    //   if (value) {
-    //     axios
-    //       .get(this.domain + "Car/GetNameById/" + value.Post_car_id)
-    //       .then((res) => {
-    //         var carName =
-    //           res.data[0].Carversion_ManufacturerName.trim() +
-    //           " " +
-    //           res.data[0].Carversion_name.trim() +
-    //           " " +
-    //           res.data[0].Carversion_date.trim();
-    //         this.title = carName;
-    //       });
-    //     axios
-    //       .get(this.domain + "Car/GetDataById/" + value.Post_car_id)
-    //       .then((res) => {
-    //         this.passCar = res.data[0];
-    //       });
-    //     (this.infoModal = true),
-    //       (this.detailTitle = "Chi tiết xe"),
-    //       (this.passPost = value);
-    //   }
-    // },
   },
 };
 </script>

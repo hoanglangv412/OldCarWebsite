@@ -29,9 +29,7 @@ export default {
     };
   },
   mounted() {
-    if (this.$auth.loggedIn) {
-      this.getPost(this.$auth.user);
-    }
+    this.getPost(this.$auth.user);
   },
   methods: {
     getPost(value) {

@@ -344,6 +344,11 @@ export default {
         //   _style: "min-width:100px;",
         // },
         {
+          key: "Car_adder",
+          label: "Người tạo",
+          _style: "min-width:100px;",
+        },
+        {
           key: "method",
           label: "Phương thức",
           _style:

@@ -25,7 +25,7 @@ export default {
       postUpdate: {},
       items: [
         {
-          text: "Post Manager",
+          text: "Quản lí bài đăng",
           to: "/Post/Post",
         },
         {

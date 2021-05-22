@@ -10,7 +10,7 @@
       <CHeaderNavLink>
         <div class="c-avatar">
           <CImg
-          style="height:40px;width:40px"
+            style="height: 40px; width: 40px"
             class="c-avatar_img rounded-circle"
             :src="
               takePhoto(
@@ -152,8 +152,8 @@ export default {
               // console.log("1", this.$auth.$storage.getUniversal("userInfo"));
               this.closeModal(false);
               this.$router.push("/Home/Home");
-              this.$router.go();
             });
+          this.$router.go();
         });
     },
     signinUser(value) {
@@ -161,7 +161,6 @@ export default {
       value.Account_lastLogin = "2020/11/11";
       value.Customer_begindate = "2020/11/11";
       value.Customer_avatar = "123.jpg";
-      console.log("ahihihihihi", value);
       axios
         .post("https://localhost:44343/api/Customer/Post", value)
         .then((res) => {
@@ -176,7 +175,6 @@ export default {
         });
     },
     logOut() {
-      console.log("2", this.$auth.data);
       swal
         .fire({
           title: "Bạn muốn đăng xuất tài khoản này?",
@@ -191,10 +189,9 @@ export default {
           if (result.isConfirmed) {
             this.$auth.logout().then((res) => {
               this.$auth.$storage.removeUniversal("userInfo");
-              this.$router.push("/Home/Home");
-              this.$router.go();
             });
           }
+          this.$router.push("/Home/Home");
         });
     },
     signinClick(val) {

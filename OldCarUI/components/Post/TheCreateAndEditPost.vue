@@ -7,8 +7,49 @@
             <CCol col="12" md="12" lg="6" sm="12">
               <fieldset class="border pl-4 pr-4">
                 <legend style="width:0;float-left">Thông tin mô tả</legend>
-                <CInput type="text" v-model.trim="passPost.Post_id" hidden/>
-                <CInput type="text" v-model.trim="passPost.Post_car_sold" hidden/>
+                <CInput type="text" v-model.trim="passPost.Post_id" hidden />
+                <CInput
+                  type="text"
+                  v-model.trim="passPost.Post_car_sold"
+                  hidden
+                />
+                <div role="group" class="form-group form-row">
+                  <CCol>
+                    <label>Dòng xe</label>
+                    <div class="row">
+                      <div class="col-10 pr-0">
+                        <input
+                          id="carSelector"
+                          type="text"
+                          class="form-control"
+                          list="carversionNames"
+                          v-model="passPost.Post_car_id"
+                        />
+                        <datalist id="carversionNames">
+                          <option
+                            v-for="item in Selectpostcars"
+                            :key="item.Car_id"
+                            :value="item.Car_id"
+                          >
+                            {{ item.Carversion_ManufacturerName }} _
+                            {{ item.Carversion_name }} _
+                            {{ item.Carversion_edition }} _
+                            {{ item.Carversion_style }} _
+                            {{ item.Carversion_date }}
+                          </option>
+                        </datalist>
+                      </div>
+                      <div class="col-2 pl-0">
+                        <CButton
+                          class="form-control text-center pr-0 pl-0 btn btn-info"
+                          to="/Post/CreateAndEditCarForPost"
+                        >
+                          Tạo mới xe
+                        </CButton>
+                      </div>
+                    </div>
+                  </CCol>
+                </div>
                 <label>Tiêu đề</label>
                 <input
                   class="form-control"
@@ -17,40 +58,24 @@
                   horizontal
                   autocomplete="true"
                 />
-                <div role="group" class="form-group form-row">
-                  <CCol>
-                    <label>Loại xe</label>
-                    <select
-                      class="custom-select form-control"
-                      v-model="passPost.Post_car_id"
-                      id="carSelector"
-                    >
-                      <option
-                        v-for="item in Selectpostcars"
-                        :key="item.Car_id"
-                        :value="item.Car_id"
-                      >
-                        {{ item.Carversion_ManufacturerName }} _
-                        {{ item.Carversion_name }} _
-                        {{ item.Carversion_edition }} _
-                        {{ item.Carversion_style }} _
-                        {{ item.Carversion_date }}
-                      </option>
-                    </select></CCol
-                  >
-                </div>
+
                 <CRow>
                   <CCol>
-                    <label>Giá(VND)</label>
-                    <input
-                      id="idcurrency"
-                      class="form-control"
-                      v-model="passPost.Post_car_price"
-                      type="number"
-                      step="100000000"
-                      min="0"
-                      max="1000000000000"
-                    />
+                    <label>Giá</label>
+                    <div class="input-group">
+                      <input
+                        id="idcurrency"
+                        class="form-control"
+                        v-model="passPost.Post_car_price"
+                        @blur="formatPrice()"
+                        type="text"
+                      />
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2"
+                          >VND</span
+                        >
+                      </div>
+                    </div>
                   </CCol>
                   <CCol>
                     <label>Nguồn gốc</label>
@@ -86,7 +111,7 @@
                           readonly
                         />
                       </div>
-                      <div class="col-10 pr-0 pl-0">
+                      <div class="col-10 pr-0 pl-0 input-group">
                         <input
                           class="form-control"
                           v-model="passPost.Post_car_km"
@@ -95,6 +120,11 @@
                           min="0"
                           max="1000000"
                         />
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="basic-addon2"
+                            >km</span
+                          >
+                        </div>
                       </div>
                     </div>
                   </CCol>
@@ -108,7 +138,7 @@
                           readonly
                         />
                       </div>
-                      <div class="col-10 pr-0 pl-0">
+                      <div class="col-10 pr-0 pl-0 input-group">
                         <input
                           class="form-control"
                           v-model="passPost.Post_car_kpl"
@@ -117,6 +147,11 @@
                           min="0"
                           max="500"
                         />
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="basic-addon2"
+                            >km</span
+                          >
+                        </div>
                       </div>
                     </div>
                   </CCol>
@@ -346,65 +381,78 @@
                   v-if="passPost.Post_car_anothercare != undefined"
                 >
                   <legend style="width:0;float-left">Bảo hiểm xe</legend>
-                  <input
-                    type="checkbox"
-                    id="cares_0"
-                    value="Bảo hiểm thân vỏ"
-                    :checked="
-                      passPost.Post_car_anothercare.includes('Bảo hiểm thân vỏ')
-                    "
-                  />
-                  <label for="cares_0" class="pr-4">Bảo hiểm thân vỏ</label>
+                  <div class="row">
+                    <div
+                      class="col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12 col-12"
+                    >
+                      <input
+                        type="checkbox"
+                        id="cares_0"
+                        value="Bảo hiểm thân vỏ"
+                        :checked="
+                          passPost.Post_car_anothercare.includes(
+                            'Bảo hiểm thân vỏ'
+                          )
+                        "
+                      />
+                      <label for="cares_0" class="pr-4">Bảo hiểm thân vỏ</label>
 
-                  <input
-                    type="checkbox"
-                    id="cares_1"
-                    value="Bảo hiểm trách nhiệm dân sự"
-                    :checked="
-                      passPost.Post_car_anothercare.includes(
-                        'Bảo hiểm trách nhiệm dân sự'
-                      )
-                    "
-                  />
-                  <label for="cares_1" class="pr-4"
-                    >Bảo hiểm trách nhiệm dân sự</label
-                  >
-
-                  <input
-                    type="checkbox"
-                    id="cares_2"
-                    value="Bảo hiểm vật chất"
-                    :checked="
-                      passPost.Post_car_anothercare.includes(
-                        'Bảo hiểm vật chất'
-                      )
-                    "
-                  />
-                  <label for="cares_2" class="pr-4">Bảo hiểm vật chất</label>
-                  <input
-                    type="checkbox"
-                    id="cares_3"
-                    value="Bảo hiểm người ngồi trên xe"
-                    :checked="
-                      passPost.Post_car_anothercare.includes(
-                        'Bảo hiểm người ngồi trên xe'
-                      )
-                    "
-                  />
-                  <label for="cares_3" class="pr-4"
-                    >Bảo hiểm người ngồi trên xe</label
-                  >
+                      <input
+                        type="checkbox"
+                        id="cares_1"
+                        value="Bảo hiểm trách nhiệm dân sự"
+                        :checked="
+                          passPost.Post_car_anothercare.includes(
+                            'Bảo hiểm trách nhiệm dân sự'
+                          )
+                        "
+                      />
+                      <label for="cares_1" class="pr-4"
+                        >Bảo hiểm trách nhiệm dân sự</label
+                      >
+                    </div>
+                    <div class="col">
+                      <input
+                        type="checkbox"
+                        id="cares_2"
+                        value="Bảo hiểm vật chất"
+                        :checked="
+                          passPost.Post_car_anothercare.includes(
+                            'Bảo hiểm vật chất'
+                          )
+                        "
+                      />
+                      <label for="cares_2" class="pr-4"
+                        >Bảo hiểm vật chất</label
+                      >
+                      <input
+                        type="checkbox"
+                        id="cares_3"
+                        value="Bảo hiểm người ngồi trên xe"
+                        :checked="
+                          passPost.Post_car_anothercare.includes(
+                            'Bảo hiểm người ngồi trên xe'
+                          )
+                        "
+                      />
+                      <label for="cares_3" class="pr-4"
+                        >Bảo hiểm người ngồi trên xe</label
+                      >
+                    </div>
+                  </div>
                 </fieldset>
               </CRow>
               <CRow>
-                <CCol col="7"
+                <CCol col="12"
                   ><fieldset
                     class="border pl-4 pr-5 pb-4"
                     v-if="passPost.Car_technology != undefined"
                   >
                     <legend style="width:0;float-left">Trang bị đi kèm</legend>
                     <div class="row">
-                      <div class="col-7">
+                      <div
+                        class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12 col-12 pb-0"
+                      >
                         <input type="checkbox" id="technology_0" value="GPS" />
                         <label for="technology_0">GPS</label><br />
                         <input
@@ -524,7 +572,7 @@
                         />
                         <label for="technology_20">Đèn sương mù</label><br />
                       </div>
-                      <div class="col-5">
+                      <div class="col">
                         <input
                           type="checkbox"
                           id="technology_6"
@@ -650,7 +698,7 @@
                       </div>
                     </div></fieldset
                 ></CCol>
-                <CCol col="5">
+                <CCol col="12">
                   <fieldset
                     class="border pl-4 pr-4 pb-4"
                     v-if="passPost.Post_car_replaceditems != undefined"
@@ -658,79 +706,95 @@
                     <legend style="width:0;float-left">
                       Linh kiện thay thế
                     </legend>
-                    <input
-                      type="checkbox"
-                      id="replacedItem_0"
-                      value="Lốp xe"
-                      :checked="
-                        passPost.Post_car_replaceditems.includes('Lốp xe')
-                      "
-                    /><label for="replacedItem_0" class="pl-2"> Lốp xe </label
-                    ><br />
+                    <div class="row">
+                      <div class="col">
+                        <input
+                          type="checkbox"
+                          id="replacedItem_0"
+                          value="Lốp xe"
+                          :checked="
+                            passPost.Post_car_replaceditems.includes('Lốp xe')
+                          "
+                        /><label for="replacedItem_0" class="pl-2">
+                          Lốp xe </label
+                        ><br />
 
-                    <input
-                      type="checkbox"
-                      id="replacedItem_1"
-                      value="Lazang"
-                      :checked="
-                        passPost.Post_car_replaceditems.includes('Lazang')
-                      "
-                    /><label for="replacedItem_1" class="pl-2"> Lazang </label
-                    ><br />
+                        <input
+                          type="checkbox"
+                          id="replacedItem_1"
+                          value="Lazang"
+                          :checked="
+                            passPost.Post_car_replaceditems.includes('Lazang')
+                          "
+                        /><label for="replacedItem_1" class="pl-2">
+                          Lazang </label
+                        ><br />
 
-                    <input
-                      type="checkbox"
-                      id="replacedItem_2"
-                      value="Gương"
-                      :checked="
-                        passPost.Post_car_replaceditems.includes('Gương')
-                      "
-                    /><label for="replacedItem_2" class="pl-2"> Gương </label
-                    ><br />
+                        <input
+                          type="checkbox"
+                          id="replacedItem_2"
+                          value="Gương"
+                          :checked="
+                            passPost.Post_car_replaceditems.includes('Gương')
+                          "
+                        /><label for="replacedItem_2" class="pl-2">
+                          Gương </label
+                        ><br />
 
-                    <input
-                      type="checkbox"
-                      id="replacedItem_3"
-                      value="Sơn"
-                      :checked="passPost.Post_car_replaceditems.includes('Sơn')"
-                    /><label for="replacedItem_3" class="pl-2"> Sơn </label
-                    ><br />
+                        <input
+                          type="checkbox"
+                          id="replacedItem_3"
+                          value="Sơn"
+                          :checked="
+                            passPost.Post_car_replaceditems.includes('Sơn')
+                          "
+                        /><label for="replacedItem_3" class="pl-2"> Sơn </label
+                        ><br />
+                      </div>
+                      <div class="col">
+                        <input
+                          type="checkbox"
+                          id="replacedItem_4"
+                          value="Đèn"
+                          :checked="
+                            passPost.Post_car_replaceditems.includes('Đèn')
+                          "
+                        /><label for="replacedItem_4" class="pl-2"> Đèn </label
+                        ><br />
 
-                    <input
-                      type="checkbox"
-                      id="replacedItem_4"
-                      value="Đèn"
-                      :checked="passPost.Post_car_replaceditems.includes('Đèn')"
-                    /><label for="replacedItem_4" class="pl-2"> Đèn </label
-                    ><br />
+                        <input
+                          type="checkbox"
+                          id="replacedItem_5"
+                          value="Phanh"
+                          :checked="
+                            passPost.Post_car_replaceditems.includes('Phanh')
+                          "
+                        /><label for="replacedItem_5" class="pl-2">
+                          Phanh </label
+                        ><br />
 
-                    <input
-                      type="checkbox"
-                      id="replacedItem_5"
-                      value="Phanh"
-                      :checked="
-                        passPost.Post_car_replaceditems.includes('Phanh')
-                      "
-                    /><label for="replacedItem_5" class="pl-2"> Phanh </label
-                    ><br />
+                        <input
+                          type="checkbox"
+                          id="replacedItem_6"
+                          value="Loa"
+                          :checked="
+                            passPost.Post_car_replaceditems.includes('Loa')
+                          "
+                        /><label for="replacedItem_6" class="pl-2"> Loa </label
+                        ><br />
 
-                    <input
-                      type="checkbox"
-                      id="replacedItem_6"
-                      value="Loa"
-                      :checked="passPost.Post_car_replaceditems.includes('Loa')"
-                    /><label for="replacedItem_6" class="pl-2"> Loa </label
-                    ><br />
-
-                    <input
-                      type="checkbox"
-                      id="replacedItem_7"
-                      value="Màn hình"
-                      :checked="
-                        passPost.Post_car_replaceditems.includes('Màn hình')
-                      "
-                    /><label for="replacedItem_7" class="pl-2"> Màn hình </label
-                    ><br />
+                        <input
+                          type="checkbox"
+                          id="replacedItem_7"
+                          value="Màn hình"
+                          :checked="
+                            passPost.Post_car_replaceditems.includes('Màn hình')
+                          "
+                        /><label for="replacedItem_7" class="pl-2">
+                          Màn hình </label
+                        ><br />
+                      </div>
+                    </div>
                   </fieldset>
                 </CCol>
               </CRow>
@@ -798,7 +862,7 @@ export default {
       Selectpostcars: [],
       carUpdate: {},
       postlist: [],
-      photoNames: {},
+      photoNames: "",
       cityNames: [
         "An Giang",
         "Bà Rịa - Vũng Tàu",
@@ -871,6 +935,13 @@ export default {
     };
   },
   methods: {
+    formatPrice() {
+      if (!$("#idcurrency").val().includes(",")) {
+        let dollarUSLocale = Intl.NumberFormat("en-US");
+        var returnVal = dollarUSLocale.format($("#idcurrency").val());
+        $("#idcurrency").val(returnVal);
+      }
+    },
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
@@ -878,12 +949,7 @@ export default {
       this.imageSource = "";
       for (var i = 0; i < files.length; i++) {
         this.postlist.push(files[i]);
-        var carSelect = $("#carSelector").val();
-        var folderName = $("#carSelector")
-          .find("option[value=" + carSelect + "]")
-          .text()
-          .replaceAll(" ", "")
-          .replaceAll("\n", "");
+        var folderName = $("#carSelector").val();
         this.photoNames += folderName + "/" + files[i].name + ",";
         this.imageSource += URL.createObjectURL(e.target.files[i]) + ",";
         this.imageFlag = false;
@@ -912,6 +978,7 @@ export default {
       return images;
     },
     insertClick(value) {
+      value.Post_car_price = $("#idcurrency").val();
       value.Post_car_replaceditems = "";
       value.Car_technology = "";
       value.Post_car_anothercare = "";
@@ -934,19 +1001,14 @@ export default {
       value.Post_car_like = 0;
       value.Post_car_date = 0;
       value.Post_car_sold = 0;
-      value.Post_car_frontpic ? this.photoNames : "";
+      value.Post_car_frontpic = this.photoNames != "" ? this.photoNames : "";
       value.Post_customer_id = this.$auth.user;
       // this.accountname_valid = this.validator(this.passAccount.Account_name);
       // this.accountpassword_valid = this.validator(
       //   this.passAccount.Account_password
       // );
       // if (this.accountname_valid && this.accountpassword_valid) {
-      var carSelect = $("#carSelector").val();
-      var folderName = $("#carSelector")
-        .find("option[value=" + carSelect + "]")
-        .text()
-        .replaceAll(" ", "")
-        .replaceAll("\n", "");
+      var folderName = $("#carSelector").val();
       axios.post(this.domain + "Post/post", value).then((res) => {
         swal
           .fire({
@@ -977,6 +1039,7 @@ export default {
       // }
     },
     updateClick(value) {
+      value.Post_car_price = $("#idcurrency").val();
       value.Post_car_replaceditems = "";
       value.Car_technology = "";
       value.Post_car_anothercare = "";
@@ -999,7 +1062,7 @@ export default {
       value.Post_car_like = 0;
       value.Post_car_date = 0;
       value.Post_car_sold = 0;
-      value.Post_car_frontpic ? this.photoNames : "";
+      value.Post_car_frontpic = this.photoNames != "" ? this.photoNames : "";
       value.Post_customer_id = this.$auth.user;
       // this.accountname_valid = this.validator(this.passAccount.Account_name);
       // this.accountpassword_valid = this.validator(
@@ -1012,7 +1075,7 @@ export default {
         .text()
         .replaceAll(" ", "")
         .replaceAll("\n", "");
-      // console.log("12312312321312412", value);
+      console.log("hahahahaha123", value);
       axios.put(this.domain + "Post/put", value).then((res) => {
         swal
           .fire({

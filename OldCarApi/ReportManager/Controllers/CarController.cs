@@ -28,6 +28,24 @@ namespace OldCarApi.Controllers
             }
         }
 
+        [Route("api/Car/Selectlastdata")]
+        [HttpGet]
+        public IHttpActionResult Selectlastdata()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = carModel.Selectlastdata();
+
+                return Ok(dt);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.ToString());
+            }
+        }
+
         [HttpPost]
         public string Post(CarModel objModel)
         {

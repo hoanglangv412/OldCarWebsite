@@ -8,6 +8,12 @@ export default [
       },
       {
         _name: 'CSidebarNavItem',
+        name: 'Trang chủ',
+        to: '/Home/Home',
+        icon: 'cil-drop',
+      },
+      {
+        _name: 'CSidebarNavItem',
         name: 'Quản lí dòng xe',
         to: '/Carversion/Carversion',
         icon: 'cil-drop',

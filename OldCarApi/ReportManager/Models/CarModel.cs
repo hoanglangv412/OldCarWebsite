@@ -33,6 +33,7 @@ namespace OldCarApi.Models
         public string Car_handbrake { get; set; }
         public string Car_cityfuelconsump { get; set; }
         public string Car_highwayfuelconsump { get; set; }
+        public string Car_adder { get; set; }
         public CarModel(){}
         public List<CarModel> ListCarModels { get; set; }
 
@@ -70,6 +71,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_handbrake", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_cityfuelconsump", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_adder", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 4);
                 SQL_CONNECTION.Open();
                 SqlDataAdapter da = new SqlDataAdapter();
@@ -88,6 +90,57 @@ namespace OldCarApi.Models
             return dt;
         }
         #endregion Selectalldata
+
+        #region Selectlastdata
+        public DataTable Selectlastdata()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Car", SQL_CONNECTION);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Car_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_carversion_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_trans", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_fuel", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_engine", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_seats", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_maxmomen", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_maxspeed", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_maxpower", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_loadweight", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_doors", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_drivetype", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_totaldimens", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_baselength", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_turnradius", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_height", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_cylcapacity", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_brakesystem", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_airnums", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_acceleration", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_handbrake", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_cityfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_adder", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Query", 8);
+                SQL_CONNECTION.Open();
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                SQL_CONNECTION.Close();
+            }
+
+            return dt;
+        }
+        #endregion Selectlastdata
 
         #region SelectalldataFORCOMBOBOX
         public DataTable Selectalldataforcombobox()
@@ -121,6 +174,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_handbrake", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_cityfuelconsump", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_adder", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 7);
                 SQL_CONNECTION.Open();
                 SqlDataAdapter da = new SqlDataAdapter();
@@ -139,6 +193,7 @@ namespace OldCarApi.Models
             return dt;
         }
         #endregion Selectalldata
+
         #region InsertData
         public string Insertdata(CarModel carModel)
         {
@@ -169,6 +224,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_handbrake", String.IsNullOrEmpty(carModel.Car_handbrake) ? null : carModel.Car_handbrake);
                 cmd.Parameters.AddWithValue("@Car_cityfuelconsump", String.IsNullOrEmpty(carModel.Car_cityfuelconsump) ? null : carModel.Car_cityfuelconsump);
                 cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", String.IsNullOrEmpty(carModel.Car_highwayfuelconsump) ? null : carModel.Car_highwayfuelconsump);
+                cmd.Parameters.AddWithValue("@Car_adder", String.IsNullOrEmpty(carModel.Car_adder) ? null : carModel.Car_adder);
                 cmd.Parameters.AddWithValue("@Query", 1);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
@@ -216,6 +272,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_handbrake", String.IsNullOrEmpty(carModel.Car_handbrake) ? null : carModel.Car_handbrake);
                 cmd.Parameters.AddWithValue("@Car_cityfuelconsump", String.IsNullOrEmpty(carModel.Car_cityfuelconsump) ? null : carModel.Car_cityfuelconsump);
                 cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", String.IsNullOrEmpty(carModel.Car_highwayfuelconsump) ? null : carModel.Car_highwayfuelconsump);
+                cmd.Parameters.AddWithValue("@Car_adder", String.IsNullOrEmpty(carModel.Car_adder) ? null : carModel.Car_adder);
                 cmd.Parameters.AddWithValue("@Query", 2);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();
@@ -265,6 +322,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_handbrake", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_cityfuelconsump", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_adder", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 5);
                 SqlDataAdapter da = new SqlDataAdapter();
                 SQL_CONNECTION.Open();
@@ -315,6 +373,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_handbrake", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_cityfuelconsump", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_adder", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 6);
                 SqlDataAdapter da = new SqlDataAdapter();
                 SQL_CONNECTION.Open();
@@ -364,6 +423,7 @@ namespace OldCarApi.Models
                 cmd.Parameters.AddWithValue("@Car_handbrake", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_cityfuelconsump", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Car_highwayfuelconsump", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Car_adder", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Query", 3);
                 SQL_CONNECTION.Open();
                 cmd.ExecuteNonQuery();

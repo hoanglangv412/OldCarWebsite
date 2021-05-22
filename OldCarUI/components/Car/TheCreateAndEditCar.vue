@@ -1,7 +1,16 @@
 <template>
   <div>
+    <CCol col="12" v-if="this.Role == 1">
+      <CButton
+        class="text-center pr-0 pl-0 btn btn-info"
+        style="width: 100px"
+        to="/Post/CreateAndEditCarForPost"
+      >
+        Tạo xe riêng
+      </CButton></CCol
+    >
     <CCol md="12">
-      <CForm class="form-insert-update">
+      <CForm class="form-insert-update" id="TheCreateAndEditCarID">
         <CCardBody class="text-nowrap">
           <CRow>
             <CCol col="12" md="12" lg="6" sm="12">
@@ -10,14 +19,14 @@
                 <div role="group" class="form-group form-row">
                   <CCol>
                     <label>Dòng xe</label>
-                    <select
-                      class="custom-select form-control"
+                    <input
+                      class="form-control"
+                      list="listCarversions"
                       v-model="passCar.Car_carversion_id"
-                    >
+                    />
+                    <datalist id="listCarversions">
                       <option
-                        v-for="item in passCar.Car_id == 0
-                          ? Carversions
-                          : CarversionsUpdate"
+                        v-for="item in Carversions"
                         :key="item.Carversion_id"
                         :value="item.Carversion_id"
                       >
@@ -27,8 +36,8 @@
                         {{ item.Carversion_style }} _
                         {{ item.Carversion_date }}
                       </option>
-                    </select></CCol
-                  >
+                    </datalist>
+                  </CCol>
                 </div>
                 <CRow>
                   <CCol>
@@ -176,27 +185,18 @@
                           class="form-control"
                           placeholder="Dài"
                           id="idlength"
-                          :value="[
-                            passLength != '[object Object]' ? passLength : '',
-                          ]"
                       /></CCol>
                       <CCol>
                         <input
                           class="form-control"
                           placeholder="Rộng"
                           id="idwidth"
-                          :value="[
-                            passWidth != '[object Object]' ? passWidth : '',
-                          ]"
                       /></CCol>
                       <CCol>
                         <input
                           class="form-control"
                           placeholder="Cao"
                           id="idheight"
-                          :value="[
-                            passHeight != '[object Object]' ? passHeight : '',
-                          ]"
                       /></CCol>
                     </CRow>
                   </CCol>
@@ -309,7 +309,7 @@
                       class="form-control"
                       v-model.trim="passCar.Car_airnums"
                       min="0"
-                      max="10"
+                      max="30"
                   /></CCol>
                   <CCol>
                     <label>Tải trọng</label>
@@ -330,7 +330,7 @@
             </CCol>
           </CRow>
         </CCardBody>
-        <CCardFooter class="text-center">
+        <CCardFooter class="text-center" v-if="this.Role == 0">
           <CButton
             color="info"
             v-if="passCar.Car_id == 0"
@@ -346,6 +346,14 @@
             Cập nhật
           </CButton>
           <CButton type="reset" color="danger"> Reset </CButton>
+        </CCardFooter>
+        <CCardFooter class="text-center" v-if="this.Role == 1">
+          <CButton
+            color="info"
+            to="/Post/CreateAndEditPost"
+          >
+            Tạo bài đăng
+          </CButton>
         </CCardFooter>
       </CForm>
     </CCol>
@@ -378,15 +386,20 @@ export default {
     accountname_valid: Boolean,
     accountpassword_valid: Boolean,
   },
+
   mounted() {
     this.getCarversions();
-    this.getCarversionsForUpdate();
+  },
+  beforeUpdate() {
+    $("#idlength").val(this.passLength);
+    $("#idwidth").val(this.passWidth);
+    $("#idheight").val(this.passHeight);
   },
   data() {
     return {
+      Role: null,
       carUpdate: {},
       Carversions: [],
-      CarversionsUpdate: [],
       Cartrans: [
         "Hộp số sàn (MT)",
         "Hộp số tự động có cấp (AT)",
@@ -410,15 +423,19 @@ export default {
       horizontal: { label: "col-6", input: "col-6" },
     };
   },
+  updated() {
+    this.Role =
+      this.$auth.$storage.getUniversal("userInfo") == null
+        ? 2
+        : this.$auth.$storage.getUniversal("userInfo").Account_role;
+    if (this.Role == 1) {
+      $("#TheCreateAndEditCarID input,select").attr("disabled", true);
+    }
+  },
   methods: {
     getCarversions() {
-      axios.get(this.domain + "Car/Selectalldataforcombobox").then((res) => {
-        this.Carversions = res.data;
-      });
-    },
-    getCarversionsForUpdate() {
       axios.get(this.domain + "Car/Get").then((res) => {
-        this.CarversionsUpdate = res.data;
+        this.Carversions = res.data;
       });
     },
     validator(val) {
@@ -436,6 +453,7 @@ export default {
         $("#idwidth").val() +
         " x " +
         $("#idheight").val();
+      value.Car_adder = "Người quản trị";
       axios.post(this.domain + "Car/post", value).then((res) => {
         swal.fire({
           position: "center",
@@ -460,6 +478,7 @@ export default {
         $("#idwidth").val() +
         " x " +
         $("#idheight").val();
+      value.Car_adder = "Người quản trị";
       axios.put(this.domain + "Car/put", value).then((res) => {
         swal.fire({
           position: "center",

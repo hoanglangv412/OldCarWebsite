@@ -107,7 +107,7 @@
       </CCol>
       <CCol md="4">
         <div class="h-75 w-75">
-          <img src="@/assets/img/kaikaikiki.jpg" class="c-avatar-img" />
+          <img src="@/assets/img/logobrand.jpg" class="c-avatar-img" />
         </div>
       </CCol>
     </CRow>

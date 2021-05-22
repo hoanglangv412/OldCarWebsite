@@ -22,7 +22,7 @@ export default {
       domain: Domain,
       items: [
         {
-          text: "Car Manager",
+          text: "Quản lí xe",
           active:true
         },
       ],

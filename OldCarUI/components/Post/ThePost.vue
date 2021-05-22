@@ -37,14 +37,19 @@
           hover
           pagination
         >
+          <template #Post_car_price="{ item }">
+            <td>
+              {{formatPrice(item.Post_car_price)}}
+            </td>
+          </template>
           <template #Post_car_incolor="{ item }">
             <td>
-              <input type="color" v-model="item.Post_incolor" disabled />
+              <input type="color" v-model="item.Post_car_incolor" disabled />
             </td>
           </template>
           <template #Post_car_outcolor="{ item }">
             <td>
-              <input type="color" v-model="item.Post_outcolor" disabled />
+              <input type="color" v-model="item.Post_car_outcolor" disabled />
             </td>
           </template>
           <template #Post_car_date="{ item }">
@@ -74,11 +79,6 @@
               </CBadge>
             </td>
           </template>
-          <template #Post_car_price="{ item }">
-            <td>
-              {{ formatPrice(item.Post_car_price) }}
-            </td>
-          </template>
           <template #Post_car_sold="{ item }">
             <td>
               <CBadge :color="getBadgeColor(item.Post_car_sold)">
@@ -105,10 +105,7 @@
               >
                 <CIcon :content="$options.freeSet.cilTrash" />
               </CButton>
-              <CButton
-                class="btn btn-outline-info"
-                @click="viewDetail(item)"
-              >
+              <CButton class="btn btn-outline-info" @click="viewDetail(item)">
                 Chi tiết
               </CButton>
             </td>
@@ -426,6 +423,11 @@ export default {
       .attr("placeholder", "Nhập từ khóa tìm kiếm");
   },
   methods: {
+    formatPrice(value) {
+      if (value) {
+        return value + " VND";
+      }
+    },
     getBadgeColor(value) {
       return value ? "danger" : "success";
     },
@@ -435,15 +437,6 @@ export default {
     formatDate(value) {
       if (value != undefined) {
         return value.substring(0, 10);
-      }
-    },
-    formatPrice(value) {
-      if (value != undefined) {
-        var returnVal = value.toLocaleString("it-IT", {
-          style: "currency",
-          currency: "VND",
-        });
-        return returnVal;
       }
     },
     viewDetail(value) {
@@ -486,7 +479,7 @@ export default {
             axios
               .delete("https://localhost:44343/Api/Post/Delete/" + ID)
               .then((res) => {
-                this.$emit("getPost");
+                this.$emit("getPost", this.$auth.user);
                 swal.fire(
                   res.data.split("-")[1],
                   res.data.split("-")[0] == "1" ? "Bài đăng đã bị xóa." : "",
