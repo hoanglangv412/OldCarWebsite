@@ -23,10 +23,10 @@ export default {
   data() {
     return {
       postUpdate: {},
-      domain:Domain,
+      domain: Domain,
       items: [
         {
-          text: "Post Manager",
+          text: "Quản lí bài đăng",
           to: "/Post/Post",
         },
         {
@@ -38,7 +38,6 @@ export default {
   },
   mounted() {
     if (this.$route.params.id != null) {
-      console.log("hahahahahahaha", this.$route.params.id);
       if (this.$route.params.id == "customerFlag") {
         axios.get(this.domain + "Car/Selectlastdata").then((res) => {
           this.postUpdate = {
@@ -71,6 +70,36 @@ export default {
             Post_car_sold: "",
           };
         });
+      } else if (this.$route.params.id.includes("FromCarFlag")) {
+        this.postUpdate = {
+          Post_id: "",
+          Post_customer_id: "",
+          Post_car_id: this.$route.params.id.split('~')[0],
+          Post_title: "",
+          Post_car_price: "",
+          Post_car_origin: "",
+          Post_car_incolor: "",
+          Post_car_outcolor: "",
+          Post_car_tire: "",
+          Post_car_plate: "",
+          Post_car_province: "",
+          Post_car_km: "",
+          Post_car_detail: "",
+          Post_car_kpl: "",
+          Post_car_cond: "",
+          Post_car_anothercare: "",
+          Post_car_frontpic: "",
+          Post_car_replaceditems: "",
+          Post_car_date: "",
+          Car_camera: "",
+          Car_doortype: "",
+          Car_mirror: "",
+          Car_seattype: "",
+          Car_sound: "",
+          Car_technology: "",
+          Post_car_like: "",
+          Post_car_sold: "",
+        };
       } else {
         axios
           .get(

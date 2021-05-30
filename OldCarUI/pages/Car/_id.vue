@@ -75,6 +75,18 @@ export default {
             Car_handbrake: res.data[0].Car_handbrake,
             Car_cityfuelconsump: res.data[0].Car_cityfuelconsump,
             Car_highwayfuelconsump: res.data[0].Car_highwayfuelconsump,
+            Carversion_id: res.data[0].Car_carversion_id,
+            Carversion_name: res.data[0].Carversion_name,
+            Carversion_date: res.data[0].Carversion_date,
+            Carversion_style: res.data[0].Carversion_style,
+            Carversion_edition: res.data[0].Carversion_edition,
+            Carversion_option: res.data[0].Carversion_option,
+            Carversion_ManufacturerName:
+              res.data[0].Carversion_ManufacturerName,
+            Carversion_ManufacturerLogo:
+              res.data[0].Carversion_ManufacturerLogo,
+            Carversion_photo: res.data[0].Carversion_photo,
+            Carversion_adder: res.data[0].Carversion_adder,
           };
           this.passLength = res.data[0].Car_totaldimens.split("x")[0].trim();
           this.passWidth = res.data[0].Car_totaldimens.split("x")[1].trim();

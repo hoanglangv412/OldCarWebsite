@@ -49,6 +49,37 @@ namespace OldCarApi.Models
         }
         #endregion Selectalldata
 
+        #region selectsellerData
+        public DataTable selectsellerData(string ID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Contract", SQL_CONNECTION);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Contract_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Contract_customerBuy_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Contract_customerSell_id", ID);
+                cmd.Parameters.AddWithValue("@Query", 4);
+                SQL_CONNECTION.Open();
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                SQL_CONNECTION.Close();
+            }
+
+            return dt;
+        }
+        #endregion
+
         #region InsertData
         public string Insertdata(ContractModel contractModel)
         {

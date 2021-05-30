@@ -67,5 +67,23 @@ namespace OldCarApi.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        [Route("api/Contract/selectsellerData/{ID}")]
+        [HttpGet]
+        public IHttpActionResult selectsellerData(string ID)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = contractModel.selectsellerData(ID);
+
+                return Ok(dt);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.ToString());
+            }
+        }
     }
 }

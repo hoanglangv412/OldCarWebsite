@@ -53,12 +53,10 @@ export default {
     };
   },
   created() {
-    console.log("3", this.$auth.$storage.getUniversal("userInfo"));
     this.Role =
       this.$auth.$storage.getUniversal("userInfo") == null
         ? 2
         : this.$auth.$storage.getUniversal("userInfo").Account_role;
-    console.log(this.Role);
   },
   mounted() {
     this.$root.$on("toggle-sidebar", () => {

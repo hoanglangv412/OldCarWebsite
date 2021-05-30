@@ -22,7 +22,7 @@ export default {
       domain: Domain,
       items: [
         {
-          text: "Post Manager",
+          text: "Quản lí bài đăng",
           active: true,
         },
       ],

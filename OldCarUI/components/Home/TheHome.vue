@@ -95,13 +95,13 @@
                 <CButton
                   class="p-0"
                   @click="previewPhoto(post)"
-                  style="display:block;width:100%;height:300px"
+                  style="display: block; width: 100%; height: 300px"
                 >
                   <CImg
                     :src="takePhoto(post.Post_car_frontpic)"
                     block
                     class="card-img-top image"
-                    style="width:100%;height:100%"
+                    style="width: 100%; height: 100%"
                   />
                 </CButton>
                 <div class="card-body">
@@ -167,11 +167,14 @@
                 sm="12"
               >
                 <div class="card container">
-                  <CImg
-                    :src="takePhoto(post.Post_car_frontpic)"
-                    block
-                    class="card-img-top image"
-                  />
+                  <div style="display: block; width: 100%; height: 270px">
+                    <CImg
+                      :src="takePhoto(post.Post_car_frontpic)"
+                      block
+                      class="card-img-top image"
+                      style="width: 100%; height: 100%"
+                    />
+                  </div>
                   <div class="middle w-100 h-50 text-left">
                     <div class="text">
                       <div class="card-body">

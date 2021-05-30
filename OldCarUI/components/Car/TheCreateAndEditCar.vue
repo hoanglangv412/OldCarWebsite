@@ -1,14 +1,19 @@
 <template>
   <div>
-    <CCol col="12" v-if="this.Role == 1">
+    <CCol md="12" v-if="this.Role == 1" class="d-flex justify-content-between pl-5 pr-5 pb-0 pt-0">
       <CButton
         class="text-center pr-0 pl-0 btn btn-info"
         style="width: 100px"
         to="/Post/CreateAndEditCarForPost"
       >
         Tạo xe riêng
-      </CButton></CCol
-    >
+      </CButton>
+      <h4>
+        {{ passCar.Carversion_ManufacturerName }} _ {{ passCar.Carversion_name }} _
+        {{ passCar.Carversion_edition }} _ {{ passCar.Carversion_style }} _
+        {{ passCar.Carversion_date }}
+      </h4>
+    </CCol>
     <CCol md="12">
       <CForm class="form-insert-update" id="TheCreateAndEditCarID">
         <CCardBody class="text-nowrap">
@@ -348,12 +353,7 @@
           <CButton type="reset" color="danger"> Reset </CButton>
         </CCardFooter>
         <CCardFooter class="text-center" v-if="this.Role == 1">
-          <CButton
-            color="info"
-            to="/Post/CreateAndEditPost"
-          >
-            Tạo bài đăng
-          </CButton>
+          <CButton color="info" :to="`/Post/${passCar.Car_id}~FromCarFlag`"> Tạo bài đăng </CButton>
         </CCardFooter>
       </CForm>
     </CCol>
@@ -434,7 +434,7 @@ export default {
   },
   methods: {
     getCarversions() {
-      axios.get(this.domain + "Car/Get").then((res) => {
+      axios.get(this.domain + "Carversion/Get").then((res) => {
         this.Carversions = res.data;
       });
     },

@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div>
     <CForm class="form-insert-update">
       <CCardHeader>
         <CRow>
@@ -366,6 +366,18 @@
                       <td class="h5">Hệ thống phanh</td>
                       <td>{{ passCar.Car_brakesystem }}</td>
                     </tr>
+                    <tr>
+                      <td class="h5">Hệ thống phanh</td>
+                      <td>{{ passCar.Car_brakesystem }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Nhiên liệu tiêu thụ nội thành</td>
+                      <td>{{ passCar.Car_cityfuelconsump }}</td>
+                    </tr>
+                    <tr>
+                      <td class="h5">Nhiên liệu tiêu thụ ngoại thành</td>
+                      <td>{{ passCar.Car_highwayfuelconsump }}</td>
+                    </tr>
                   </table>
                 </CCol>
               </CRow>
@@ -441,7 +453,9 @@
                     class="table"
                   >
                     <tr
-                      v-for="item in passPost.Car_technology.split(',')"
+                      v-for="item in passPost.Car_technology.slice(0, -1).split(
+                        ','
+                      )"
                       :key="item"
                     >
                       <td class="h5">{{ item }}</td>
@@ -512,7 +526,10 @@
                     class="table"
                   >
                     <tr
-                      v-for="item in passPost.Post_car_anothercare.split(',')"
+                      v-for="item in passPost.Post_car_anothercare.slice(
+                        0,
+                        -1
+                      ).split(',')"
                       :key="item"
                     >
                       <td class="h5">{{ item }}</td>
@@ -620,7 +637,7 @@ export default {
       }
     },
     formatPrice(value) {
-      if(value){
+      if (value) {
         return value + " VND";
       }
     },
@@ -658,7 +675,7 @@ export default {
       }
     },
     takePhoto(value) {
-      // console.log('ahahahahahahahah',value);  
+      // console.log('ahahahahahahahah',value);
       if (value != undefined) {
         var images;
         try {

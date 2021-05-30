@@ -2,10 +2,12 @@
   <div class="index">
     <TheReport
       :dataPosts="dataPosts"
+      :dataPostCustomers="dataPostCustomers"
       :dataCustomers="dataCustomers"
       :soldCount="soldCount"
       :unsoldCount="unsoldCount"
       :mostLikeItem="mostLikeItem"
+      :role="role"
     />
   </div>
 </template>
@@ -23,19 +25,30 @@ export default {
   data() {
     return {
       auth: false,
+      dataPostCustomers: [],
       dataPosts: [],
       domain: Domain,
       dataCustomers: [],
       soldCount: null,
       unsoldCount: null,
       mostLikeItem: {},
+      id: null,
+      role: null,
     };
   },
   mounted() {
+    this.id =
+      this.$auth.$storage.getUniversal("userInfo") == null
+        ? 2
+        : this.$auth.$storage.getUniversal("userInfo").Customer_id;
+    this.role =
+      this.$auth.$storage.getUniversal("userInfo") == null
+        ? 2
+        : this.$auth.$storage.getUniversal("userInfo").Account_role;
     this.getData();
     this.getCarversion();
-    this.getTableCount();
     this.SelectMostLike();
+    this.getPost(this.id);
   },
   methods: {
     getCarversion() {
@@ -47,6 +60,13 @@ export default {
       axios.get(this.domain + "Customer/Get").then((res) => {
         this.dataCustomers = res.data;
       });
+    },
+    getPost(value) {
+      axios
+        .get(this.domain + "Post/SelectDataByCustomerId/" + value)
+        .then((res) => {
+          this.dataPostCustomers = res.data;
+        });
     },
     SelectMostLike() {
       axios.get(this.domain + "Post/SelectMostLike").then((res) => {
@@ -79,14 +99,6 @@ export default {
           Post_car_like: res.data[0].Post_car_like,
           Post_car_sold: res.data[0].Post_car_sold,
         };
-      });
-    },
-    getTableCount() {
-      axios.get(this.domain + "Post/SelectSoldCount/" + 1).then((res) => {
-        this.soldCount = res.data[0].tableCount;
-      });
-      axios.get(this.domain + "Post/SelectSoldCount/" + 0).then((res) => {
-        this.unsoldCount = res.data[0].tableCount;
       });
     },
   },

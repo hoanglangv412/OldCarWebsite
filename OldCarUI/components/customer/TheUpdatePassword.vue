@@ -61,7 +61,7 @@ export default {
       domain: Domain,
     };
   },
-  updated() {
+  mounted() {
     $("input").val("");
   },
   methods: {

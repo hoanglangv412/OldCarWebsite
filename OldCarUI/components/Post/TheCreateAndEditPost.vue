@@ -10,6 +10,7 @@
                 <CInput type="text" v-model.trim="passPost.Post_id" hidden />
                 <CInput
                   type="text"
+                  id="idsold"
                   v-model.trim="passPost.Post_car_sold"
                   hidden
                 />
@@ -978,7 +979,6 @@ export default {
       return images;
     },
     insertClick(value) {
-      value.Post_car_price = $("#idcurrency").val();
       value.Post_car_replaceditems = "";
       value.Car_technology = "";
       value.Post_car_anothercare = "";
@@ -1009,6 +1009,8 @@ export default {
       // );
       // if (this.accountname_valid && this.accountpassword_valid) {
       var folderName = $("#carSelector").val();
+      value.Post_car_price = $("#idcurrency").val();
+      console.log("hahahahaha123", value);
       axios.post(this.domain + "Post/post", value).then((res) => {
         swal
           .fire({
@@ -1039,7 +1041,6 @@ export default {
       // }
     },
     updateClick(value) {
-      value.Post_car_price = $("#idcurrency").val();
       value.Post_car_replaceditems = "";
       value.Car_technology = "";
       value.Post_car_anothercare = "";
@@ -1061,7 +1062,6 @@ export default {
       }
       value.Post_car_like = 0;
       value.Post_car_date = 0;
-      value.Post_car_sold = 0;
       value.Post_car_frontpic = this.photoNames != "" ? this.photoNames : "";
       value.Post_customer_id = this.$auth.user;
       // this.accountname_valid = this.validator(this.passAccount.Account_name);
@@ -1075,7 +1075,8 @@ export default {
         .text()
         .replaceAll(" ", "")
         .replaceAll("\n", "");
-      console.log("hahahahaha123", value);
+      value.Post_car_sold = $('#idsold').val() == "true" ? 1 : 0;
+      value.Post_car_price = $("#idcurrency").val();
       axios.put(this.domain + "Post/put", value).then((res) => {
         swal
           .fire({

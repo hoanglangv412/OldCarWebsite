@@ -23,7 +23,7 @@ namespace webApiTokenAuthentication
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/api/login"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(100),
                 Provider = myProvider
             };
 

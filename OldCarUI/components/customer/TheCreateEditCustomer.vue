@@ -10,17 +10,14 @@
             <CCardBody>
               <CRow>
                 <CCol col="12" xl="3" lg="3" md="12" sm="12" class="">
-                  <div class="d-flex justify-content-center w-100">
+                  <div class="d-flex justify-content-center w-100 rounded-circle">
                     <CImg
                       v-if="this.photoFlag"
-                      class="rounded-circle position-relative avatar_img"
-                      style="height: 250px; width: 250px"
+                      class="div123"
                       :src="takePhoto(customerData.Customer_avatar)"
                     />
                     <CImg
                       v-else
-                      class="rounded-circle position-relative avatar_img"
-                      style="height: 250px; width: 250px"
                       :src="this.customerAvatarDisplay"
                     />
                   </div>
@@ -129,7 +126,14 @@
     </CRow>
   </div>
 </template>
-
+<style scoped>
+.div123 {
+    width: 250px;
+    height: 250px;
+    border-radius:50%;
+    box-shadow: 0 0 0 3px #e78267;
+}
+</style>
 <style>
 .avatar_img :hover h1 .modal-header {
   display: none !important;

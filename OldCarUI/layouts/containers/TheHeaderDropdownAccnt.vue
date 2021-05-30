@@ -8,10 +8,13 @@
   >
     <template #toggler>
       <CHeaderNavLink>
-        <div class="c-avatar">
+        <div
+          class="c-avatar rounded-circle bg-light d-flex justify-content-center"
+          style="display: block; height: 40px; width: 40px; position: relative"
+        >
           <CImg
-            style="height: 40px; width: 40px"
-            class="c-avatar_img rounded-circle"
+            style="position: absolute"
+            class="div123"
             :src="
               takePhoto(
                 $auth.$storage.getUniversal('userInfo') == null
@@ -46,10 +49,10 @@
     </CDropdownItem>
   </CDropdown>
   <div v-else>
-    <CButton class="btn btn-primary" @click="signinClick('signin')"
+    <CButton class="btn btn-primary p-1" @click="signinClick('signin')"
       >Đăng nhập</CButton
     >
-    <CButton class="btn btn-warning" @click="signupClick('signup')"
+    <CButton class="btn btn-warning p-1" @click="signupClick('signup')"
       >Đăng kí</CButton
     >
     <!-- Modal signin, signup -->
@@ -65,7 +68,14 @@
     </CModal>
   </div>
 </template>
-
+<style scoped>
+.div123 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #e78267;
+}
+</style>
 <script>
 import TheSignin from "~/components/TheSignin";
 import axios from "axios";
@@ -189,9 +199,9 @@ export default {
           if (result.isConfirmed) {
             this.$auth.logout().then((res) => {
               this.$auth.$storage.removeUniversal("userInfo");
+              this.$router.go();
             });
           }
-          this.$router.push("/Home/Home");
         });
     },
     signinClick(val) {

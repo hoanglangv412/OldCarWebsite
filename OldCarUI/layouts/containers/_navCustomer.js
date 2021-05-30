@@ -20,24 +20,6 @@ export default [
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Quản lí dòng xe',
-        to: '/Carversion/Carversion',
-        icon: 'cil-drop',
-      },
-      {
-        _name: 'CSidebarNavItem',
-        name: 'Quản lí xe',
-        to: '/Car/Car',
-        icon: 'cil-drop',
-      },
-      {
-        _name: 'CSidebarNavItem',
-        name: 'Quản lí người dùng',
-        to: '/customer/Customer',
-        icon: 'cil-drop'
-      },
-      {
-        _name: 'CSidebarNavItem',
         name: 'Danh sách xe',
         to: '/Home/HomeCarForPost',
         icon: 'cil-drop'

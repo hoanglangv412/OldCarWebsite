@@ -9,7 +9,6 @@
           color="info"
           to="/Car/CreateAndEditCar"
           class="m-2 btn-add float-right mr-5"
-          @click="addClick()"
         >
           + Thêm
         </CButton>
@@ -69,7 +68,6 @@
                 color="warning"
                 class="btn-update"
                 :to="`/Car/${item.Car_id}`"
-                @click="updateClick(item.Car_id)"
               >
                 <CIcon :content="$options.freeSet.cilPencil" />
               </CButton>
